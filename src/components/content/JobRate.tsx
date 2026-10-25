@@ -1,7 +1,12 @@
+import { CtaBand } from "@/components/content/CtaBand";
 import { LinkedText } from "@/components/content/LinkedText";
 import { Section } from "@/components/layout/Section";
-import { CtaButton } from "@/components/ui/CtaButton";
+import { Card } from "@/components/ui/Card";
+import { CompactTile } from "@/components/ui/CompactTile";
+import { Icon, type IconName } from "@/components/ui/Icon";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { NoticeBar } from "@/components/ui/NoticeBar";
+import { iconCircle } from "@/components/ui/StepCard";
 import type { Cta } from "@/types/content";
 import type { JobRate } from "@/types/jobs";
 
@@ -12,16 +17,17 @@ interface JobRateSectionProps {
   readonly tone?: "default" | "subtle" | "brandTint";
 }
 
-const h3Class = "mt-8 text-[length:var(--text-h4)] font-bold text-ink";
-const pClass =
-  "mt-2 text-[length:var(--text-body)] leading-relaxed text-pretty text-ink-muted";
+const h3Class = "text-[length:var(--text-h4)] font-bold text-ink";
+const h3SectionClass =
+  "mt-10 text-[length:var(--text-h3)] leading-tight font-bold text-ink";
 
 /**
- * Starting rate section of an active opening page. The figure is always
- * rendered with its "starting rate - not guaranteed income" label directly
- * beneath it. Two columns from lg (about 3/5 content, 2/5 media), single
- * column below with the media after the content. The media is static
- * (CLAUDE.md section 8).
+ * Starting rate section. The top row is the H2 and answer beside the image
+ * placeholder (two columns from lg). Below, full width: the rate stat card
+ * (figure, unit, "Starting rate" badge, and the disclosure at body size), two
+ * explanation cards, compact "what you provide" tiles, a contractor-status
+ * notice bar, and the apply band. The figure always travels with its
+ * disclosure. The media is static (CLAUDE.md section 8).
  */
 export function JobRateSection({
   id,
@@ -41,49 +47,8 @@ export function JobRateSection({
           >
             {content.h2}
           </h2>
-
-          <div className="mt-5 rounded-[var(--radius-lg)] border border-border border-l-4 border-l-[var(--color-accent-blue-strong)] bg-surface p-5 md:p-6">
-            <p className="text-[length:var(--text-h3)] leading-tight font-bold text-ink">
-              {content.figure}
-            </p>
-            <p className="mt-1 text-[length:var(--text-small)] font-semibold text-ink">
-              {content.figureLabel}
-            </p>
-            <p className="mt-4 text-[length:var(--text-body-lg)] leading-relaxed font-medium text-pretty text-ink">
-              {content.answer}
-            </p>
-          </div>
-
-          <h3 className={h3Class}>{content.howHeading}</h3>
-          <p className={pClass}>{content.how}</p>
-
-          <h3 className={h3Class}>{content.meansHeading}</h3>
-          <p className={pClass}>{content.means}</p>
-
-          <h3 className={h3Class}>{content.coverHeading}</h3>
-          <p className={pClass}>{content.coverIntro}</p>
-          <ul className="mt-3 flex list-disc flex-col gap-2 pl-6 text-[length:var(--text-body)] leading-relaxed text-ink marker:text-ink">
-            {content.cover.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-          <p className="mt-3 text-[length:var(--text-body)] leading-relaxed text-ink-muted">
-            <LinkedText text={content.coverClosing} />
-          </p>
-
-          <h3 className={h3Class}>{content.statusHeading}</h3>
-          <p className={pClass}>
-            <LinkedText text={content.status} />
-          </p>
-
-          <p className="mt-8 text-[length:var(--text-body)] font-semibold text-ink">
-            {content.ctaLead}
-          </p>
-          <div className="mt-4">
-            <CtaButton cta={cta} emphasis="primary" blockOnMobile />
-          </div>
-          <p className="mt-4 text-[length:var(--text-body)] leading-relaxed text-ink-muted">
-            <LinkedText text={content.faqClosing} />
+          <p className="mt-5 text-[length:var(--text-body-lg)] leading-relaxed font-medium text-pretty text-ink">
+            {content.answer}
           </p>
         </div>
 
@@ -94,6 +59,91 @@ export function JobRateSection({
         */}
         <ImagePlaceholder slot="careers-technician-starting-rate" />
       </div>
+
+      <div className="mt-10 flex flex-col gap-6 rounded-[var(--radius-lg)] border border-border border-l-4 border-l-[var(--color-accent-blue-strong)] bg-surface p-6 md:flex-row md:items-center md:justify-between md:p-8">
+        <div>
+          <p className="inline-block rounded-full bg-[var(--color-accent-blue-strong)] px-3 py-1 text-[length:var(--text-label)] font-semibold tracking-wide text-white uppercase">
+            {content.figureBadge}
+          </p>
+          <p className="mt-3 text-[length:var(--text-display)] leading-none font-bold text-ink">
+            {content.figure}
+          </p>
+          <p className="mt-1 text-[length:var(--text-body-lg)] font-semibold text-ink-muted">
+            {content.figureUnit}
+          </p>
+        </div>
+        <p className="flex items-start gap-3 text-[length:var(--text-body-lg)] leading-snug font-semibold text-ink md:max-w-md">
+          <span className={iconCircle}>
+            <Icon name="info" size={22} />
+          </span>
+          <span className="pt-2">{content.disclosure}</span>
+        </p>
+      </div>
+
+      <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
+        <ExplainCard
+          icon="banknote"
+          heading={content.howHeading}
+          body={content.how}
+        />
+        <ExplainCard
+          icon="info"
+          heading={content.meansHeading}
+          body={content.means}
+        />
+      </div>
+
+      <h3 className={h3SectionClass}>{content.coverHeading}</h3>
+      <p className="mt-2 text-[length:var(--text-body)] leading-relaxed text-ink-muted">
+        {content.coverIntro}
+      </p>
+      <ul className="mt-4 grid list-none grid-cols-1 gap-3 p-0 min-[640px]:grid-cols-2 lg:grid-cols-4">
+        {content.cover.map((item) => (
+          <CompactTile key={item.text} icon={item.icon}>
+            {item.text}
+          </CompactTile>
+        ))}
+      </ul>
+      <p className="mt-3 text-[length:var(--text-body)] leading-relaxed text-ink-muted">
+        <LinkedText text={content.coverClosing} />
+      </p>
+
+      <NoticeBar icon="briefcase" className="mt-8">
+        <LinkedText text={content.status} />
+      </NoticeBar>
+
+      <CtaBand
+        className="mt-8"
+        cta={cta}
+        note={content.ctaNote}
+        faqLink={content.faqLink}
+        callLead={content.callLead}
+        phoneLabel={content.phoneLabel}
+        phoneHref={content.phoneHref}
+        hours={content.hours}
+      />
     </Section>
+  );
+}
+
+function ExplainCard({
+  icon,
+  heading,
+  body,
+}: {
+  readonly icon: IconName;
+  readonly heading: string;
+  readonly body: string;
+}) {
+  return (
+    <Card as="div" padding="compact" className="flex h-full flex-col gap-3">
+      <span className={iconCircle}>
+        <Icon name={icon} size={22} />
+      </span>
+      <h3 className={h3Class}>{heading}</h3>
+      <p className="text-[length:var(--text-body)] leading-relaxed text-ink-muted">
+        {body}
+      </p>
+    </Card>
   );
 }

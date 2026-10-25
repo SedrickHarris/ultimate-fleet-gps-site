@@ -13,6 +13,7 @@ import { JsonLd } from "@/components/schema/JsonLd";
 import {
   activeTechnicianJob as job,
   applyCta,
+  INSTALLER_NETWORK_PATH,
   JOBS_INDEX_PATH,
 } from "@/data/jobs";
 import { utilityBar } from "@/data/navigation/site-navigation";
@@ -29,11 +30,35 @@ const BREADCRUMBS = [
   { label: job.title },
 ];
 
-export const metadata: Metadata = buildPageMetadata({
+const baseMetadata = buildPageMetadata({
   title: job.metaTitle,
   description: job.metaDescription,
   pathname: job.path,
 });
+
+/**
+ * The title carries the brand already, so it is set as `absolute` to skip the
+ * site template, and Open Graph and Twitter use the same full string. Robots
+ * adds the large-preview and unlimited-snippet directives.
+ * REPLACE: add a 1200x630 social photo here (pass `image` to buildPageMetadata
+ * above). Until then the site's default social image is used.
+ */
+export const metadata: Metadata = {
+  ...baseMetadata,
+  title: { absolute: job.metaTitle },
+  openGraph: { ...baseMetadata.openGraph, title: job.metaTitle },
+  twitter: {
+    ...baseMetadata.twitter,
+    card: "summary_large_image",
+    title: job.metaTitle,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+  },
+};
 
 /**
  * The active opening page and the ONLY page that carries `JobPosting` schema.
@@ -59,7 +84,7 @@ export default function ActiveOpeningPage() {
 
       <ServicesHero
         id="active-opening"
-        h1={job.title}
+        h1={job.h1}
         intro={job.intro}
         primaryCta={applyCta}
         qualifier="Applicants are accepted nationwide, and no closing date is currently published."
@@ -101,7 +126,13 @@ export default function ActiveOpeningPage() {
         tone="subtle"
         content={job.apply}
         disclaimer={job.disclaimer}
-        cta={{ ...applyCta, label: job.apply.ctaLabel }}
+        cta={applyCta}
+        networkCta={{
+          label: job.apply.networkLabel,
+          href: INSTALLER_NETWORK_PATH,
+          journey: "recruitment",
+          event: AnalyticsEvent.ctaInstallerNetworkClick,
+        }}
       />
 
       <JobFaqSection id="opening-faq" job={job} />
@@ -109,7 +140,7 @@ export default function ActiveOpeningPage() {
       <JobClosingSection
         id="contact-apply"
         content={job.closing}
-        cta={{ ...applyCta, label: job.closing.ctaLabel }}
+        cta={applyCta}
       />
     </>
   );

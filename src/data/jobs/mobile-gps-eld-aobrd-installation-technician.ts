@@ -26,6 +26,7 @@ const hours = footerBrandLines.find((line) => line.startsWith("Monday")) ?? "";
 const since =
   footerBrandLines.find((line) => line.startsWith("In business")) ?? "";
 const telephone = business.telephone;
+const phoneHref = `tel:+1${telephone.replace(/\D/g, "")}`;
 const travel = recruitment.travel.approximatePercent;
 
 const summaryFacts = [
@@ -45,9 +46,10 @@ export const activeTechnicianJob: JobRecord = {
   title: recruitment.roleTitle,
   status: "active",
   datePosted: "2026-07-01",
-  metaTitle: "ELD & GPS Installation Technician Jobs",
+  h1: "Mobile GPS, ELD, and AOBRD Installation Technician Opening (Nationwide, Independent Contractor)",
+  metaTitle: "ELD & GPS Installation Technician Jobs | Ultimate Fleet GPS",
   metaDescription:
-    "Contractor ELD, GPS, and AOBRD installer openings. Nationwide, training provided, no experience needed. $1,600/week starting rate, not guaranteed income.",
+    "Contract ELD, GPS and AOBRD installer opening. Nationwide, no experience needed, training provided. $1,600/week starting rate, not guaranteed income.",
   intro:
     "Ultimate Fleet GPS has current openings for Mobile GPS, ELD, and AOBRD installation technicians. This is independent contractor field work, and applicants are accepted nationwide.",
   heroScopeItems: [
@@ -58,18 +60,18 @@ export const activeTechnicianJob: JobRecord = {
   ],
   summaryFacts,
   about: {
-    h2: "Mobile GPS, ELD, and AOBRD Installation Technician Openings (Nationwide, Independent Contractor)",
+    h2: "Is This ELD and GPS Installer Opening Right for You?",
     answer: `Ultimate Fleet GPS is hiring independent contractor installation technicians to install and service GPS tracking, ELD, and AOBRD devices on commercial fleet vehicles. Applicants are accepted nationwide. No prior installation experience is required, and training is provided. The starting rate is ${rate}, which is not guaranteed income, and the role involves about ${travel}% travel.`,
     detailsHeading: "Opening details",
     details: [
-      { term: "Work type", definition: "Independent contractor work, not employee employment" },
-      { term: "Location", definition: "Applicants accepted nationwide" },
-      { term: "Starting rate", definition: `${rate}, not guaranteed income` },
-      { term: "Travel", definition: `Approximately ${travel}% travel required, including state-to-state travel` },
-      { term: "Experience", definition: "No prior installation experience required, and training provided" },
-      { term: "You provide", definition: "Your own vehicle, tools, smartphone, and travel resources" },
-      { term: "Requirements", definition: "Valid driver's license and background check" },
-      { term: "Closing date", definition: "No closing date currently published" },
+      { term: "Work type", definition: "Independent contractor work, not employee employment", icon: "briefcase" },
+      { term: "Location", definition: "Applicants accepted nationwide", icon: "map-pin" },
+      { term: "Starting rate", definition: `${rate}, not guaranteed income`, icon: "banknote" },
+      { term: "Travel", definition: `Approximately ${travel}% travel required, including state-to-state travel`, icon: "route" },
+      { term: "Experience", definition: "No prior installation experience required, and training provided", icon: "graduation-cap" },
+      { term: "You provide", definition: "Your own vehicle, tools, smartphone, and travel resources", icon: "wrench" },
+      { term: "Requirements", definition: "Valid driver's license and background check", icon: "clipboard-check" },
+      { term: "Closing date", definition: "No closing date currently published", icon: "calendar" },
     ],
     fitHeading: "Who this is a good fit for",
     fit: "This work suits mechanics, auto electricians, car audio and accessory installers, and career changers who are comfortable with hands-on work and frequent travel. Prior installation experience is not required because training is provided.",
@@ -77,9 +79,18 @@ export const activeTechnicianJob: JobRecord = {
     status: "This is independent contractor (1099-style) work, not employee employment.",
     howHeading: "How to apply",
     steps: [
-      ["Review the ", { text: "requirements", href: "#requirements" }, "."],
-      ["Submit your application using the apply button."],
-      ["Complete the background check if you move forward."],
+      {
+        parts: ["Review the ", { text: "requirements", href: "#requirements" }, "."],
+        icon: "clipboard-list",
+      },
+      {
+        parts: ["Submit your application using the apply button."],
+        icon: "send",
+      },
+      {
+        parts: ["Complete the background check if you move forward."],
+        icon: "shield-check",
+      },
     ],
     applyNote: "No closing date is currently published.",
   },
@@ -94,23 +105,26 @@ export const activeTechnicianJob: JobRecord = {
     equipment: [
       {
         term: "GPS tracker",
-        linkText: "GPS tracker",
+        definition: "A device that reports a vehicle's location.",
+        icon: "map-pin",
         href: "/services/gps-tracking-installation/",
-        definition: "a device that reports a vehicle's location.",
+        linkLabel: "GPS tracking installation service",
       },
       {
         term: "ELD (electronic logging device)",
-        linkText: "ELD",
-        href: "/services/eld-installation/",
         definition:
-          "a device that records a commercial driver's hours of service.",
+          "A device that records a commercial driver's hours of service.",
+        icon: "clock",
+        href: "/services/eld-installation/",
+        linkLabel: "ELD installation service",
       },
       {
         term: "AOBRD (automatic on-board recording device)",
         // TODO confirm scope of AOBRD work. Describe it only as equipment
         // technicians install and service. Do not claim new AOBRD installs
-        // are required for compliance.
-        definition: "an older type of logging device that ELDs replaced.",
+        // are required for compliance. No link: there is no AOBRD service page.
+        definition: "An older type of logging device that ELDs replaced.",
+        icon: "archive",
       },
     ],
     whereHeading: "Where the work happens",
@@ -125,11 +139,20 @@ export const activeTechnicianJob: JobRecord = {
     // against the real workflow before publishing. Add no timing, volume, or
     // tool details.
     steps: [
-      "Arrive at the customer location and confirm which vehicles and devices are being installed.",
-      "Install the GPS, ELD, or AOBRD equipment.",
-      "Verify the device powers on, connects, and reports data.",
-      "Photograph the completed installation.",
-      "Submit the installation data and photos from your smartphone.",
+      {
+        text: "Arrive at the customer location and confirm which vehicles and devices are being installed.",
+        icon: "truck",
+      },
+      { text: "Install the GPS, ELD, or AOBRD equipment.", icon: "wrench" },
+      {
+        text: "Verify the device powers on, connects, and reports data.",
+        icon: "activity",
+      },
+      { text: "Photograph the completed installation.", icon: "camera" },
+      {
+        text: "Submit the installation data and photos from your smartphone.",
+        icon: "smartphone",
+      },
     ],
     photoHeading: "Photo documentation",
     // TODO confirm. Do not tie photos to pay, deadlines, or quality standards.
@@ -149,14 +172,20 @@ export const activeTechnicianJob: JobRecord = {
   closing: {
     eyebrow: "Still have questions?",
     h2: "Apply or Call About the Installation Technician Opening",
-    answer: `Ready to join Ultimate Fleet GPS as an installation technician? Complete the online application, or call ${telephone}, ${hours}, with questions about this opening. Applicants are accepted nationwide, and no closing date is currently published. The starting rate is ${rate}, not guaranteed income.`,
+    answer:
+      "Ready to join Ultimate Fleet GPS as an installation technician? Complete the online application or call us with questions. Applicants are accepted nationwide, and no closing date is currently published.",
     applyHeading: "Apply online",
     applyText:
-      "Complete the application for this opening. Applicants are accepted nationwide.",
-    ctaLabel: "Start Your Application",
+      "Complete the application for this ELD and GPS installation technician opening. Applicants are accepted nationwide.",
+    // REPLACE: add final hero image here (WebP, about 1920px wide, under 250 KB).
+    // Set to { src: "/images/careers/<file>.webp", width: 1920, height: 1080 }.
+    // It is decorative (alt text is empty). Suggested alt if it ever carries
+    // meaning: "Ultimate Fleet GPS technician installing a GPS and ELD device
+    // in a commercial vehicle". While null the section is a solid dark surface.
+    heroImage: null,
     callHeading: "Call with questions",
     phoneLabel: telephone,
-    phoneHref: `tel:+1${telephone.replace(/\D/g, "")}`,
+    phoneHref,
     // TODO confirm the time zone for the hours. None is shown.
     hours,
     since,
@@ -168,10 +197,10 @@ export const activeTechnicianJob: JobRecord = {
     disclaimerLine:
       "Applying does not guarantee contact, an interview, a contract, an assignment, a schedule, work volume, or pay.",
     network: {
-      before: "Looking for future opportunities? The ",
-      linkText: "Installer Network",
+      before: "Looking for future opportunities? ",
+      linkText: "Join the Installer Network",
       href: INSTALLER_NETWORK_PATH,
-      after: " is a separate registration, not an application.",
+      after: " (a separate registration, not an application).",
     },
     fleet: {
       before: "Need installation for your fleet? See our ",
@@ -183,15 +212,17 @@ export const activeTechnicianJob: JobRecord = {
   apply: {
     eyebrow: "Ready to Apply?",
     h2: "Apply for the ELD and GPS Installation Technician Opening",
-    // TODO add post-application process block only after confirmed.
     answer:
-      "To apply for the Ultimate Fleet GPS installation technician opening, complete the online application. Applicants are accepted nationwide, and no closing date is currently published. Applying does not guarantee contact, an interview, a contract, an assignment, a schedule, work volume, or pay. The starting rate is not guaranteed income.",
+      "To apply for the Ultimate Fleet GPS installation technician opening, complete the online application. Applicants are accepted nationwide, and no closing date is currently published.",
     beforeHeading: "Before you apply",
     before: [
-      "A valid driver's license",
-      "A smartphone",
-      "Your own vehicle, tools, and travel resources",
-      `Willingness to travel approximately ${travel}% of the time`,
+      { text: "A valid driver's license", icon: "id-card" },
+      { text: "A smartphone", icon: "smartphone" },
+      { text: "Your own vehicle, tools, and travel resources", icon: "truck" },
+      {
+        text: `Willingness to travel approximately ${travel}% of the time`,
+        icon: "map-pin",
+      },
     ],
     beforeClosing: {
       before: "See the full ",
@@ -199,28 +230,26 @@ export const activeTechnicianJob: JobRecord = {
       href: "#requirements",
       after: " above.",
     },
-    ctaLabel: "Apply for the Installation Technician Opening",
     ctaNote: "No closing date is currently published.",
-    futureHeading: "Looking for future opportunities?",
-    future: {
-      before: "The ",
-      linkText: "Installer Network",
-      href: INSTALLER_NETWORK_PATH,
-      after:
-        " is a separate registration for future opportunities. It is not an application for this opening.",
-    },
-    faqClosing: {
-      before: "Read ",
-      linkText: "common questions about this role",
+    faqLink: {
+      label: "Read common questions about this role.",
       href: "/careers/#careers-faq-heading",
-      after: " before you apply.",
     },
+    callLead: "Questions? Call",
+    phoneLabel: telephone,
+    phoneHref,
+    futureHeading: "Looking for future opportunities?",
+    future:
+      "The Installer Network is a separate registration for future opportunities. It is not an application for this opening.",
+    networkLabel: "Join the Installer Network",
   },
   rate: {
     h2: `Starting Rate for ELD and GPS Installation Technicians: ${rate.replace(" per week", "")} Per Week`,
-    figure: rate,
-    figureLabel: "Starting rate - not guaranteed income",
-    answer: `The starting rate for Ultimate Fleet GPS installation technicians is ${rate}. This is a starting rate, not guaranteed income. The role is independent contractor work, not employee employment, and contractors provide their own vehicle, tools, smartphone, and travel resources.`,
+    figure: rate.replace(" per week", ""),
+    figureUnit: "per week",
+    figureBadge: "Starting rate",
+    disclosure: "Starting rate, not guaranteed income.",
+    answer: `Ultimate Fleet GPS installation technicians start at ${rate} as independent contractors. This is a starting rate, not guaranteed income.`,
     howHeading: "How the starting rate works",
     // TODO confirm what the $1,600 per week is based on. Add nothing further
     // until confirmed.
@@ -230,15 +259,15 @@ export const activeTechnicianJob: JobRecord = {
     // confirmed.
     means:
       "A starting rate is not a promise of earnings. Your actual pay is not guaranteed, and the starting rate should not be read as a guarantee of income.",
-    coverHeading: "What the rate does not cover",
+    coverHeading: "What you provide as a contractor",
     coverIntro: "Contractors provide their own resources for this work.",
     // TODO confirm whether travel costs such as fuel, lodging, and meals are
     // reimbursed. Say nothing about reimbursement until confirmed.
     cover: [
-      "Your own personal vehicle",
-      "Your own tools",
-      "Your own smartphone",
-      "Your own travel resources",
+      { text: "Your own personal vehicle", icon: "car" },
+      { text: "Your own tools", icon: "wrench" },
+      { text: "Your own smartphone", icon: "smartphone" },
+      { text: "Your own travel resources", icon: "route" },
     ],
     coverClosing: {
       before: "Review the ",
@@ -246,23 +275,24 @@ export const activeTechnicianJob: JobRecord = {
       href: "#requirements",
       after: " above for more detail.",
     },
-    statusHeading: "Contractor status",
-    // Links to the "Is this W-2 or 1099 work?" heading in the About section.
+    // Notice bar. Links to the Opening details heading in the About section.
     status: {
       before:
         "This is independent contractor work, not employee employment. See the ",
       linkText: "opening details above",
-      href: "#contractor-status",
+      href: "#opening-details",
       after: " for how this role is classified.",
     },
     // TODO add pay frequency and method block only after confirmed.
-    ctaLead: "Ready to apply? No closing date is currently published.",
-    faqClosing: {
-      before: "You can also read ",
-      linkText: "common questions about this role",
+    ctaNote: "No closing date is currently published.",
+    faqLink: {
+      label: "Read common questions about this role.",
       href: "/careers/#careers-faq-heading",
-      after: " before you apply.",
     },
+    callLead: "Questions? Call",
+    phoneLabel: telephone,
+    phoneHref,
+    hours,
   },
   requirements: {
     h2: "Requirements for ELD and GPS Installation Technicians",

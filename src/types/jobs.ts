@@ -1,3 +1,4 @@
+import type { IconName } from "@/components/ui/Icon";
 
 /** A paragraph with one in-sentence link. */
 export interface JobLinkedText {
@@ -7,12 +8,14 @@ export interface JobLinkedText {
   readonly after: string;
 }
 
-/** One equipment term. `linkText` is a prefix of `term` and is the linked part. */
+/** One equipment card. Without `href` the card renders no link. */
 export interface JobEquipmentItem {
   readonly term: string;
   readonly definition: string;
-  readonly linkText?: string;
+  readonly icon: IconName;
   readonly href?: string;
+  /** Screen-reader-only link description, for example "GPS tracking installation service". */
+  readonly linkLabel?: string;
 }
 
 /** The "what the technician does" section of an active opening page. */
@@ -26,7 +29,7 @@ export interface JobWork {
   readonly whereHeading: string;
   readonly where: JobLinkedText;
   readonly stepsHeading: string;
-  readonly steps: readonly string[];
+  readonly steps: readonly { readonly text: string; readonly icon: IconName }[];
   readonly photoHeading: string;
   readonly photo: string;
   readonly expectHeading: string;
@@ -38,9 +41,12 @@ export interface JobWork {
 /** The starting rate section of an active opening page. */
 export interface JobRate {
   readonly h2: string;
-  /** Prominent figure. Always shown with `figureLabel` directly beneath. */
+  /** Large figure, for example "$1,600". Always shown with the unit, badge, and disclosure. */
   readonly figure: string;
-  readonly figureLabel: string;
+  readonly figureUnit: string;
+  readonly figureBadge: string;
+  /** Disclosure shown beside the figure at body size. */
+  readonly disclosure: string;
   readonly answer: string;
   readonly howHeading: string;
   readonly how: string;
@@ -48,12 +54,16 @@ export interface JobRate {
   readonly means: string;
   readonly coverHeading: string;
   readonly coverIntro: string;
-  readonly cover: readonly string[];
+  readonly cover: readonly { readonly text: string; readonly icon: IconName }[];
   readonly coverClosing: JobLinkedText;
-  readonly statusHeading: string;
+  /** Notice bar text. No heading. */
   readonly status: JobLinkedText;
-  readonly ctaLead: string;
-  readonly faqClosing: JobLinkedText;
+  readonly ctaNote: string;
+  readonly faqLink: { readonly label: string; readonly href: string };
+  readonly callLead: string;
+  readonly phoneLabel: string;
+  readonly phoneHref: string;
+  readonly hours: string;
 }
 
 /** The opening overview section of an active opening page. */
@@ -61,13 +71,20 @@ export interface JobAbout {
   readonly h2: string;
   readonly answer: string;
   readonly detailsHeading: string;
-  readonly details: readonly { readonly term: string; readonly definition: string }[];
+  readonly details: readonly {
+    readonly term: string;
+    readonly definition: string;
+    readonly icon: IconName;
+  }[];
   readonly fitHeading: string;
   readonly fit: string;
   readonly statusHeading: string;
   readonly status: string;
   readonly howHeading: string;
-  readonly steps: readonly (readonly JobFaqPart[])[];
+  readonly steps: readonly {
+    readonly parts: readonly JobFaqPart[];
+    readonly icon: IconName;
+  }[];
   readonly applyNote: string;
 }
 
@@ -78,7 +95,12 @@ export interface JobClosing {
   readonly answer: string;
   readonly applyHeading: string;
   readonly applyText: string;
-  readonly ctaLabel: string;
+  /** Optional background photo for the hero zone. null renders a solid dark surface. */
+  readonly heroImage: {
+    readonly src: string;
+    readonly width: number;
+    readonly height: number;
+  } | null;
   readonly callHeading: string;
   readonly phoneLabel: string;
   readonly phoneHref: string;
@@ -116,13 +138,17 @@ export interface JobApply {
   readonly h2: string;
   readonly answer: string;
   readonly beforeHeading: string;
-  readonly before: readonly string[];
+  readonly before: readonly { readonly text: string; readonly icon: IconName }[];
   readonly beforeClosing: JobLinkedText;
-  readonly ctaLabel: string;
   readonly ctaNote: string;
+  readonly faqLink: { readonly label: string; readonly href: string };
+  readonly callLead: string;
+  readonly phoneLabel: string;
+  readonly phoneHref: string;
   readonly futureHeading: string;
-  readonly future: JobLinkedText;
-  readonly faqClosing: JobLinkedText;
+  /** Plain text. The Installer Network button is the link. */
+  readonly future: string;
+  readonly networkLabel: string;
 }
 
 /** One requirement line: a bold lead phrase plus a short explanation. */
@@ -170,7 +196,9 @@ export interface JobRecord {
    * page was built.
    */
   readonly datePosted: string;
-  /** Page title. The site template appends the brand name. */
+  /** Visible H1. Differs from `title`, which stays the JobPosting and breadcrumb title. */
+  readonly h1: string;
+  /** Full page title tag, brand included. */
   readonly metaTitle: string;
   readonly metaDescription: string;
   readonly intro: string;
