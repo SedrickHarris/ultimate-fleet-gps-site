@@ -297,60 +297,76 @@ export const activeTechnicianJob: JobRecord = {
   requirements: {
     h2: "Requirements for ELD and GPS Installation Technicians",
     answer: `To work as an installation technician with Ultimate Fleet GPS, you need a valid driver's license, the ability to pass a background check, a smartphone, your own vehicle and tools, and the ability to travel about ${travel}% of the time. No prior installation experience is required, and training is provided.`,
-    needHeading: "What you need",
+    needHeading: "What are the requirements to become an ELD and GPS installer?",
     need: [
       {
-        lead: "A valid driver's license.",
+        lead: "A valid driver's license",
         // TODO confirm license and driving-record specifics. Add nothing further.
         detail:
           "You will drive to installation locations, including across state lines.",
+        icon: "id-card",
       },
       {
-        lead: "Passing a background check.",
+        lead: "Passing a background check",
         // TODO confirm what the check covers and when it happens. Add nothing further.
         detail:
           "A background check is required to work with Ultimate Fleet GPS.",
+        icon: "shield-check",
       },
       {
-        lead: "A smartphone.",
+        lead: "A smartphone",
         // TODO confirm any OS or camera requirements. Add nothing further.
         detail:
           "You use it to submit installation data and installation photos for each completed installation.",
+        icon: "smartphone",
       },
       {
-        lead: "Your own personal vehicle, tools, and travel resources.",
+        lead: "Your own personal vehicle, tools, and travel resources",
         // TODO confirm vehicle type and condition, tool list, and what counts
         // as travel resources. Add nothing further.
         detail:
           "Contractors provide their own vehicle, tools, and travel resources.",
+        icon: "truck",
       },
       {
-        lead: `Ability to travel approximately ${travel}% of the time.`,
+        lead: `Ability to travel approximately ${travel}% of the time`,
         // TODO confirm what a typical trip looks like. Add nothing further.
         detail: "The role includes state-to-state travel.",
+        icon: "map-pin",
       },
     ],
-    notNeededHeading: "What you do not need",
+    notNeededHeading: "Do I need experience to be an ELD installer?",
     notNeeded: [
       {
-        lead: "No prior installation experience.",
-        detail: "No prior installation experience is required.",
+        lead: "No prior installation experience",
+        detail: "You can apply without any installation experience.",
+        icon: "wrench",
       },
       {
-        lead: "Training is provided.",
+        lead: "Training is provided",
         // TODO confirm training format and length. Add nothing further.
         // /careers/installer-training/ has no page yet, so "We train you on
         // the work" is not linked. TODO link it when that page is built.
         detail: "We train you on the work.",
+        icon: "graduation-cap",
       },
     ],
     preferredHeading: "Preferred qualifications (not required)",
-    preferred:
-      "Related vehicle electrical, telematics, or mobile installation experience is welcome, and MECP (Mobile Electronics Certification Program) certification is preferred. Neither is required to apply.",
-    moreLink: {
+    preferredBadge: "Optional",
+    preferredItems: [
+      "Related vehicle electrical, telematics, or mobile installation experience is welcome.",
+      "MECP (Mobile Electronics Certification Program) certification is preferred.",
+    ],
+    preferredClosing: "Neither is required to apply.",
+    ctaNote: "No closing date is currently published.",
+    secondary: {
       label: "View full installer requirements",
       href: "/careers/installer-requirements/",
     },
+    callLead: "Questions? Call",
+    phoneLabel: telephone,
+    phoneHref,
+    hours,
     experienceRequirements: "No prior installation experience required",
     qualifications: `Valid driver's license; ability to pass a background check; smartphone for submitting installation data and photos; own vehicle, tools, and travel resources; ability to travel approximately ${travel}% of the time`,
   },

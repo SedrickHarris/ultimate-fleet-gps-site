@@ -69,7 +69,7 @@ export function JobApplySection({
       <h3 className={h3Class}>{content.beforeHeading}</h3>
       <ul className="mt-4 grid list-none grid-cols-1 gap-3 p-0 min-[640px]:grid-cols-2 lg:grid-cols-4">
         {content.before.map((item) => (
-          <CompactTile key={item.text} icon={item.icon} check>
+          <CompactTile key={item.text} icon={item.icon}>
             {item.text}
           </CompactTile>
         ))}

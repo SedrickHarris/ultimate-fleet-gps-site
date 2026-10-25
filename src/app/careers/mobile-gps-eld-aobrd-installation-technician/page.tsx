@@ -110,13 +110,20 @@ export default function ActiveOpeningPage() {
         id="requirements"
         tone="subtle"
         content={job.requirements}
+        cta={applyCta}
+        secondaryCta={{
+          label: job.requirements.secondary.label,
+          href: job.requirements.secondary.href,
+          journey: "recruitment",
+          event: AnalyticsEvent.ctaCareersClick,
+        }}
       />
 
       <JobWorkSection id="the-work" tone="default" content={job.work} />
 
       <JobRateSection
         id="starting-rate"
-        tone="brandTint"
+        tone="dark"
         content={job.rate}
         cta={applyCta}
       />

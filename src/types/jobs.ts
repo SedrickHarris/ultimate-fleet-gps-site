@@ -153,8 +153,10 @@ export interface JobApply {
 
 /** One requirement line: a bold lead phrase plus a short explanation. */
 export interface JobRequirementItem {
+  /** Card title. Not a heading element. */
   readonly lead: string;
   readonly detail: string;
+  readonly icon: IconName;
 }
 
 /** The Requirements section of an active opening page. */
@@ -167,8 +169,16 @@ export interface JobRequirements {
   readonly notNeededHeading: string;
   readonly notNeeded: readonly JobRequirementItem[];
   readonly preferredHeading: string;
-  readonly preferred: string;
-  readonly moreLink: { readonly label: string; readonly href: string };
+  readonly preferredBadge: string;
+  readonly preferredItems: readonly string[];
+  readonly preferredClosing: string;
+  readonly ctaNote: string;
+  /** Outline button to the full installer requirements page. */
+  readonly secondary: { readonly label: string; readonly href: string };
+  readonly callLead: string;
+  readonly phoneLabel: string;
+  readonly phoneHref: string;
+  readonly hours: string;
   /** Schema-only values. Each restates the visible lists above. */
   readonly experienceRequirements: string;
   readonly qualifications: string;

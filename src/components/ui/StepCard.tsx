@@ -8,32 +8,23 @@ export const iconCircle =
   "grid size-11 shrink-0 place-items-center rounded-full bg-[var(--color-accent-blue-strong)]/10 text-[var(--color-accent-blue-strong)]";
 
 /**
- * One step card: icon in a tinted circle, a numbered badge, and the step text.
- * The badge is decorative (`aria-hidden`); the surrounding `<ol>` carries the
- * order. Shared by the "How to apply" and "What a typical installation looks
- * like" steps so the two match.
+ * One step card: an icon in a tinted circle above the step text. Order is
+ * carried by the surrounding `<ol>`, the arrows or connectors between cards,
+ * and left-to-right reading order, not by a visible number. Shared by the
+ * "How to apply" and "What a typical installation looks like" steps so the two
+ * match.
  */
 export function StepCard({
-  number,
   icon,
   children,
 }: {
-  readonly number: number;
   readonly icon: IconName;
   readonly children: ReactNode;
 }) {
   return (
-    <Card as="div" padding="compact" className="flex h-full flex-col gap-3">
-      <span className="flex items-center gap-3">
-        <span className={iconCircle}>
-          <Icon name={icon} size={22} />
-        </span>
-        <span
-          aria-hidden="true"
-          className="grid size-7 place-items-center rounded-full bg-[var(--color-accent-blue-strong)] text-[length:var(--text-small)] font-bold text-white"
-        >
-          {number}
-        </span>
+    <Card as="div" padding="compact" className="flex h-full flex-col gap-4">
+      <span className={iconCircle}>
+        <Icon name={icon} size={22} />
       </span>
       <span className="text-[length:var(--text-body)] leading-relaxed text-ink">
         {children}

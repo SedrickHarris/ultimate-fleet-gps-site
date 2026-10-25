@@ -53,10 +53,12 @@ export function jobDescriptionHtml(job: JobRecord): string {
   const req = job.requirements;
   parts.push(`<h3>${escapeHtml(req.h2)}</h3>`, `<p>${escapeHtml(req.answer)}</p>`);
   parts.push(bold(req.needHeading));
-  parts.push(list(req.need.map((item) => `${item.lead} ${item.detail}`)));
+  parts.push(list(req.need.map((item) => `${item.lead}. ${item.detail}`)));
   parts.push(bold(req.notNeededHeading));
-  parts.push(list(req.notNeeded.map((item) => `${item.lead} ${item.detail}`)));
-  parts.push(`<p>${escapeHtml(req.preferred)}</p>`);
+  parts.push(list(req.notNeeded.map((item) => `${item.lead}. ${item.detail}`)));
+  parts.push(
+    `<p>${escapeHtml(`${req.preferredItems.join(" ")} ${req.preferredClosing}`)}</p>`,
+  );
 
   const work = job.work;
   parts.push(`<h3>${escapeHtml(work.h2)}</h3>`, `<p>${escapeHtml(work.answer)}</p>`);

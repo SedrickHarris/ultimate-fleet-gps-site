@@ -14,12 +14,10 @@ interface JobRateSectionProps {
   readonly id: string;
   readonly content: JobRate;
   readonly cta: Cta;
-  readonly tone?: "default" | "subtle" | "brandTint";
+  readonly tone?: "default" | "subtle" | "brandTint" | "dark";
 }
 
 const h3Class = "text-[length:var(--text-h4)] font-bold text-ink";
-const h3SectionClass =
-  "mt-10 text-[length:var(--text-h3)] leading-tight font-bold text-ink";
 
 /**
  * Starting rate section. The top row is the H2 and answer beside the image
@@ -33,7 +31,7 @@ export function JobRateSection({
   id,
   content,
   cta,
-  tone = "brandTint",
+  tone = "dark",
 }: JobRateSectionProps) {
   const headingId = `${id}-heading`;
 
@@ -43,11 +41,11 @@ export function JobRateSection({
         <div>
           <h2
             id={headingId}
-            className="text-[length:var(--text-h2)] leading-[1.12] font-bold text-balance text-ink"
+            className="text-[length:var(--text-h2)] leading-[1.12] font-bold text-balance text-[var(--color-text-on-dark)]"
           >
             {content.h2}
           </h2>
-          <p className="mt-5 text-[length:var(--text-body-lg)] leading-relaxed font-medium text-pretty text-ink">
+          <p className="mt-5 text-[length:var(--text-body-lg)] leading-relaxed font-medium text-pretty text-[var(--color-text-on-dark)]">
             {content.answer}
           </p>
         </div>
@@ -57,10 +55,13 @@ export function JobRateSection({
           completed work on a smartphone beside a fleet truck". See
           ImagePlaceholder for the swap.
         */}
-        <ImagePlaceholder slot="careers-technician-starting-rate" />
+        <ImagePlaceholder slot="careers-technician-starting-rate" onDark />
       </div>
 
-      <div className="mt-10 flex flex-col gap-6 rounded-[var(--radius-lg)] border border-border border-l-4 border-l-[var(--color-accent-blue-strong)] bg-surface p-6 md:flex-row md:items-center md:justify-between md:p-8">
+      <div
+        data-tone="light"
+        className="mt-10 flex flex-col gap-6 rounded-[var(--radius-lg)] border border-border border-l-4 border-l-[var(--color-accent-blue-strong)] bg-surface p-6 md:flex-row md:items-center md:justify-between md:p-8"
+      >
         <div>
           <p className="inline-block rounded-full bg-[var(--color-accent-blue-strong)] px-3 py-1 text-[length:var(--text-label)] font-semibold tracking-wide text-white uppercase">
             {content.figureBadge}
@@ -93,8 +94,10 @@ export function JobRateSection({
         />
       </div>
 
-      <h3 className={h3SectionClass}>{content.coverHeading}</h3>
-      <p className="mt-2 text-[length:var(--text-body)] leading-relaxed text-ink-muted">
+      <h3 className="mt-10 text-[length:var(--text-h3)] leading-tight font-bold text-[var(--color-text-on-dark)]">
+        {content.coverHeading}
+      </h3>
+      <p className="mt-2 text-[length:var(--text-body)] leading-relaxed text-[var(--color-text-on-dark)]/90">
         {content.coverIntro}
       </p>
       <ul className="mt-4 grid list-none grid-cols-1 gap-3 p-0 min-[640px]:grid-cols-2 lg:grid-cols-4">
@@ -104,12 +107,12 @@ export function JobRateSection({
           </CompactTile>
         ))}
       </ul>
-      <p className="mt-3 text-[length:var(--text-body)] leading-relaxed text-ink-muted">
-        <LinkedText text={content.coverClosing} />
+      <p className="mt-3 text-[length:var(--text-body)] leading-relaxed text-[var(--color-text-on-dark)]/90">
+        <LinkedText text={content.coverClosing} onDark />
       </p>
 
-      <NoticeBar icon="briefcase" className="mt-8">
-        <LinkedText text={content.status} />
+      <NoticeBar icon="briefcase" className="mt-8" onDark>
+        <LinkedText text={content.status} onDark />
       </NoticeBar>
 
       <CtaBand

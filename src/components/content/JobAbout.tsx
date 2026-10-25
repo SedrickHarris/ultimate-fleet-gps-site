@@ -95,7 +95,7 @@ export function JobAboutSection({
       <ol className="mt-5 grid list-none grid-cols-1 gap-10 p-0 md:grid-cols-3 md:gap-12">
         {content.steps.map((step, index) => (
           <li key={index} className="relative">
-            <StepCard number={index + 1} icon={step.icon}>
+            <StepCard icon={step.icon}>
               <RichParts parts={step.parts} />
             </StepCard>
             {index < content.steps.length - 1 ? (

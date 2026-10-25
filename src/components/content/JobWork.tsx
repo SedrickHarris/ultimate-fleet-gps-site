@@ -119,7 +119,7 @@ export function JobWorkSection({
             key={step.text}
             className="relative sm:max-lg:last:col-span-2"
           >
-            <StepCard number={index + 1} icon={step.icon}>
+            <StepCard icon={step.icon}>
               {step.text}
             </StepCard>
             {index < content.steps.length - 1 ? (
