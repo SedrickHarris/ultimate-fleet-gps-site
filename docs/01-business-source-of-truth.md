@@ -79,7 +79,7 @@ Lower-priority sources may identify facts that require verification. They do not
 | Public-facing name | Ultimate Fleet GPS | Approved | Stakeholder confirmed September 10, 2026 as the only name used publicly. See section 4.2 |
 | Abbreviated name | Ultimate Fleet GPS | Existing website statement | Existing homepage uses this shortened form |
 | Current website | https://ultimatefleetgps.net/ | Approved for current-site reference | Confirm this will remain the production domain |
-| New repository | https://github.com/SedrickHarris/sb-mobile-installations-site.git | Approved project fact | New website repository |
+| New repository | https://github.com/SedrickHarris/ultimate-fleet-gps-site.git | Approved project fact | New website repository |
 | Entity type | Limited liability company | Existing website statement | Based on the displayed company name; legal state and status remain unverified |
 | Years in business | In business since 2011 | Approved | Client confirmed 2026-09-18, superseding the prior "15 years" duration phrasing. See section 25 for approved wording |
 | Founding date | 2011 | Approved | Client confirmed 2026-09-18. May be published as "in business since 2011" |

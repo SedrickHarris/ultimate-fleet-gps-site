@@ -5,7 +5,7 @@
 **Document:** 00-project-overview.md  
 **Project:** Ultimate Fleet GPS Website Rebuild  
 **Business:** Ultimate Fleet GPS  
-**Repository:** https://github.com/SedrickHarris/sb-mobile-installations-site.git  
+**Repository:** https://github.com/SedrickHarris/ultimate-fleet-gps-site.git  
 **Status:** Foundational draft  
 **Version:** 0.2  
 **Last updated:** September 10, 2026
@@ -543,7 +543,7 @@ The detailed implementation model will be defined in `20-technical-architecture.
 
 The canonical repository is:
 
-https://github.com/SedrickHarris/sb-mobile-installations-site.git
+https://github.com/SedrickHarris/ultimate-fleet-gps-site.git
 
 The repository will contain:
 

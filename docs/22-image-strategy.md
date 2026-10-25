@@ -3,7 +3,7 @@
 **Document:** 22-image-strategy.md  
 **Project:** Ultimate Fleet GPS Website and Installer Recruitment Project  
 **Business:** Ultimate Fleet GPS  
-**Repository:** https://github.com/SedrickHarris/sb-mobile-installations-site.git  
+**Repository:** https://github.com/SedrickHarris/ultimate-fleet-gps-site.git  
 **Framework:** Next.js App Router, TypeScript, Tailwind CSS  
 **Hosting:** Cloudflare Pages static export  
 **Primary objective:** Use credible, useful imagery to support installer recruitment, commercial understanding, organic search, and conversion.  

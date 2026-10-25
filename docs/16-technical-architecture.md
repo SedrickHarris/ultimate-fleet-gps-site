@@ -3,7 +3,7 @@
 **Document:** `16-technical-architecture.md`  
 **Project:** Ultimate Fleet GPS Website and Installer Recruitment Project  
 **Business:** Ultimate Fleet GPS  
-**Repository:** https://github.com/SedrickHarris/sb-mobile-installations-site.git  
+**Repository:** https://github.com/SedrickHarris/ultimate-fleet-gps-site.git  
 **Production domain:** `https://ultimatefleetgps.net/` pending final DNS confirmation  
 **Primary technical outcome:** A fast, secure, accessible, maintainable recruitment-first website  
 **Hosting model:** Next.js static export on Cloudflare Pages with separate serverless integrations where required  
@@ -109,7 +109,7 @@ Use a separate approved backend boundary for:
 | Tailwind CSS | Approved project direction | Tokens and reusable components remain centralized |
 | Static export | Recommended baseline | Matches Cloudflare Pages requirement and content-first site |
 | Cloudflare Pages | Approved hosting target | Production branch and previews configured through Git integration |
-| GitHub repository | Created | `SedrickHarris/sb-mobile-installations-site` |
+| GitHub repository | Created | `SedrickHarris/ultimate-fleet-gps-site` |
 | Serverless form boundary | Required if forms are owned onsite | Exact Worker, Pages Function, GHL, ATS, or vendor path pending |
 | ATS/recruiting CRM | Blocked | Platform not yet approved |
 | Commercial CRM | Blocked | Platform not yet approved |
@@ -302,7 +302,7 @@ export default nextConfig;
 Recommended initial structure:
 
 ```text
-sb-mobile-installations-site/
+ultimate-fleet-gps-site/
 ├── .github/
 │   ├── ISSUE_TEMPLATE/
 │   ├── pull_request_template.md

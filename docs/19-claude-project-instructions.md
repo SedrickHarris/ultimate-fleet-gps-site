@@ -3,7 +3,7 @@
 **Document:** `19-claude-project-instructions.md`  
 **Project:** Ultimate Fleet GPS Website and Installer Recruitment Project  
 **Business:** Ultimate Fleet GPS  
-**Repository:** https://github.com/SedrickHarris/sb-mobile-installations-site.git  
+**Repository:** https://github.com/SedrickHarris/ultimate-fleet-gps-site.git  
 **Claude Project role:** Research, planning, content development, review, and implementation handoff  
 **Claude Code role:** Repository inspection, implementation, testing, and approved Git operations  
 **Primary outcome:** Attract and convert qualified installer candidates  

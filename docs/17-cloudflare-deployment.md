@@ -3,7 +3,7 @@
 **Document:** `17-cloudflare-deployment.md`  
 **Project:** Ultimate Fleet GPS Website and Installer Recruitment Project  
 **Business:** Ultimate Fleet GPS  
-**Repository:** https://github.com/SedrickHarris/sb-mobile-installations-site.git  
+**Repository:** https://github.com/SedrickHarris/ultimate-fleet-gps-site.git  
 **Hosting target:** Cloudflare Pages  
 **Application output:** Next.js static export  
 **Production domain:** `https://ultimatefleetgps.net/` pending final DNS and canonical-host approval  
@@ -197,7 +197,7 @@ Do not change nameservers or production DNS until the existing zone has been inv
 Connect Cloudflare Pages to:
 
 - GitHub account or organization: approved repository owner;
-- repository: `SedrickHarris/sb-mobile-installations-site`;
+- repository: `SedrickHarris/ultimate-fleet-gps-site`;
 - production branch: `main`; and
 - repository access: only the required repository where the GitHub App permissions allow it.
 
@@ -438,7 +438,7 @@ Avoid fetching protected candidate, customer, or operational data during a publi
 3. Create a Pages application.
 4. Select Git integration.
 5. Authorize the Cloudflare Workers and Pages GitHub App with access only to the required repository where possible.
-6. Select `SedrickHarris/sb-mobile-installations-site`.
+6. Select `SedrickHarris/ultimate-fleet-gps-site`.
 7. Set project name to the approved stable project identifier.
 8. Select `main` as the production branch.
 9. Select Next.js Static HTML Export.

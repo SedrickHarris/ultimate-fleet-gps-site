@@ -34,7 +34,7 @@ Installer Network text link after the form.
    preferred timing) once. The separate "Commercial Project Details That Help
    Frame the Request" section is removed.
 5. **Availability wording.** Where availability or qualification must be
-   addressed, use: "Share your project details so SB Mobile Installations can
+   addressed, use: "Share your project details so Ultimate Fleet GPS can
    determine whether the request fits the available service context." The
    earlier sentence "Project details and availability must be reviewed for each
    request." is not used. No wording may imply scheduling, dispatch,

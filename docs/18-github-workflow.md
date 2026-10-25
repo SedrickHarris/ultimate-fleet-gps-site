@@ -3,7 +3,7 @@
 **Document:** `18-github-workflow.md`  
 **Project:** Ultimate Fleet GPS Website and Installer Recruitment Project  
 **Business:** Ultimate Fleet GPS  
-**Repository:** https://github.com/SedrickHarris/sb-mobile-installations-site.git  
+**Repository:** https://github.com/SedrickHarris/ultimate-fleet-gps-site.git  
 **Default and production branch:** `main`  
 **Deployment integration:** GitHub to Cloudflare Pages  
 **Primary development tools:** Visual Studio Code, Claude, and Claude Code  
@@ -104,7 +104,7 @@ The business source-of-truth document and approved operational systems govern fa
 ### Current repository
 
 ```text
-https://github.com/SedrickHarris/sb-mobile-installations-site.git
+https://github.com/SedrickHarris/ultimate-fleet-gps-site.git
 ```
 
 ### Required ownership model
@@ -282,8 +282,8 @@ Sections 11, 12, 17 (branch push), 21 to 27, and 55 describe this optional flow.
 ### Clone
 
 ```bash
-git clone https://github.com/SedrickHarris/sb-mobile-installations-site.git
-cd sb-mobile-installations-site
+git clone https://github.com/SedrickHarris/ultimate-fleet-gps-site.git
+cd ultimate-fleet-gps-site
 ```
 
 SSH may be used after the developer's GitHub SSH key and repository access are configured.

@@ -81,19 +81,19 @@ per-service copy. Three points needed a decision.
 
 ## Update, September 19, 2026
 
-Point 6 (the Installer Network handoff) changed. The single low-emphasis text link after the quote form now points to `/careers/jobs/` with the recruitment journey and the `cta_careers_click` event. Its wording is "Interested in installer work with SB Mobile Installations?" and "View current installer openings". It is the same shared handoff on all five service pages, with no per-page override, and it makes no claim that experience is required. It is still one text link after the form, with no banner, form, or hiring language.
+Point 6 (the Installer Network handoff) changed. The single low-emphasis text link after the quote form now points to `/careers/jobs/` with the recruitment journey and the `cta_careers_click` event. Its wording is "Interested in installer work with Ultimate Fleet GPS?" and "View current installer openings". It is the same shared handoff on all five service pages, with no per-page override, and it makes no claim that experience is required. It is still one text link after the form, with no banner, form, or hiring language.
 
 ## Update, September 20, 2026
 
 Telematics page alignment. Shared service-page changes:
 
 - A hero eyebrow, "Fleet Technology Installation Services", now shows above the H1 on all five service pages (`heroEyebrow`).
-- The nationwide band lead and the telematics FAQ answer about project locations use the exact approved sentence, "Nationwide mobile installation service, delivered at the customer's location." (claims row 14), without the "SB Mobile Installations provides" prefix.
+- The nationwide band lead and the telematics FAQ answer about project locations use the exact approved sentence, "Nationwide mobile installation service, delivered at the customer's location." (claims row 14), without the "Ultimate Fleet GPS provides" prefix.
 - The resources heading is "Related Resources".
 - The telematics "This service may be a fit when" bullets and footnote were removed. The fit section is now the intro sentence plus the sibling service links from the card taxonomy.
 - Image briefs for `service-telematics-hero` and `service-telematics-context` now carry suggested filenames. Both slots still render the production decorative fallback.
 
-**Reverses the September 19 handoff change, pending stakeholder confirmation.** The handoff link now points to `INSTALLER_NETWORK_PATH` with `cta_installer_network_click` and the recruitment journey. Wording: "Are you an experienced mobile fleet installation technician?" and "Learn about the SB Mobile Installations Installer Network". This was requested in the page spec. It conflicts with the September 19 note that the link makes no claim that experience is required, and it moves candidates away from the active opening at `/careers/jobs/`. Revert both if the September 19 decision stands.
+**Reverses the September 19 handoff change, pending stakeholder confirmation.** The handoff link now points to `INSTALLER_NETWORK_PATH` with `cta_installer_network_click` and the recruitment journey. Wording: "Are you an experienced mobile fleet installation technician?" and "Learn about the Ultimate Fleet GPS Installer Network". This was requested in the page spec. It conflicts with the September 19 note that the link makes no claim that experience is required, and it moves candidates away from the active opening at `/careers/jobs/`. Revert both if the September 19 decision stands.
 
 Stakeholder review still open: the FAQ answer "We are an installation and deployment partner, not the platform vendor" uses "partner" and "platform". It is unchanged approved copy, not silently rewritten.
 

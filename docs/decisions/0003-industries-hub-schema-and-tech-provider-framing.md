@@ -21,7 +21,7 @@
 2. The Technology Providers card, decision-guide row, and one FAQ stay, framed
    only as a route for describing an installation request tied to a hardware
    deployment program. The hub H1, meta description, and intro do not name
-   technology providers. The visible copy states that SB Mobile provides
+   technology providers. The visible copy states that Ultimate Fleet GPS provides
    installation and deployment support, not the underlying technology
    platform, and implies no partnership, authorization, or certification.
 3. The commercial inquiry form is unchanged. Leads from this page are

@@ -3,7 +3,7 @@
 **Document:** `20-component-inventory.md`  
 **Project:** Ultimate Fleet GPS Website and Installer Recruitment Project  
 **Business:** Ultimate Fleet GPS  
-**Repository:** https://github.com/SedrickHarris/sb-mobile-installations-site.git  
+**Repository:** https://github.com/SedrickHarris/ultimate-fleet-gps-site.git  
 **Framework:** Next.js App Router, TypeScript, and Tailwind CSS  
 **Rendering model:** Static export with minimal client-side interaction  
 **Primary component outcome:** Reusable recruitment-first pages without generic or duplicate page production  
