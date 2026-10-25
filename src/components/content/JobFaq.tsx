@@ -36,10 +36,7 @@ export function JobFaqSection({
         </p>
 
         {job.faq.map((group, groupIndex) => (
-          <div key={group.heading}>
-            <h3 className="mt-8 mb-4 text-[length:var(--text-h3)] leading-tight font-bold text-ink">
-              {group.heading}
-            </h3>
+          <div key={group.heading} className="mt-3 md:mt-4">
             <div className="grid grid-cols-1 items-start gap-3 md:grid-cols-2 md:gap-4">
               {group.items.map((item, index) => {
                 const answerId = `${id}-g${groupIndex + 1}-answer-${index + 1}`;
