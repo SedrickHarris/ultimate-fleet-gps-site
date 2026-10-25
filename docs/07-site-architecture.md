@@ -172,7 +172,7 @@ This tree represents supported architecture, not automatic publication approval 
 | `/faqs/` | Commercial FAQs | Commercial | Buyer questions | Launch | Index |
 | `/about/` | About | All | Entity, history, and trust | Launch | Index |
 | `/contact/` | Contact | All | General communication | Launch | Index |
-| `/request-a-quote/` | Request a Quote | Commercial | Qualified project inquiry | Launch | Index or noindex based on content |
+| `/request-a-quote/` | Request a Quote | Commercial | Qualified project inquiry | Launch | Superseded by /contact/ (decision 0011) |
 | `/thank-you/` | Commercial Confirmation | Commercial | Inquiry confirmation | Utility | Noindex |
 | `/privacy-policy/` | Privacy Policy | All | Data-use disclosure | Launch | Index |
 | `/terms/` | Terms | All | Website terms | Launch | Index |
@@ -1078,7 +1078,7 @@ Provide accurate general contact information and route users who are unsure whic
 - Installer opportunity: Careers
 - Active job: Current Openings
 - Future installer interest: Installer Network
-- Commercial project: Request a Quote
+- Commercial project: Request a Quote - Superseded by /contact/ (decision 0011)
 - Provider or partner: Commercial contact option
 - General question: General contact
 
@@ -1088,11 +1088,11 @@ Do not use one undifferentiated contact form for all audiences.
 
 ---
 
-## 31. Request-a-Quote Architecture
+## 31. Request-a-Quote Architecture - Superseded by /contact/ (decision 0011)
 
 ### URL
 
-`/request-a-quote/`
+`/request-a-quote/` - Superseded by /contact/ (decision 0011)
 
 ### Purpose
 
@@ -1226,7 +1226,7 @@ Add Training and Resources only when those sections contain approved, useful con
 - Resources
 - Case Studies
 - Contact
-- Request a Quote
+- Request a Quote - Superseded by /contact/ (decision 0011)
 
 ### Legal column
 
@@ -1628,7 +1628,7 @@ app/
 ├── faqs/page.tsx
 ├── about/page.tsx
 ├── contact/page.tsx
-├── request-a-quote/page.tsx
+├── request-a-quote/page.tsx  # Superseded by /contact/ (decision 0011)
 ├── thank-you/page.tsx
 ├── privacy-policy/page.tsx
 ├── terms/page.tsx

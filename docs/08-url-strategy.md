@@ -217,7 +217,7 @@ Recommended:
 
 - `how-assignments-work`
 - `join-our-installer-network`
-- `request-a-quote`
+- `request-a-quote` - Superseded by /contact/ (decision 0011)
 
 Do not remove words mechanically when the result sounds unnatural or ambiguous.
 
@@ -530,7 +530,7 @@ The parameter must not create a false public market page or promise an opening.
 | Commercial FAQs | `/faqs/` |
 | About | `/about/` |
 | Contact | `/contact/` |
-| Request a quote | `/request-a-quote/` |
+| Request a quote | `/request-a-quote/` - Superseded by /contact/ (decision 0011) |
 | Quote confirmation | `/thank-you/` |
 
 Use “technology” as an uncountable category for the route. Do not create simultaneous `/technologies/` and `/technology/` families.
@@ -784,7 +784,7 @@ Examples:
 |---|---|---|---|
 | Job application | `/careers/apply/` or embedded | `/careers/application-received/` | Form conditional; confirmation noindex |
 | Installer network | `/careers/join-our-installer-network/` | `/careers/installer-network-received/` | Form indexable if substantive; confirmation noindex |
-| Commercial quote | `/request-a-quote/` | `/thank-you/` | Form conditional; confirmation noindex |
+| Commercial quote | `/request-a-quote/` | `/thank-you/` | Superseded by /contact/ (decision 0011); confirmation noindex |
 | General contact | `/contact/` | Inline or `/contact-received/` | Contact index; confirmation noindex |
 
 ### Rules
@@ -1345,7 +1345,7 @@ For every release, verify:
 - `/faqs/`
 - `/about/`
 - `/contact/`
-- `/request-a-quote/`
+- `/request-a-quote/` - Superseded by /contact/ (decision 0011)
 - `/thank-you/`
 - `/service-areas/` only when verified
 
