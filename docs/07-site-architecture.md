@@ -149,7 +149,7 @@ This tree represents supported architecture, not automatic publication approval 
 | `/careers/how-assignments-work/` | How Assignments Work | Candidates | Process and expectations | Launch | Index |
 | `/careers/apply/` | Installer Application | Candidates | Application completion | Launch | Conditional or noindex |
 | `/careers/application-received/` | Application Received | Candidates | Confirmation and next steps | Utility | Noindex |
-| `/careers/faqs/` | Candidate FAQs | Candidates | Objection resolution | Launch | Index |
+| `/careers/faqs/` | Candidate FAQs | Candidates | Objection resolution | Launch | Superseded by /careers/#careers-faq (decision 0013) |
 | `/careers/join-our-installer-network/` | Installer Network | Candidates | Future-opportunity registration | Launch | Index if substantial |
 | `/careers/installer-training/` | Installer Training | Candidates | Verified development path | Conditional | Index only when program exists |
 | `/careers/resources/` | Installer Resources | Candidates | Recruitment education | Phase 2 | Index |
@@ -262,7 +262,7 @@ Join the Installer Network.
 - Current openings
 - Installer requirements
 - How assignments work
-- Candidate FAQs
+- Candidate FAQs (`/careers/#careers-faq`)
 - Installer network
 - About
 - Privacy policy
@@ -558,7 +558,7 @@ Noindex.
 
 ### URL
 
-`/careers/faqs/`
+`/careers/faqs/` - Superseded by /careers/#careers-faq (decision 0013)
 
 ### Topic groups
 
@@ -1194,7 +1194,7 @@ Recommended careers navigation:
 - Mobile Installers
 - Requirements
 - How Assignments Work
-- Candidate FAQs
+- Candidate FAQs (`/careers/#careers-faq`)
 - Join Installer Network
 
 Add Training and Resources only when those sections contain approved, useful content.
@@ -1210,7 +1210,7 @@ Add Training and Resources only when those sections contain approved, useful con
 - Mobile Installers
 - Installer Requirements
 - How Assignments Work
-- Candidate FAQs
+- Candidate FAQs (`/careers/#careers-faq`)
 - Join Installer Network
 
 ### Services column
@@ -1610,7 +1610,7 @@ app/
 │   ├── how-assignments-work/page.tsx
 │   ├── apply/page.tsx
 │   ├── application-received/page.tsx
-│   ├── faqs/page.tsx
+│   ├── faqs/page.tsx  # Superseded by /careers/#careers-faq (decision 0013)
 │   ├── join-our-installer-network/page.tsx
 │   ├── installer-training/page.tsx
 │   └── resources/
@@ -1649,7 +1649,7 @@ The implementation may use route groups, content collections, or other maintaina
 - Job detail
 - Installer requirements
 - Assignment process
-- Candidate FAQ
+- Candidate FAQ - Superseded by /careers/#careers-faq (decision 0013)
 - Installer network
 - Recruitment resource
 - Application and confirmation
@@ -1692,7 +1692,7 @@ Reusable templates must allow page-specific content and evidence. They should no
 - How assignments work
 - Application flow
 - Application confirmation
-- Candidate FAQs
+- Candidate FAQs (`/careers/#careers-faq`)
 - Installer network
 
 ### Required commercial and trust pages

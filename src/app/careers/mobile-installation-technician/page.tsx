@@ -491,6 +491,15 @@ export default function InstallerNetworkPage() {
               {note}
             </p>
           ))}
+          <p>
+            <Link
+              href="/careers/installer-requirements/"
+              className="inline-flex min-h-11 items-center gap-2 text-[length:var(--text-body)] font-semibold text-[var(--color-accent-blue-strong)] underline underline-offset-4"
+            >
+              See all installer requirements
+              <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </p>
         </div>
       </Section>
       <Section

@@ -16,7 +16,8 @@ interface ServicesHeroProps {
   readonly qualifier?: string;
   /** Small label above the H1. Not a heading. Rendered in the on-dark text color. */
   readonly eyebrow?: string;
-  readonly phone: { readonly href: string; readonly label: string };
+  /** Phone button beside the primary CTA. Omit on pages that carry no call action. */
+  readonly phone?: { readonly href: string; readonly label: string };
   /** Right-column image. Omit when the hero uses a background video instead. */
   readonly image?: HubImageSlot;
   /**
@@ -203,14 +204,16 @@ export function ServicesHero({
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
             <CtaButton cta={primaryCta} emphasis="primary" blockOnMobile />
-            <PhoneButton
-              href={phone.href}
-              label={phone.label}
-              location={phoneLocation}
-              journey={phoneJourney}
-              event={phoneEvent}
-              className="w-full border-white/60 bg-transparent text-white hover:bg-white/10 sm:w-auto"
-            />
+            {phone ? (
+              <PhoneButton
+                href={phone.href}
+                label={phone.label}
+                location={phoneLocation}
+                journey={phoneJourney}
+                event={phoneEvent}
+                className="w-full border-white/60 bg-transparent text-white hover:bg-white/10 sm:w-auto"
+              />
+            ) : null}
           </div>
 
           {secondaryLink ? (

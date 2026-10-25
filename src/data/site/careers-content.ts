@@ -130,6 +130,10 @@ export const careersPageFaq: readonly FaqItem[] = [
     question: "What requirements must applicants meet?",
     answer:
       "A valid driver's license and a background check are required. Contractors also provide their own vehicle, tools, smartphone, and travel resources.",
+    link: {
+      label: "See all installer requirements",
+      href: "/careers/installer-requirements/",
+    },
   },
   {
     question: "Is the starting rate guaranteed?",

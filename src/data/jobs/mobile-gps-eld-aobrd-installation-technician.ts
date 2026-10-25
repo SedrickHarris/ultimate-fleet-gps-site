@@ -81,6 +81,12 @@ export const activeTechnicianJob: JobRecord = {
       footnotes: [
         "Related vehicle electrical, telematics, or mobile installation experience is welcome, and MECP certification is preferred, but neither is required.",
       ],
+      links: [
+        {
+          label: "See all installer requirements",
+          href: "/careers/installer-requirements/",
+        },
+      ],
     },
     {
       h2: "The Work",

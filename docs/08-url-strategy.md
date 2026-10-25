@@ -263,7 +263,7 @@ All candidate-facing pages use the `/careers/` namespace.
 | Assignment process | `/careers/how-assignments-work/` | Launch |
 | Application | `/careers/apply/` | Launch utility |
 | Application confirmation | `/careers/application-received/` | Noindex utility |
-| Candidate FAQs | `/careers/faqs/` | Launch |
+| Candidate FAQs | `/careers/faqs/` - Superseded by /careers/#careers-faq (decision 0013) | Superseded |
 | Installer network | `/careers/join-our-installer-network/` | Launch |
 | Installer training | `/careers/installer-training/` | Conditional |
 | Career resources hub | `/careers/resources/` | Phase 2 |
@@ -1334,7 +1334,7 @@ For every release, verify:
 - `/careers/how-assignments-work/`
 - `/careers/apply/`
 - `/careers/application-received/`
-- `/careers/faqs/`
+- `/careers/faqs/` - Superseded by /careers/#careers-faq (decision 0013)
 - `/careers/join-our-installer-network/`
 - `/careers/installer-network-received/`
 

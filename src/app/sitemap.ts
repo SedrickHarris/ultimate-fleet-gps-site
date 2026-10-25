@@ -45,6 +45,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...activeJobs.map((job) => job.path),
     APPLY_PATH,
     "/careers/mobile-installation-technician/",
+    "/careers/installer-requirements/",
     "/privacy-policy/",
     "/terms/",
     "/accessibility/",
