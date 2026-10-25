@@ -1,6 +1,7 @@
 import Link from "next/link";
 
-import type { JobFaqPart, JobLinkedText } from "@/types/jobs";
+import type { RichFaqPart } from "@/types/content";
+import type { JobLinkedText } from "@/types/jobs";
 
 export const inlineLinkClass =
   "font-semibold text-[var(--color-accent-blue-strong)] underline underline-offset-4";
@@ -35,7 +36,7 @@ export function LinkedText({
 }
 
 /** Text parts in order: plain strings, or text with a link. */
-export function RichParts({ parts }: { readonly parts: readonly JobFaqPart[] }) {
+export function RichParts({ parts }: { readonly parts: readonly RichFaqPart[] }) {
   return (
     <>
       {parts.map((part, index) =>

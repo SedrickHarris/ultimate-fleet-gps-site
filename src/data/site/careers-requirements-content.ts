@@ -1,18 +1,21 @@
-import { activeTechnicianJob, INSTALLER_NETWORK_PATH } from "@/data/jobs";
 import {
-  careersPageFaq,
-  installerNetworkContent,
-} from "@/data/site/careers-content";
+  activeTechnicianJob,
+  APPLY_PATH,
+  INSTALLER_NETWORK_PATH,
+  JOBS_INDEX_PATH,
+} from "@/data/jobs";
+import { careersPageFaq } from "@/data/site/careers-content";
+import { footerBrandLines } from "@/data/navigation/site-navigation";
+import { business } from "@/data/site/business";
 import { careersHubPageContent as hub } from "@/data/site/careers-hub-content";
-import type { Cta, FaqItem } from "@/types/content";
+import type { Cta, FaqItem, RichFaqItem } from "@/types/content";
 
 /**
  * Copy for `/careers/installer-requirements/`, the shared baseline
  * requirements page.
  *
  * Requirement wording is imported from `careersHubPageContent`
- * (careers-hub-content.ts) and the FAQ lists in careers-content.ts, never
- * retyped, so this page and the Installer Network page cannot drift. Only the
+ * (careers-hub-content.ts), never retyped, so this page and the Installer Network page cannot drift. Only the
  * strings defined in this file are new wording: the intro, the "What We Ask of
  * Technicians" heading, the page and section labels, and the two card titles.
  * No new requirement is added (no tools list, insurance, schedule,
@@ -31,11 +34,6 @@ function approvedFaq(
     throw new Error(`Approved FAQ item not found: "${question}"`);
   }
   return item;
-}
-
-/** Same question and answer, minus any link (the link would point at this page). */
-function withoutLink({ question, answer }: FaqItem): FaqItem {
-  return { question, answer };
 }
 
 const NO_GUARANTEE_NOTE = hub.requirements.notes.find((note) =>
@@ -59,11 +57,79 @@ const networkCta: Cta = {
   event: "cta_installer_network_click",
 };
 
-const requirementsFaqItems: readonly FaqItem[] = [
-  approvedFaq(careersPageFaq, "Is prior installation experience required?"),
-  approvedFaq(careersPageFaq, "How much travel is required?"),
-  withoutLink(approvedFaq(careersPageFaq, "What requirements must applicants meet?")),
-  approvedFaq(installerNetworkContent.faq, "Do I need my own vehicle and tools?"),
+const jobPath = activeTechnicianJob.path;
+const hours = footerBrandLines.find((line) => line.startsWith("Monday")) ?? "";
+
+/**
+ * One source for the visible FAQ and its FAQPage JSON-LD. Answers are parts so
+ * several links can sit in a sentence; the schema strips the links.
+ */
+const requirementsFaqItems: readonly RichFaqItem[] = [
+  {
+    question: "Is prior installation experience required?",
+    answer: [
+      "No. Prior installation experience is not required for the current Mobile GPS, ELD and AOBRD Installation Technician opening, and training is provided. Applicants who can follow a checklist, work carefully on commercial vehicles, and document each installation with photos are encouraged to apply.",
+    ],
+  },
+  {
+    question:
+      "Are Installer Network technicians independent contractors or employees?",
+    answer: [
+      "Installer Network technicians work as independent contractors, not employees. Contractors provide their own vehicle, tools, smartphone, and travel resources, and complete installation assignments for Ultimate Fleet GPS customers. Review the ",
+      { text: "current opening", href: jobPath },
+      " for full details on the contractor arrangement.",
+    ],
+  },
+  {
+    question: "What are the requirements to become a GPS and ELD installer?",
+    answer: [
+      "Applicants need a valid driver's license, a successful background check, and a smartphone for submitting installation data and photos. As independent contractors, Installer Network technicians also supply their own personal vehicle, tools, and travel resources, and must be able to travel approximately 75% of the time.",
+    ],
+  },
+  {
+    question: "How much travel does an installer position require?",
+    answer: [
+      "Approximately 75% travel is required, including state-to-state travel. Installers travel to customer fleet locations to complete installations, and contractors cover their own travel resources, so plan for extended time away from home before applying. See ",
+      { text: "current coverage areas", href: "/coverage/" },
+      " and the ",
+      { text: "full opening details", href: jobPath },
+      ".",
+    ],
+  },
+  {
+    question: "What tools and equipment do I need to provide?",
+    answer: [
+      "Independent contractors provide their own reliable personal vehicle, installation tools, travel resources, and a smartphone. The smartphone is used to submit installation data and photos for each job. A valid driver's license is also required. The opening page lists the full requirements.",
+    ],
+  },
+  {
+    question: "What types of devices will I install?",
+    answer: [
+      "Installers work on commercial fleet technology, including ",
+      { text: "GPS tracking", href: "/services/gps-tracking-installation/" },
+      ", ",
+      { text: "ELD", href: "/services/eld-installation/" },
+      " and AOBRD devices, and ",
+      {
+        text: "dashcams and cameras",
+        href: "/services/dashcam-camera-installation/",
+      },
+      ". Training is provided on the installation process, so prior experience with these specific devices is not required.",
+    ],
+  },
+  {
+    question: "How do I apply to become an installer?",
+    // "Arizona time" and "before assignments begin" were left out: neither is
+    // supported by the opening page or the footer. TODO restore the time zone
+    // and background check timing once confirmed.
+    answer: [
+      "Submit an application through the ",
+      { text: "Apply page", href: APPLY_PATH },
+      " or review the ",
+      { text: "current openings", href: JOBS_INDEX_PATH },
+      ` first. Questions can go to ${business.telephone}, ${hours}. Applicants must pass a background check.`,
+    ],
+  },
 ];
 
 export const careersRequirementsContent = {

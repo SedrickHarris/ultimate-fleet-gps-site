@@ -1,6 +1,8 @@
 import type { BreadcrumbItem } from "@/components/layout/Breadcrumbs";
 import { business } from "@/data/site/business";
 import { breadcrumbList } from "@/lib/schema/breadcrumbs";
+import { richFaqPageNode } from "@/lib/schema/faq-page";
+import type { RichFaqItem } from "@/types/content";
 import { organizationRef } from "@/lib/schema/organization";
 
 /**
@@ -9,7 +11,8 @@ import { organizationRef } from "@/lib/schema/organization";
  * `/careers/apply/`.
  *
  * Organization reference, WebPage (or CollectionPage for the jobs index), and
- * BreadcrumbList only.
+ * BreadcrumbList, plus a FAQPage only where a page passes `faq` (the installer
+ * requirements page).
  *
  * JobPosting is deliberately absent and is never added here. These pages are
  * not individual opening pages, so they never carry generic JobPosting even
@@ -23,12 +26,15 @@ export function careersPageSchema({
   description,
   breadcrumbs,
   type = "WebPage",
+  faq,
 }: {
   readonly type?: "WebPage" | "CollectionPage";
   readonly pathname: string;
   readonly h1: string;
   readonly description: string;
   readonly breadcrumbs: readonly BreadcrumbItem[];
+  /** Adds a FAQPage built from the same items the page renders. */
+  readonly faq?: readonly RichFaqItem[];
 }) {
   const url = `${business.url}${pathname}`;
 
@@ -44,6 +50,7 @@ export function careersPageSchema({
         about: organizationRef(),
       },
       breadcrumbList(breadcrumbs),
+      ...(faq ? [richFaqPageNode(url, faq)] : []),
     ],
   };
 }

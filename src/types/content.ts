@@ -80,6 +80,17 @@ export interface SectionContent {
   readonly cta?: Cta;
 }
 
+/** A run of FAQ answer text: plain text, or text with a visible-only link. */
+export type RichFaqPart =
+  | string
+  | { readonly text: string; readonly href: string };
+
+/** A FAQ item whose answer can carry several in-sentence links. */
+export interface RichFaqItem {
+  readonly question: string;
+  readonly answer: readonly RichFaqPart[];
+}
+
 export interface FaqItem {
   readonly question: string;
   readonly answer: string;

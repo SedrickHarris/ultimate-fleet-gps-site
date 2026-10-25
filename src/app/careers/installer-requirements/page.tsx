@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { FaqGroup } from "@/components/content/FaqGroup";
+import { inlineLinkClass } from "@/components/content/LinkedText";
+import { RichFaqSection } from "@/components/content/RichFaqSection";
 import { ServicesHero } from "@/components/content/ServicesHero";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { CardGrid } from "@/components/layout/CardGrid";
@@ -10,6 +11,8 @@ import { JsonLd } from "@/components/schema/JsonLd";
 import { Card } from "@/components/ui/Card";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { ImageSlot } from "@/components/ui/ImageSlot";
+import { activeTechnicianJob, APPLY_PATH } from "@/data/jobs";
+import { business } from "@/data/site/business";
 import { careersRequirementsContent as content } from "@/data/site/careers-requirements-content";
 import { careersRequirementsImages as images } from "@/data/site/careers-requirements-images";
 import { buildPageMetadata } from "@/lib/metadata/build-page-metadata";
@@ -37,8 +40,9 @@ const bulletList =
  * Installer Network page content, so nothing new is asserted here. The age
  * recommendation is omitted pending counsel review (decision 0004).
  *
- * Schema is WebPage + BreadcrumbList + Organization reference only: no
- * JobPosting, FAQPage, Occupation, or Offer. Images are placeholders, so
+ * Schema is WebPage + BreadcrumbList + Organization reference + FAQPage (built
+ * from the same items the accordion renders). No JobPosting, Occupation, or
+ * Offer. Images are placeholders, so
  * production shows the decorative fallback until approved photos exist.
  */
 export default function InstallerRequirementsPage() {
@@ -52,6 +56,7 @@ export default function InstallerRequirementsPage() {
           h1: content.h1,
           description: content.metaDescription,
           breadcrumbs: content.breadcrumbs,
+          faq: faq.items,
         })}
       />
       <Breadcrumbs items={content.breadcrumbs} />
@@ -146,13 +151,22 @@ export default function InstallerRequirementsPage() {
         </div>
       </Section>
 
-      <FaqGroup
-        id="requirements-faq"
-        layout="columns"
-        tone="default"
-        accessibleHeading={faq.h2}
-        content={{ h2: faq.h2, items: faq.items }}
-      />
+      <RichFaqSection id="requirements-faq" h2={faq.h2} items={faq.items}>
+        <p className="mt-8 text-[length:var(--text-body-lg)] leading-relaxed text-ink">
+          Ready to apply?{" "}
+          <Link href={APPLY_PATH} className={inlineLinkClass}>
+            Apply now
+          </Link>{" "}
+          or call{" "}
+          <a
+            href={activeTechnicianJob.closing.phoneHref}
+            className={inlineLinkClass}
+          >
+            {business.telephone}
+          </a>
+          .
+        </p>
+      </RichFaqSection>
 
       <Section tone="default" width="site" density="compact">
         <p>
