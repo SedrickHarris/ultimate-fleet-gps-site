@@ -62,7 +62,7 @@ export function Header() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-[1280px] flex-wrap items-center gap-x-8 gap-y-4 px-5 py-4 md:px-6">
+      <div className="mx-auto flex max-w-[1280px] flex-wrap items-center gap-x-4 gap-y-3 px-5 py-2 md:gap-x-8 md:px-6">
         <Link
           href="/"
           aria-label="Ultimate Fleet GPS"
@@ -74,7 +74,7 @@ export function Header() {
             alt="Ultimate Fleet GPS"
             width={1200}
             height={360}
-            className="h-auto w-[190px] max-w-full lg:w-[250px]"
+            className="h-auto w-[140px] max-w-full sm:w-[160px] lg:w-[190px]"
           />
         </Link>
 
