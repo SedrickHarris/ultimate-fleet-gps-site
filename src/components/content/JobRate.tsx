@@ -4,7 +4,6 @@ import { Section } from "@/components/layout/Section";
 import { Card } from "@/components/ui/Card";
 import { CompactTile } from "@/components/ui/CompactTile";
 import { Icon, type IconName } from "@/components/ui/Icon";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { NoticeBar } from "@/components/ui/NoticeBar";
 import { iconCircle } from "@/components/ui/StepCard";
 import type { Cta } from "@/types/content";
@@ -20,12 +19,11 @@ interface JobRateSectionProps {
 const h3Class = "text-[length:var(--text-h4)] font-bold text-ink";
 
 /**
- * Starting rate section. The top row is the H2 and answer beside the image
- * placeholder (two columns from lg). Below, full width: the rate stat card
- * (figure, unit, "Starting rate" badge, and the disclosure at body size), two
- * explanation cards, compact "what you provide" tiles, a contractor-status
- * notice bar, and the apply band. The figure always travels with its
- * disclosure. The media is static (CLAUDE.md section 8).
+ * Starting rate section on the dark surface, with no image. The H2 and answer
+ * sit above, then full width: the rate stat card (figure, unit, "Starting rate"
+ * badge, and the disclosure at body size), two explanation cards, compact
+ * "what you provide" tiles, a contractor-status notice bar, and the apply
+ * band. The figure always travels with its disclosure.
  */
 export function JobRateSection({
   id,
@@ -37,25 +35,16 @@ export function JobRateSection({
 
   return (
     <Section id={id} tone={tone} width="site" labelledBy={headingId}>
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-start lg:gap-16">
-        <div>
-          <h2
-            id={headingId}
-            className="text-[length:var(--text-h2)] leading-[1.12] font-bold text-balance text-[var(--color-text-on-dark)]"
-          >
-            {content.h2}
-          </h2>
-          <p className="mt-5 text-[length:var(--text-body-lg)] leading-relaxed font-medium text-pretty text-[var(--color-text-on-dark)]">
-            {content.answer}
-          </p>
-        </div>
-
-        {/*
-          Image slot. Intended alt text: "Installation technician reviewing
-          completed work on a smartphone beside a fleet truck". See
-          ImagePlaceholder for the swap.
-        */}
-        <ImagePlaceholder slot="careers-technician-starting-rate" onDark />
+      <div className="max-w-[820px]">
+        <h2
+          id={headingId}
+          className="text-[length:var(--text-h2)] leading-[1.12] font-bold text-balance text-[var(--color-text-on-dark)]"
+        >
+          {content.h2}
+        </h2>
+        <p className="mt-5 text-[length:var(--text-body-lg)] leading-relaxed font-medium text-pretty text-[var(--color-text-on-dark)]">
+          {content.answer}
+        </p>
       </div>
 
       <div

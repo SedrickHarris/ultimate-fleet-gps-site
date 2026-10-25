@@ -92,21 +92,24 @@ export function JobRequirementsSection({
         ))}
       </ul>
 
-      <div className="mt-10 rounded-[var(--radius-lg)] border border-[var(--color-accent-blue-strong)]/30 bg-[var(--color-accent-blue-strong)]/10 p-6 md:p-8">
-        <h3 className="text-[length:var(--text-h3)] leading-tight font-bold text-ink">
+      <div
+        data-tone="dark"
+        className="mt-10 rounded-[var(--radius-lg)] border border-[var(--color-border-dark)] bg-[var(--color-surface-dark)] p-6 text-[var(--color-text-on-dark)] md:p-8"
+      >
+        <h3 className="text-[length:var(--text-h3)] leading-tight font-bold text-[var(--color-text-on-dark)]">
           {content.notNeededHeading}
         </h3>
         <ul className="mt-5 grid list-none grid-cols-1 gap-5 p-0 md:grid-cols-2 md:gap-8">
           {content.notNeeded.map((item) => (
             <li key={item.lead} className="flex items-start gap-4">
-              <span className={bigCircle}>
+              <span className="grid size-14 shrink-0 place-items-center rounded-full bg-white/10 text-[var(--color-text-on-dark)]">
                 <Icon name={item.icon} size={28} />
               </span>
               <span className="flex flex-col gap-1">
-                <strong className="text-[length:var(--text-h4)] leading-snug font-bold text-ink">
+                <strong className="text-[length:var(--text-h4)] leading-snug font-bold text-[var(--color-text-on-dark)]">
                   {item.lead}
                 </strong>
-                <span className="text-[length:var(--text-body)] leading-relaxed text-ink">
+                <span className="text-[length:var(--text-body)] leading-relaxed text-[var(--color-text-on-dark)]/90">
                   {item.detail}
                 </span>
               </span>

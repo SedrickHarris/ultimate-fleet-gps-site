@@ -13,23 +13,29 @@ export function NoticeBar({
   children,
   className = "",
   onDark = false,
+  navy = false,
 }: {
   readonly icon: IconName;
   readonly children: ReactNode;
   readonly className?: string;
   readonly onDark?: boolean;
+  /** Solid navy fill with light text, for a notice on a light section. */
+  readonly navy?: boolean;
 }) {
   return (
     <p
+      data-tone={navy ? "dark" : undefined}
       className={`flex items-start gap-3 rounded-md px-4 py-3 text-[length:var(--text-body)] leading-relaxed ${
-        onDark
-          ? "bg-white/10 text-[var(--color-text-on-dark)]"
-          : "bg-[var(--color-accent-blue-strong)]/10 text-ink"
+        navy
+          ? "bg-[var(--color-surface-dark)] text-[var(--color-text-on-dark)]"
+          : onDark
+            ? "bg-white/10 text-[var(--color-text-on-dark)]"
+            : "bg-[var(--color-accent-blue-strong)]/10 text-ink"
       } ${className}`.trim()}
     >
       <span
         className={`mt-0.5 ${
-          onDark
+          onDark || navy
             ? "text-[var(--color-text-on-dark)]"
             : "text-[var(--color-accent-blue-strong)]"
         }`}

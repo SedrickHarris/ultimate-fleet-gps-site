@@ -78,7 +78,7 @@ export function JobApplySection({
         <LinkedText text={content.beforeClosing} />
       </p>
 
-      <NoticeBar icon="info" className="mt-8">
+      <NoticeBar icon="info" className="mt-8" navy>
         {disclaimer}
       </NoticeBar>
 
