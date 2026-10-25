@@ -3,6 +3,7 @@ import { Section } from "@/components/layout/Section";
 import { Card } from "@/components/ui/Card";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Icon } from "@/components/ui/Icon";
+import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { iconCircle, StepCard } from "@/components/ui/StepCard";
 import type { Cta } from "@/types/content";
 import type { JobAbout } from "@/types/jobs";
@@ -22,8 +23,9 @@ const pClass =
   "mt-2 max-w-[820px] text-[length:var(--text-body)] leading-relaxed text-pretty text-ink-muted";
 
 /**
- * Opening overview, with no image. The H2 and answer paragraph sit above
- * everything else, which spans the full container: opening details as a grid of icon cards (4 / 2 / 1 columns), fit,
+ * Opening overview. The top row is the H2 and answer paragraph beside the
+ * image placeholder (two columns from lg). Everything below spans the full
+ * container: opening details as a grid of icon cards (4 / 2 / 1 columns), fit,
  * contractor status, and how to apply as connected step cards. The media is
  * static (CLAUDE.md section 8).
  */
@@ -37,13 +39,21 @@ export function JobAboutSection({
 
   return (
     <Section id={id} tone={tone} width="site" labelledBy={headingId}>
-      <div className="max-w-[820px]">
-        <h2 id={headingId} className={h2Class}>
-          {content.h2}
-        </h2>
-        <p className="mt-5 text-[length:var(--text-body-lg)] leading-relaxed font-medium text-pretty text-ink">
-          {content.answer}
-        </p>
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-start lg:gap-16">
+        <div>
+          <h2 id={headingId} className={h2Class}>
+            {content.h2}
+          </h2>
+          <p className="mt-5 text-[length:var(--text-body-lg)] leading-relaxed font-medium text-pretty text-ink">
+            {content.answer}
+          </p>
+        </div>
+
+        {/*
+          Image slot. Intended alt text: "Technician installing an ELD device
+          in a commercial truck cab". See ImagePlaceholder for the swap.
+        */}
+        <ImagePlaceholder slot="careers-technician-about" />
       </div>
 
       <h3 id="opening-details" className={`${h3Class} scroll-mt-6`}>

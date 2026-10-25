@@ -17,7 +17,6 @@ import {
   JOBS_INDEX_PATH,
 } from "@/data/jobs";
 import { utilityBar } from "@/data/navigation/site-navigation";
-import { careersHubImages } from "@/data/site/careers-hub-images";
 import { AnalyticsEvent } from "@/lib/analytics/events";
 import { buildPageMetadata } from "@/lib/metadata/build-page-metadata";
 import { jobFaqPageSchema } from "@/lib/schema/job-faq";
@@ -96,7 +95,6 @@ export default function ActiveOpeningPage() {
         phoneJourney="recruitment"
         phoneEvent={null}
         scopeItems={job.heroScopeItems}
-        image={careersHubImages.hero}
       />
 
       <JobAboutSection
