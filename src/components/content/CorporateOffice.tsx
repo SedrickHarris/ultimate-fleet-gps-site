@@ -3,6 +3,8 @@ import { formatAddressLines } from "@/data/site/business";
 interface CorporateOfficeProps {
   /** Spacing or layout classes from the caller, for example "mt-6". */
   readonly className?: string;
+  /** Text colors for a dark surface. Defaults to light. */
+  readonly tone?: "light" | "dark";
 }
 
 /**
@@ -17,14 +19,26 @@ interface CorporateOfficeProps {
  * installation facility. No map, no directions link, no hours, and no
  * local-service wording belong here.
  */
-export function CorporateOffice({ className = "" }: CorporateOfficeProps) {
+export function CorporateOffice({
+  className = "",
+  tone = "light",
+}: CorporateOfficeProps) {
+  const dark = tone === "dark";
   const [streetLine, cityLine] = formatAddressLines();
 
   return (
     <address
-      className={`text-[length:var(--text-small)] text-ink-muted not-italic ${className}`.trim()}
+      className={`text-[length:var(--text-small)] not-italic ${
+        dark ? "text-[var(--color-text-on-dark)]/90" : "text-ink-muted"
+      } ${className}`.trim()}
     >
-      <span className="block font-semibold text-ink">Corporate office</span>
+      <span
+        className={`block font-semibold ${
+          dark ? "text-[var(--color-text-on-dark)]" : "text-ink"
+        }`}
+      >
+        Corporate office
+      </span>
       <span className="block">{streetLine}</span>
       <span className="block">{cityLine}</span>
     </address>

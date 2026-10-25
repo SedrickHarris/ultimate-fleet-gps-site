@@ -1,25 +1,25 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-
 import { TrackOnMount } from "@/components/analytics/TrackOnMount";
-import { CorporateOffice } from "@/components/content/CorporateOffice";
-import { FaqGroup } from "@/components/content/FaqGroup";
+import { JobAboutSection } from "@/components/content/JobAbout";
+import { JobClosingSection } from "@/components/content/JobClosing";
+import { JobFaqSection } from "@/components/content/JobFaq";
+import { JobApplySection } from "@/components/content/JobApply";
+import { JobRateSection } from "@/components/content/JobRate";
+import { JobRequirementsSection } from "@/components/content/JobRequirements";
+import { JobWorkSection } from "@/components/content/JobWork";
 import { ServicesHero } from "@/components/content/ServicesHero";
-import { SplitFeature } from "@/components/content/SplitFeature";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
-import { Section } from "@/components/layout/Section";
 import { JsonLd } from "@/components/schema/JsonLd";
-import { CtaButton } from "@/components/ui/CtaButton";
 import {
   activeTechnicianJob as job,
   applyCta,
-  INSTALLER_NETWORK_PATH,
   JOBS_INDEX_PATH,
 } from "@/data/jobs";
 import { utilityBar } from "@/data/navigation/site-navigation";
 import { careersHubImages } from "@/data/site/careers-hub-images";
 import { AnalyticsEvent } from "@/lib/analytics/events";
 import { buildPageMetadata } from "@/lib/metadata/build-page-metadata";
+import { jobFaqPageSchema } from "@/lib/schema/job-faq";
 import { jobPostingPageSchema } from "@/lib/schema/job-posting";
 
 const BREADCRUMBS = [
@@ -30,7 +30,7 @@ const BREADCRUMBS = [
 ];
 
 export const metadata: Metadata = buildPageMetadata({
-  title: job.title,
+  title: job.metaTitle,
   description: job.metaDescription,
   pathname: job.path,
 });
@@ -50,6 +50,7 @@ export default function ActiveOpeningPage() {
   return (
     <>
       <JsonLd schema={jobPostingPageSchema({ job, breadcrumbs: BREADCRUMBS })} />
+      <JsonLd schema={jobFaqPageSchema(job)} />
       <TrackOnMount
         event={AnalyticsEvent.activeOpeningView}
         params={{ jobSlug: job.slug }}
@@ -63,7 +64,7 @@ export default function ActiveOpeningPage() {
         primaryCta={applyCta}
         qualifier="Applicants are accepted nationwide, and no closing date is currently published."
         phone={{
-          href: utilityBar.phoneHref,
+          href: job.closing.phoneHref,
           label: `Call ${utilityBar.phoneLabel}`,
         }}
         phoneLocation="careers-job-hero"
@@ -73,69 +74,43 @@ export default function ActiveOpeningPage() {
         image={careersHubImages.hero}
       />
 
-      {job.sections.map((section, index) => (
-        <SplitFeature
-          key={section.h2}
-          id={`opening-${index + 1}`}
-          tone={index % 2 === 0 ? "default" : "subtle"}
-          content={section}
-        />
-      ))}
-
-      <Section tone="subtle" density="spacious" labelledBy="opening-apply-heading">
-        <h2
-          id="opening-apply-heading"
-          className="text-[length:var(--text-h2)] leading-[1.12] font-bold text-balance text-ink"
-        >
-          Ready to Apply?
-        </h2>
-        <p className="mt-4 text-[length:var(--text-body-lg)] leading-relaxed text-pretty text-ink-muted">
-          Complete the application for this opening. Applicants are accepted
-          nationwide.
-        </p>
-        <p className="mt-4 rounded-md border border-border bg-surface p-4 text-[length:var(--text-small)] leading-relaxed text-ink">
-          {job.disclaimer}
-        </p>
-        <div className="mt-6">
-          <CtaButton cta={applyCta} emphasis="primary" blockOnMobile />
-        </div>
-        <p className="mt-6 text-[length:var(--text-small)] text-ink-muted">
-          Looking for future opportunities instead? The{" "}
-          <Link
-            href={INSTALLER_NETWORK_PATH}
-            className="font-semibold text-[var(--color-accent-blue-strong)] underline underline-offset-4"
-          >
-            Installer Network
-          </Link>{" "}
-          is a separate registration and is not an application.
-        </p>
-      </Section>
-
-      <FaqGroup
-        id="opening-faq"
-        accessibleHeading={`${job.title} questions`}
-        content={{ h2: "Questions About This Opening", items: job.faq }}
+      <JobAboutSection
+        id="about-opening"
+        tone="default"
+        content={job.about}
+        cta={applyCta}
       />
 
-      <Section tone="subtle" density="compact" labelledBy="opening-contact-heading">
-        <h2
-          id="opening-contact-heading"
-          className="text-[length:var(--text-h4)] font-bold text-ink"
-        >
-          Questions about this opening?
-        </h2>
-        <p className="mt-2 text-[length:var(--text-body)] text-ink-muted">
-          Call{" "}
-          <a
-            href={utilityBar.phoneHref}
-            className="font-semibold text-[var(--color-accent-blue-strong)] underline underline-offset-4"
-          >
-            {utilityBar.phoneLabel}
-          </a>
-          , Monday-Friday, 8:00 AM-6:00 PM.
-        </p>
-        <CorporateOffice className="mt-6" />
-      </Section>
+      <JobRequirementsSection
+        id="requirements"
+        tone="subtle"
+        content={job.requirements}
+      />
+
+      <JobWorkSection id="the-work" tone="default" content={job.work} />
+
+      <JobRateSection
+        id="starting-rate"
+        tone="brandTint"
+        content={job.rate}
+        cta={applyCta}
+      />
+
+      <JobApplySection
+        id="apply"
+        tone="subtle"
+        content={job.apply}
+        disclaimer={job.disclaimer}
+        cta={{ ...applyCta, label: job.apply.ctaLabel }}
+      />
+
+      <JobFaqSection id="opening-faq" job={job} />
+
+      <JobClosingSection
+        id="contact-apply"
+        content={job.closing}
+        cta={{ ...applyCta, label: job.closing.ctaLabel }}
+      />
     </>
   );
 }

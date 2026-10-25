@@ -40,23 +40,34 @@ function escapeHtml(value: string): string {
 export function jobDescriptionHtml(job: JobRecord): string {
   const parts: string[] = [`<p>${escapeHtml(job.intro)}</p>`];
 
-  for (const section of job.sections) {
-    parts.push(`<h3>${escapeHtml(section.h2)}</h3>`);
-    for (const paragraph of section.body) {
-      parts.push(`<p>${escapeHtml(paragraph)}</p>`);
-    }
-    for (const list of section.lists ?? []) {
-      if (list.heading) {
-        parts.push(`<p><strong>${escapeHtml(list.heading)}</strong></p>`);
-      }
-      parts.push(
-        `<ul>${list.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`,
-      );
-    }
-    for (const note of section.footnotes ?? []) {
-      parts.push(`<p>${escapeHtml(note)}</p>`);
-    }
-  }
+  const list = (items: readonly string[]) =>
+    `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+  const bold = (text: string) => `<p><strong>${escapeHtml(text)}</strong></p>`;
+
+  const about = job.about;
+  parts.push(`<h3>${escapeHtml(about.h2)}</h3>`, `<p>${escapeHtml(about.answer)}</p>`);
+  parts.push(bold(about.detailsHeading));
+  parts.push(list(about.details.map((row) => `${row.term}: ${row.definition}`)));
+  parts.push(`<p>${escapeHtml(about.status)}</p>`);
+
+  const req = job.requirements;
+  parts.push(`<h3>${escapeHtml(req.h2)}</h3>`, `<p>${escapeHtml(req.answer)}</p>`);
+  parts.push(bold(req.needHeading));
+  parts.push(list(req.need.map((item) => `${item.lead} ${item.detail}`)));
+  parts.push(bold(req.notNeededHeading));
+  parts.push(list(req.notNeeded.map((item) => `${item.lead} ${item.detail}`)));
+  parts.push(`<p>${escapeHtml(req.preferred)}</p>`);
+
+  const work = job.work;
+  parts.push(`<h3>${escapeHtml(work.h2)}</h3>`, `<p>${escapeHtml(work.answer)}</p>`);
+  parts.push(`<p>${escapeHtml(work.vehicles)}</p>`);
+  parts.push(list(work.equipment.map((item) => `${item.term}: ${item.definition}`)));
+  parts.push(`<p>${escapeHtml(work.photo)}</p>`);
+
+  parts.push(
+    `<h3>${escapeHtml(job.rate.h2)}</h3>`,
+    `<p>${escapeHtml(job.rate.answer)}</p>`,
+  );
 
   parts.push(`<p>${escapeHtml(job.disclaimer)}</p>`);
   return parts.join("");
@@ -102,6 +113,9 @@ export function jobPostingPageSchema({
             unitText: rate.unit,
           },
         },
+        responsibilities: job.work.responsibilities,
+        experienceRequirements: job.requirements.experienceRequirements,
+        qualifications: job.requirements.qualifications,
         applicantLocationRequirements: {
           "@type": "Country",
           name: business.address.addressCountry,

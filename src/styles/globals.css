@@ -11,6 +11,8 @@
   --color-ink-muted: #4b5563;
   --color-surface: #ffffff;
   --color-surface-subtle: #f5f7fa;
+  /* Light brand tint for emphasis sections. ink 15.66:1, ink-muted 6.67:1, accent-blue-strong 5.54:1 on it. */
+  --color-surface-brand-tint: #e6f3f8;
   --color-border: #d9e0ea;
 
   /*

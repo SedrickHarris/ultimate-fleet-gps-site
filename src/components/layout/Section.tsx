@@ -8,7 +8,7 @@ import type { ReactNode } from "react";
  * removed along with the brand-soft token it depended on; a section that
  * previously used it now uses `subtle` or `dark` depending on intent.
  */
-type Tone = "default" | "subtle" | "dark";
+type Tone = "default" | "subtle" | "brandTint" | "dark";
 
 /**
  * The data-tone marker this tone renders. Used by the focus-ring CSS in
@@ -18,6 +18,7 @@ type Tone = "default" | "subtle" | "dark";
 const dataTone: Record<Tone, "light" | "subtle" | "dark"> = {
   default: "light",
   subtle: "subtle",
+  brandTint: "subtle",
   dark: "dark",
 };
 
@@ -32,6 +33,7 @@ interface SectionProps {
   readonly tone?: Tone;
   readonly density?: Density;
   readonly width?: Width;
+  readonly id?: string;
   readonly labelledBy?: string;
   /**
    * Decorative background image under the content (empty alt, hidden from
@@ -53,6 +55,7 @@ interface SectionProps {
 const toneClasses: Record<Tone, string> = {
   default: "bg-surface text-ink",
   subtle: "bg-surface-subtle text-ink",
+  brandTint: "bg-[var(--color-surface-brand-tint)] text-ink",
   dark: "bg-[var(--color-surface-dark)] text-[var(--color-text-on-dark)]",
 };
 
@@ -93,6 +96,7 @@ export function Section({
   tone = "default",
   density = "standard",
   width = "reading",
+  id,
   labelledBy,
   backgroundImage,
   backgroundOverlay = false,
@@ -101,9 +105,10 @@ export function Section({
 }: SectionProps) {
   return (
     <section
+      id={id}
       data-tone={dataTone[tone]}
       aria-labelledby={labelledBy}
-      className={`px-5 md:px-6 ${toneClasses[tone]} ${densityClasses[density]}${
+      className={`${id ? "scroll-mt-6 " : ""}px-5 md:px-6 ${toneClasses[tone]} ${densityClasses[density]}${
         backgroundImage ? " relative isolate overflow-hidden" : ""
       }`}
     >

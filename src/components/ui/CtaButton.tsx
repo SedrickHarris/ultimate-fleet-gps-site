@@ -9,6 +9,8 @@ interface CtaButtonProps {
   readonly emphasis: Emphasis;
   /** Full width below the sm breakpoint, for stacked CTA pairs. */
   readonly blockOnMobile?: boolean;
+  /** Primary only: white border so the fill reads against a navy surface. */
+  readonly onDark?: boolean;
 }
 
 /**
@@ -79,6 +81,7 @@ export function CtaButton({
   cta,
   emphasis,
   blockOnMobile = false,
+  onDark = false,
 }: CtaButtonProps) {
   return (
     <Link
@@ -92,7 +95,12 @@ export function CtaButton({
         "transition-[background-color,box-shadow,transform,border-color,filter] duration-[var(--duration-fast)] ease-[var(--ease-out-soft)]",
         "hover:-translate-y-px active:translate-y-0",
         blockOnMobile ? "w-full sm:w-auto" : "",
-        emphasisClasses[emphasis],
+        onDark
+          ? emphasisClasses[emphasis].replace(
+              "border-transparent",
+              "border-white",
+            )
+          : emphasisClasses[emphasis],
       ].join(" ")}
     >
       {cta.labelBreakAfter && cta.label.startsWith(cta.labelBreakAfter) ? (
