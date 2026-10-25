@@ -319,6 +319,16 @@ Development, production publication, and indexation are separate decisions.
 
 ---
 
+### Launch-day order
+
+Run these in order on launch day. They overlap with the items above (custom domain in section 17, sitemap submission in this section), which are kept as general gates.
+
+- [ ] Step 1: Attach `ultimatefleetgps.net` as the Pages custom domain and confirm HTTPS serves the site.
+- [ ] Step 2: Confirm canonicals, `og:url`, the sitemap, and schema URLs all use `https://ultimatefleetgps.net/` on the live host.
+- [ ] Step 3: Remove the pages.dev `noindex` for the production hostname and add the 301 to `https://ultimatefleetgps.net/`. Preview hostnames keep the `noindex`.
+- [ ] Step 4: Add and verify the property in Google Search Console and Bing Webmaster Tools, then submit the sitemap.
+- [ ] Step 5: Update the website URL in Google Business Profile, Bing Places, and Apple Business Connect to `ultimatefleetgps.net`.
+
 ## 20. Rollback and Incident Readiness
 
 - [ ] Previous working deployment is identified.
@@ -399,7 +409,7 @@ Launch is complete when the approved release is deployed to the correct Cloudfla
 
 The application flow is built and tested against a simulated endpoint. It must not go live to applicants until every item below is checked. Nothing here is complete unless it is checked.
 
-- [ ] `NEXT_PUBLIC_FORMS_ENDPOINT` is set in Cloudflare Pages for Production, and for Preview if previews should submit, and the site is redeployed. The value is baked in at build time, so a redeploy is required. As of September 19, 2026 it is NOT configured: the deployed bundle at `sb-mobile-installations-site.pages.dev` compiles the setting as an unset reference, and every form there (commercial, Installer Network, and application) shows the "isn't accepting submissions" fallback.
+- [ ] `NEXT_PUBLIC_FORMS_ENDPOINT` is set in Cloudflare Pages for Production, and for Preview if previews should submit, and the site is redeployed. The value is baked in at build time, so a redeploy is required. As of September 19, 2026 it is NOT configured: the deployed bundle at the temporary build domain `https://ultimate-fleet-gps-site.pages.dev/` compiles the setting as an unset reference, and every form there (commercial, Installer Network, and application) shows the "isn't accepting submissions" fallback.
 - [ ] The trusted backend accepts `formType: "job_application"` payloads, stores the background-check consent, acknowledgments, and privacy consent, and has a decided retention period and processor list.
 - [ ] After deployment, one real submission from the deployed site is received by the backend, and the browser lands on `/careers/application-received/` showing "Application Received".
 - [ ] After deployment, an endpoint failure is checked once (for example a temporary bad URL in Preview): the form shows the failure message and the call fallback, keeps the entered values, and never redirects.

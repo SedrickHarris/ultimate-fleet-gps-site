@@ -151,7 +151,7 @@ Use stable, descriptive names.
 
 | Resource | Recommended name |
 |---|---|
-| Pages project | `sb-mobile-installations-site` |
+| Pages project | `ultimate-fleet-gps-site` |
 | Production branch | `main` |
 | Custom domain | `ultimatefleetgps.net` or approved canonical host |
 | Preview environment | Cloudflare-generated branch and commit deployments |
@@ -548,7 +548,7 @@ Apply `X-Robots-Tag: noindex, nofollow` to the Pages project hostname and previe
 Example pattern requiring replacement with the actual project hostname and live verification:
 
 ```text
-https://sb-mobile-installations-site.pages.dev/*
+https://ultimate-fleet-gps-site.pages.dev/*
   X-Robots-Tag: noindex, nofollow
 ```
 
@@ -578,6 +578,34 @@ The default production Pages hostname can also become discoverable. Either:
 - redirect only the production project hostname to the canonical custom domain through a host-capable Cloudflare Redirect Rule.
 
 Do not redirect all wildcard preview hostnames to production, because that would destroy preview behavior and could publish unapproved paths indirectly.
+
+### pages.dev indexing
+
+`https://ultimate-fleet-gps-site.pages.dev/` is the temporary build domain. The live domain will be `https://ultimatefleetgps.net/`. Handle the two phases differently.
+
+**Before launch**
+
+- The pages.dev build domain must not be indexed.
+- Use a hostname-scoped `X-Robots-Tag: noindex` rule in `public/_headers` that targets only the pages.dev hostnames. Never use a bare `/*` rule, because `public/_headers` applies to every host serving the build, including production.
+- Per the Cloudflare Pages Headers documentation, a rule scoped to a host puts the full `https` URL on the first line, and hostname placeholders (`:name`) are allowed. Placeholders stop at a period. Example pattern, to be verified against the live documentation before use:
+
+```text
+https://ultimate-fleet-gps-site.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.ultimate-fleet-gps-site.pages.dev/*
+  X-Robots-Tag: noindex
+```
+
+- Canonical URLs already point to `https://ultimatefleetgps.net/`, which does not resolve until the custom domain is attached. Canonicals alone do not prevent indexing of the build domain.
+
+**At launch**
+
+- Remove the `noindex` rule for the production pages.dev hostname.
+- Add a Cloudflare Redirect Rule in the dashboard that 301s the production pages.dev hostname to `https://ultimatefleetgps.net/`.
+- Redirect only that hostname. Never redirect preview wildcard hosts, which keep the `noindex` rule.
+
+**Never combine** `noindex` and the 301 on the same host. Cloudflare documents that redirects take priority over headers when both match, so a combined rule would silently drop the `noindex`.
 
 ---
 
@@ -849,7 +877,7 @@ The following is a starting point, not a copy-and-deploy final policy:
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable
 
-https://sb-mobile-installations-site.pages.dev/*
+https://ultimate-fleet-gps-site.pages.dev/*
   X-Robots-Tag: noindex, nofollow
 ```
 
