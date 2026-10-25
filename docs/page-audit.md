@@ -13,19 +13,19 @@
 | Built route that returns 404 by design | 1 (`/case-studies/`) | `src/app/case-studies/page.tsx`, `src/data/site/case-studies.ts` (empty registry, `notFound()`) |
 | Noindexed utility routes | 3 | `noIndex: true` in `application-received`, `installer-network-received`, `thank-you/service-request` |
 | Sitemap URLs | 31 | `src/app/sitemap.ts` (matches the 34 live routes minus the 3 noindexed) |
-| Outstanding entries with repo evidence (section 3) | 20: 2 core or utility, 5 recruitment, 3 commercial or supporting, 3 conditional hubs, 5 superseded or scope decisions, 2 blocked by missing proof | Section 3 |
-| Of those, status Missing | 9 (About, 404, requirements, assignments, candidate FAQs, career resources, remaining commercial articles, technology hub, solutions hub) | Section 3 |
-| Of those, superseded, slug divergence, or not needed now | 5 | Section 3.5 |
+| Outstanding entries with repo evidence (section 3) | 19: 2 core or utility, 5 recruitment, 3 commercial or supporting, 3 conditional hubs, 4 superseded or scope decisions, 2 blocked by missing proof. `/request-a-quote/` was removed from this count (decision 0011) | Section 3 |
+| Of those, status Missing | 8 (About, requirements, assignments, candidate FAQs, career resources, remaining commercial articles, technology hub, solutions hub) | Section 3 |
+| Of those, superseded, slug divergence, or not needed now | 4 (`/request-a-quote/` is recorded in section 3.5 as superseded by decision 0011 and no longer counts as outstanding) | Section 3.5 |
 | Broken inbound internal links (literal hrefs in `src/`) | 0 found | Section 4 |
 | Stub or thin pages | 1 route family (4 resource articles), plus 1 empty-by-design route | Section 5 |
 | Orphan pages (built, no inbound link) | 0 unintended. `/case-studies/` is unlinked by design. | Section 5 |
-| Stale `.gitkeep` placeholder folders under `src/app/` | 19 | `find src/app -name .gitkeep` |
+| Stale `.gitkeep` placeholder folders under `src/app/` | 18 (`request-a-quote` deleted, decision 0011) | `find src/app -name .gitkeep` |
 | Keyword research outputs in repo | 0 (no `opportunities.json`, `keyword-clusters.json`, `route-manifest.json`, `selected-opportunity.json`, `page-brief.json`, or keyword CSVs; no `docs/seo/` folder) | Section 6 |
 
 Headline findings:
 
 1. The planned launch inventory in `docs/07-site-architecture.md` section 6 and `docs/08-url-strategy.md` is older than the build. The build diverged on purpose in several places (`/coverage/` instead of `/service-areas/`, `/faq/` instead of `/faqs/`, `/contact/` quote-first, network page kept at its original slug). Those are recorded in decisions 0006, 0007, 0008, and 0009. They are not gaps, but the planning docs and the 19 `.gitkeep` folders still describe the old routes.
-2. The only unambiguous missing core and utility pages are `/about/` and a site-wide 404 (`not-found.tsx`).
+2. The only unambiguous missing core page is `/about/`. The site-wide 404 (`not-found.tsx`) is now built (decision 0012).
 3. The largest real content gap is the recruitment support cluster under `/careers/` (requirements, how assignments work, candidate FAQs) and the unwritten resource articles.
 4. Every page after those depends on stakeholder approvals or keyword work that does not exist in the repo yet.
 
@@ -83,7 +83,7 @@ Workflow for every row: the build starts with `/seo-automation-pipeline`, with i
 | Priority | Page | Slug | Type | Status | Evidence | Dependencies | Workflow |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | High | About | `/about/` | core | Missing | `src/app/about/.gitkeep` only. Registry row in `docs/07-site-architecture.md` (priority Launch) and section 29. `docs/08-url-strategy.md` lines 531 and 1346. `docs/13-schema-markup-plan.md` line 334 names `AboutPage`. Footer comment in `src/data/navigation/site-navigation.ts` says "There is no About route" | `docs/07` section 29 states prerequisites: company description, entity structure, leadership, history, and claims need approval. Leadership and history are not approved facts in the repo (**Unverified**) | Pipeline first, then individual-page build prompts (`prompts/individual-homepage-research-prompt.md` and `prompts/conversion-page-research-prompt.md` are the closest fits) |
-| High | 404 page | not applicable (`src/app/not-found.tsx`) | utility | Missing | No `not-found.tsx` under `src/app/` (listing of `src/`). Required by `docs/26-launch-checklist.md` lines 134 and 297 and `docs/25-quality-assurance-checklist.md` line 393. `docs/16-technical-architecture.md` line 408 lists the file | Must link to Careers and Contact per `docs/26` line 134. No keyword work needed | Not a search page. Pipeline start still applies per the standing rule, but expect it to confirm "no keyword target". Build with the Core Mode build prompt (Prompt 06) |
+| High | 404 page | not applicable (`src/app/not-found.tsx`) | utility | Built (uncommitted) | `src/app/not-found.tsx`, noindex, no canonical, excluded from sitemap. Decision 0012. Brief: `docs/briefs/404-page-brief.md`. Cloudflare preview check still pending | Links to Careers and Contact per `docs/26` line 134 | None |
 
 ### 3.2 Recruitment support (Careers)
 
@@ -115,11 +115,11 @@ Recruitment is documented as the primary funnel (`CLAUDE.md` section 4, `docs/28
 
 ### 3.5 Planned routes that look superseded or need a scope decision
 
-These have empty `.gitkeep` folders or planning-doc rows, but a built page already covers the intent. They are not recommended for building until the stakeholder confirms.
+`/request-a-quote/` is kept in this table as history only. It is superseded by `/contact/` (decision 0011) and is not outstanding. The remaining rows have empty `.gitkeep` folders or planning-doc rows, but a built page already covers the intent. They are not recommended for building until the stakeholder confirms.
 
 | Priority | Page | Slug | Type | Status | Evidence | Dependencies | Workflow |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Medium | Request a Quote | `/request-a-quote/` | commercial conversion | Unverified (likely superseded) | `src/app/request-a-quote/.gitkeep`. `docs/07` registry and section 31. `docs/08` lines 533 and 787. Decision 0008 makes `/contact/` the quote-first page with `CommercialInquiryForm`, and says `/request-a-quote/` "is not changed", which leaves its status ambiguous | Stakeholder decision: keep `/contact/` as the only quote route, or add a second route. A second route would need distinct intent to avoid duplicate-content risk | Decision first. If approved, pipeline then conversion-page prompts |
+| Resolved | Request a Quote | `/request-a-quote/` | commercial conversion | Superseded by /contact/ (decision 0011) | The route was never built or live (only `src/app/request-a-quote/.gitkeep` ever existed, now deleted). `docs/07` registry and section 31, and `docs/08`, are marked superseded. Decision 0008 made `/contact/` the quote-first page with `CommercialInquiryForm` | None | No build. No redirect added |
 | Low | Evergreen Mobile Installer Careers page | `/careers/mobile-installers/` | recruitment | Unverified (likely superseded) | `src/app/careers/mobile-installers/.gitkeep`. `docs/07` registry (Launch). `docs/08` line 259. Role exploration is now covered by `/careers/` and the opening page (decision 0006) | Decision on whether an evergreen role page is still wanted. `CLAUDE.md` section 5 bars `JobPosting` on evergreen pages | Decision first |
 | Low | Installer Network at planned slug | `/careers/join-our-installer-network/` | recruitment | Slug divergence | `.gitkeep` folder. `docs/07` and `docs/08` line 267 plan this slug. The page was built at `/careers/mobile-installation-technician/`, and decision 0006 item 2 keeps that slug because a rename needs redirects the repo does not configure (no `_redirects` per `README.md`) | If the slug is ever changed, redirects must exist first | No build. Decision only |
 | Low | Commercial confirmation at planned slug | `/thank-you/` | utility | Superseded | `src/app/thank-you/.gitkeep`. `docs/08` line 787 plans `/thank-you/`. Built route is `/thank-you/service-request/` | None | No build. Update docs and delete the empty folder when approved |
@@ -153,7 +153,7 @@ Related observations:
 | --- | --- | --- |
 | The four `/resources/[slug]/` articles | Thin. Each article body is four short paragraphs. A rough whitespace count of each article record, including its metadata fields, is about 140 to 200 words. The counts are approximate and the page template may add text. Real length is **Unverified** until rendered. `docs/09` requires direct answer, decision guidance, limitations, reviewer, and date, and the records show no reviewer or date field | `src/data/site/resources-content.ts` |
 | `/case-studies/` | Deliberately empty. Returns 404. Not a defect | `src/app/case-studies/page.tsx` |
-| 19 `.gitkeep` folders under `src/app/` | Stale placeholders for routes that are unbuilt or superseded. They risk misleading readers about site structure but do not create routes | `find src/app -name .gitkeep` (about, careers/faqs, careers/how-assignments-work, careers/installer-requirements, careers/installer-training, careers/jobs/[jobSlug], careers/join-our-installer-network, careers/mobile-installers, careers/resources/[articleSlug], careers/apply, careers/application-received, careers/installer-network-received, contact, faqs, request-a-quote, service-areas, services/[serviceSlug], technology, thank-you). Four of these sit beside real pages (apply, application-received, installer-network-received, contact) and are redundant |
+| 18 `.gitkeep` folders under `src/app/` | Stale placeholders for routes that are unbuilt or superseded. They risk misleading readers about site structure but do not create routes | `find src/app -name .gitkeep` (about, careers/faqs, careers/how-assignments-work, careers/installer-requirements, careers/installer-training, careers/jobs/[jobSlug], careers/join-our-installer-network, careers/mobile-installers, careers/resources/[articleSlug], careers/apply, careers/application-received, careers/installer-network-received, contact, faqs, service-areas, services/[serviceSlug], technology, thank-you). Four of these sit beside real pages (apply, application-received, installer-network-received, contact) and are redundant |
 | Service pages (5) | Not thin as routes. Each `page.tsx` is 17 lines because content is data driven through `ServicePageTemplate` and `src/data/site/service-pages-content.ts`. Several image slots render a decorative fallback in production (`src/data/site/service-pages-images.ts` lines 161, 212, 283, 329) | Section 2 |
 | Industry pages (4 of 5) | Routes are 49 lines each, content is data driven (`src/data/site/industries-content.ts`). Depth versus the commercial-fleets page (274 lines) is **Unverified** without rendering | `wc -l` of `src/app/industries/*/page.tsx` |
 | Orphans | None unintended. Every indexable route is in the sitemap and has an inbound link (nav, footer, or hub listing). Utility routes are reached through form flows. `/case-studies/` is unlinked by design | `src/data/navigation/site-navigation.ts`, `src/app/sitemap.ts` |
@@ -173,14 +173,14 @@ Batches are ordered by dependency first, then priority. No batch should start un
 ### Batch 0 - Housekeeping and decisions (no new pages, unblock everything)
 
 1. Run the pipeline once with a Keyword Planner export so a route manifest and opportunity ranking exist. Without it, no later batch can be ranked.
-2. Stakeholder decisions needed: (a) keep `/contact/` as the only quote route or add `/request-a-quote/`; (b) retire the evergreen `/careers/mobile-installers/` idea; (c) approve removing the stale `.gitkeep` folders and updating `docs/07` and `docs/08` to the built slugs; (d) approve leadership, history, and entity facts for About.
+2. Stakeholder decisions needed: (a) retire the evergreen `/careers/mobile-installers/` idea; (b) approve removing the remaining stale `.gitkeep` folders and updating `docs/07` and `docs/08` to the built slugs; (c) approve leadership, history, and entity facts for About.
 
-Reasoning: three planned slugs are likely superseded, and building them first would create duplicate-intent pages.
+Reasoning: `/request-a-quote/` is now resolved (decision 0011). The remaining planned slugs are likely superseded, and building them first would create duplicate-intent pages.
 
 ### Batch 1 - Launch blockers
 
-1. 404 page (`not-found.tsx`). Required by the launch checklist, no external dependency.
-2. About (`/about/`). Highest-priority missing core page. Starts once item 2(d) above is approved.
+1. 404 page (`not-found.tsx`). Built (decision 0012), uncommitted. Cloudflare preview check pending.
+2. About (`/about/`). Highest-priority missing core page. Starts once item 2(c) above is approved.
 
 Reasoning: both are Launch items in `docs/07` and `docs/26`. The 404 has no dependencies, so it can ship first.
 
@@ -211,12 +211,11 @@ Reasoning: the service pillar pages already exist, so supporting articles have l
 
 Limited to items that cannot be determined from the repo:
 
-1. Whether `/request-a-quote/` is still wanted. Decision 0008 does not say.
-2. Approved About-page facts: leadership, history, and operating model. `docs/07` section 29 lists them as approval prerequisites, and no approval is recorded.
-3. Approved assignment-process facts for `/careers/how-assignments-work/`, and whether a training program exists for `/careers/installer-training/`.
-4. Whether `/careers/installer-requirements/` and `/careers/faqs/` would duplicate intent already served by `/careers/` and the network page. This needs the search-intent check in `prompts/16-search-intent-defense-prompt.md`.
-5. Rendered word count and depth of the four resource articles and four industry pages. Only source counts were available.
-6. Whether the `#request-quote` style in-page anchors resolve to real ids.
-7. Which workflow mode and output depth the `site-os-page-build-router` assigns to each page. The router skill is not in this repo.
-8. Whether demand exists for any Batch 4 page. No keyword volume data is in the repo.
-9. Keyword outputs: whether pipeline outputs exist outside this repo (for example in the strategy project). None are tracked here.
+1. Approved About-page facts: leadership, history, and operating model. `docs/07` section 29 lists them as approval prerequisites, and no approval is recorded.
+2. Approved assignment-process facts for `/careers/how-assignments-work/`, and whether a training program exists for `/careers/installer-training/`.
+3. Whether `/careers/installer-requirements/` and `/careers/faqs/` would duplicate intent already served by `/careers/` and the network page. This needs the search-intent check in `prompts/16-search-intent-defense-prompt.md`.
+4. Rendered word count and depth of the four resource articles and four industry pages. Only source counts were available.
+5. Whether the `#request-quote` style in-page anchors resolve to real ids.
+6. Which workflow mode and output depth the `site-os-page-build-router` assigns to each page. The router skill is not in this repo.
+7. Whether demand exists for any Batch 4 page. No keyword volume data is in the repo.
+8. Keyword outputs: whether pipeline outputs exist outside this repo (for example in the strategy project). None are tracked here.
