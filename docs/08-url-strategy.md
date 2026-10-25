@@ -53,7 +53,7 @@ Each public page must have one preferred protocol, host, path, and trailing-slas
 
 ### 2.4 URLs do not prove business facts
 
-A route such as `/service-areas/texas/` or `/careers/jobs/gps-installer-phoenix-az-sbmi-104/` must not exist publicly unless the underlying service capacity or active job is verified.
+A route such as `/coverage/texas/` or `/careers/jobs/gps-installer-phoenix-az-sbmi-104/` must not exist publicly unless the underlying service capacity or active job is verified.
 
 ### 2.5 URL creation does not authorize indexation
 
@@ -105,7 +105,7 @@ Confirm that `ultimatefleetgps.net` will remain the production domain and that t
 
 ### Recommended format
 
-`https://ultimatefleetgps.net/careers/mobile-installers/`
+`https://ultimatefleetgps.net/careers/mobile-installation-technician/`
 
 ### Standards
 
@@ -194,7 +194,7 @@ Avoid alternate live URLs such as `/12v-installer-jobs/` and `/12-volt-installer
 
 ### Good slugs
 
-- `mobile-installers`
+- `mobile-installation-technician`
 - `installer-requirements`
 - `fleet-telematics-installation`
 - `multi-location-fleet-deployments`
@@ -216,7 +216,7 @@ Short connecting words may remain when they improve meaning.
 Recommended:
 
 - `how-assignments-work`
-- `join-our-installer-network`
+- `mobile-installation-technician`
 - `request-a-quote` - Superseded by /contact/ (decision 0011)
 
 Do not remove words mechanically when the result sounds unnatural or ambiguous.
@@ -256,7 +256,7 @@ All candidate-facing pages use the `/careers/` namespace.
 | Purpose | Canonical URL | Status |
 |---|---|---|
 | Careers overview | `/careers/` | Launch |
-| Mobile installer role | `/careers/mobile-installers/` | Launch |
+| Mobile installer role | `/careers/mobile-installers/` - Superseded by /careers/ and /careers/mobile-installation-technician/ (decision 0015) | Superseded |
 | Current openings index | `/careers/jobs/` | Launch |
 | Active job detail | `/careers/jobs/[job-slug]/` | Active jobs only |
 | Installer requirements | `/careers/installer-requirements/` | Launch |
@@ -264,7 +264,7 @@ All candidate-facing pages use the `/careers/` namespace.
 | Application | `/careers/apply/` | Launch utility |
 | Application confirmation | `/careers/application-received/` | Noindex utility |
 | Candidate FAQs | `/careers/faqs/` - Superseded by /careers/#careers-faq (decision 0013) | Superseded |
-| Installer network | `/careers/join-our-installer-network/` | Launch |
+| Installer network | `/careers/mobile-installation-technician/` | Launch |
 | Installer training | `/careers/installer-training/` | Conditional |
 | Career resources hub | `/careers/resources/` | Phase 2 |
 | Career resource detail | `/careers/resources/[article-slug]/` | Phase 2 |
@@ -464,7 +464,7 @@ Use analytics parameters without changing the canonical:
 
 ### Canonical route
 
-`/careers/join-our-installer-network/`
+`/careers/mobile-installation-technician/`
 
 ### Confirmation route
 
@@ -524,10 +524,10 @@ The parameter must not create a false public market page or promise an opening.
 | Solutions hub | `/solutions/` |
 | Industries hub | `/industries/` |
 | Technology hub | `/technology/` |
-| Service areas hub | `/service-areas/` |
+| Service areas hub | `/coverage/` |
 | Resources hub | `/resources/` |
 | Case studies hub | `/case-studies/` |
-| Commercial FAQs | `/faqs/` |
+| Commercial FAQs | `/faq/` |
 | About | `/about/` |
 | Contact | `/contact/` |
 | Request a quote | `/request-a-quote/` - Superseded by /contact/ (decision 0011) |
@@ -659,23 +659,23 @@ only when:
 
 ### Hub
 
-`/service-areas/`
+`/coverage/`
 
 ### State or region
 
-`/service-areas/[state-or-region-slug]/`
+`/coverage/[state-or-region-slug]/`
 
 Example:
 
-`/service-areas/arizona/`
+`/coverage/arizona/`
 
 ### City or metro
 
-`/service-areas/[state-slug]/[city-slug]/`
+`/coverage/[state-slug]/[city-slug]/`
 
 Example:
 
-`/service-areas/arizona/phoenix/`
+`/coverage/arizona/phoenix/`
 
 ### Rules
 
@@ -783,7 +783,7 @@ Examples:
 | Form | URL | Confirmation | Default indexation |
 |---|---|---|---|
 | Job application | `/careers/apply/` or embedded | `/careers/application-received/` | Form conditional; confirmation noindex |
-| Installer network | `/careers/join-our-installer-network/` | `/careers/installer-network-received/` | Form indexable if substantive; confirmation noindex |
+| Installer network | `/careers/mobile-installation-technician/` | `/careers/installer-network-received/` | Form indexable if substantive; confirmation noindex |
 | Commercial quote | `/request-a-quote/` | `/thank-you/` | Superseded by /contact/ (decision 0011); confirmation noindex |
 | General contact | `/contact/` | Inline or `/contact-received/` | Contact index; confirmation noindex |
 
@@ -922,7 +922,7 @@ Every indexable page should reference its preferred absolute URL.
 
 Example:
 
-`https://ultimatefleetgps.net/careers/mobile-installers/`
+`https://ultimatefleetgps.net/careers/mobile-installation-technician/`
 
 ### Parameterized URLs
 
@@ -1186,7 +1186,7 @@ Examples:
 ### Acceptable deeper routes
 
 - `/careers/jobs/mobile-installation-technician-phoenix-az-sbmi-104/`
-- `/service-areas/arizona/phoenix/`
+- `/coverage/arizona/phoenix/`
 
 ### Avoid
 
@@ -1327,7 +1327,7 @@ For every release, verify:
 ### Recruitment launch
 
 - `/careers/`
-- `/careers/mobile-installers/`
+- `/careers/mobile-installers/` - Superseded (decision 0015)
 - `/careers/jobs/`
 - `/careers/jobs/[job-slug]/`
 - `/careers/installer-requirements/`
@@ -1335,19 +1335,19 @@ For every release, verify:
 - `/careers/apply/`
 - `/careers/application-received/`
 - `/careers/faqs/` - Superseded by /careers/#careers-faq (decision 0013)
-- `/careers/join-our-installer-network/`
+- `/careers/mobile-installation-technician/`
 - `/careers/installer-network-received/`
 
 ### Commercial launch
 
 - `/services/`
 - approved `/services/[service-slug]/` routes
-- `/faqs/`
+- `/faq/`
 - `/about/`
 - `/contact/`
 - `/request-a-quote/` - Superseded by /contact/ (decision 0011)
 - `/thank-you/`
-- `/service-areas/` only when verified
+- `/coverage/` only when verified
 
 ### Legal launch
 
@@ -1366,8 +1366,8 @@ For every release, verify:
 - `/industries/[industry-slug]/`
 - `/technology/`
 - `/technology/[technology-slug]/`
-- `/service-areas/[state-or-region-slug]/`
-- `/service-areas/[state-slug]/[city-slug]/`
+- `/coverage/[state-or-region-slug]/`
+- `/coverage/[state-slug]/[city-slug]/`
 - `/resources/`
 - `/resources/[article-slug]/`
 - `/case-studies/`

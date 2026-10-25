@@ -142,7 +142,7 @@ This tree represents supported architecture, not automatic publication approval 
 |---|---|---|---|---|---|
 | `/` | Homepage | Candidate and commercial | Brand and pathway selection | Launch | Index |
 | `/careers/` | Careers Hub | Candidates | Employer and opportunity overview | Launch | Index |
-| `/careers/mobile-installers/` | Mobile Installer Careers | Candidates | Evergreen role exploration | Launch | Index |
+| `/careers/mobile-installers/` | Mobile Installer Careers | Candidates | Evergreen role exploration | Launch | Superseded by /careers/ and /careers/mobile-installation-technician/ (decision 0015) |
 | `/careers/jobs/` | Current Openings | Candidates | Active job discovery | Launch | Index |
 | `/careers/jobs/[job-slug]/` | Active Job Detail | Candidates | Specific active opening | Launch if verified | Index only while eligible |
 | `/careers/installer-requirements/` | Installer Requirements | Candidates | Qualification and self-screening | Launch | Index |
@@ -150,7 +150,7 @@ This tree represents supported architecture, not automatic publication approval 
 | `/careers/apply/` | Installer Application | Candidates | Application completion | Launch | Conditional or noindex |
 | `/careers/application-received/` | Application Received | Candidates | Confirmation and next steps | Utility | Noindex |
 | `/careers/faqs/` | Candidate FAQs | Candidates | Objection resolution | Launch | Superseded by /careers/#careers-faq (decision 0013) |
-| `/careers/join-our-installer-network/` | Installer Network | Candidates | Future-opportunity registration | Launch | Index if substantial |
+| `/careers/mobile-installation-technician/` | Installer Network | Candidates | Future-opportunity registration | Launch | Index if substantial |
 | `/careers/installer-training/` | Installer Training | Candidates | Verified development path | Conditional | Index only when program exists |
 | `/careers/resources/` | Installer Resources | Candidates | Recruitment education | Phase 2 | Index |
 | `/careers/resources/[article-slug]/` | Recruitment Resource | Candidates | Specific role or career question | Phase 2 | Index if useful |
@@ -162,14 +162,14 @@ This tree represents supported architecture, not automatic publication approval 
 | `/industries/[industry-slug]/` | Industry Detail | Commercial | Industry-specific needs | Conditional | Index |
 | `/technology/` | Technology Hub | Mixed | Approved equipment experience | Phase 2 | Index when populated |
 | `/technology/[technology-slug]/` | Technology Detail | Mixed | Platform or equipment intent | Conditional | Index |
-| `/service-areas/` | Service Areas Hub | Commercial | Coverage overview | Launch if verified | Index |
-| `/service-areas/[state-or-region-slug]/` | State or Region | Commercial | Regional capability | Conditional | Index |
-| `/service-areas/[state-slug]/[city-slug]/` | City or Metro | Commercial | Local service intent | Conditional | Index |
+| `/coverage/` | Service Areas Hub | Commercial | Coverage overview | Launch if verified | Index |
+| `/coverage/[state-or-region-slug]/` | State or Region | Commercial | Regional capability | Conditional | Index |
+| `/coverage/[state-slug]/[city-slug]/` | City or Metro | Commercial | Local service intent | Conditional | Index |
 | `/resources/` | Commercial Resources | Commercial | Education and authority | Phase 2 | Index |
 | `/resources/[article-slug]/` | Commercial Resource | Commercial | Specific informational intent | Phase 2 | Index |
 | `/case-studies/` | Case Studies Hub | Commercial and candidates | Proof discovery | Phase 2 | Index when proof exists |
 | `/case-studies/[case-study-slug]/` | Case Study | Commercial and candidates | Evidence and validation | Conditional | Index |
-| `/faqs/` | Commercial FAQs | Commercial | Buyer questions | Launch | Index |
+| `/faq/` | Commercial FAQs | Commercial | Buyer questions | Launch | Index |
 | `/about/` | About | All | Entity, history, and trust | Launch | Index |
 | `/contact/` | Contact | All | General communication | Launch | Index |
 | `/request-a-quote/` | Request a Quote | Commercial | Qualified project inquiry | Launch | Superseded by /contact/ (decision 0011) |
@@ -270,6 +270,8 @@ Join the Installer Network.
 ---
 
 ## 9. Mobile Installer Role Page
+
+> **Superseded (decision 0015).** `/careers/mobile-installers/` is not built and not backlogged. Role exploration is covered by `/careers/`, the active opening page, and `/careers/mobile-installation-technician/`. This section is kept as planning history.
 
 ### URL
 
@@ -587,7 +589,7 @@ Noindex.
 
 ### URL
 
-`/careers/join-our-installer-network/`
+`/careers/mobile-installation-technician/`
 
 ### Purpose
 
@@ -895,15 +897,15 @@ Technology pages may link to jobs requiring that experience, but they must not i
 
 ### Hub URL
 
-`/service-areas/`
+`/coverage/`
 
 ### Regional URL
 
-`/service-areas/[state-or-region-slug]/`
+`/coverage/[state-or-region-slug]/`
 
 ### City or metro URL
 
-`/service-areas/[state-slug]/[city-slug]/`
+`/coverage/[state-slug]/[city-slug]/`
 
 ### Purpose
 
@@ -1018,7 +1020,7 @@ Case studies may support both commercial trust and candidate confidence.
 
 ### URL
 
-`/faqs/`
+`/faq/`
 
 ### Topic groups
 
@@ -1602,7 +1604,7 @@ app/
 ├── page.tsx
 ├── careers/
 │   ├── page.tsx
-│   ├── mobile-installers/page.tsx
+│   ├── mobile-installers/page.tsx  # Superseded (decision 0015)
 │   ├── jobs/
 │   │   ├── page.tsx
 │   │   └── [slug]/page.tsx
@@ -1611,7 +1613,7 @@ app/
 │   ├── apply/page.tsx
 │   ├── application-received/page.tsx
 │   ├── faqs/page.tsx  # Superseded by /careers/#careers-faq (decision 0013)
-│   ├── join-our-installer-network/page.tsx
+│   ├── mobile-installation-technician/page.tsx
 │   ├── installer-training/page.tsx
 │   └── resources/
 │       ├── page.tsx
