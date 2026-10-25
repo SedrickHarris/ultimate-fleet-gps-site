@@ -38,8 +38,7 @@ and specification documents. Verified from the repository contents:
 
 Not present or not verified from the repository:
 
-- `scripts/` holds placeholder directories only. There is no test runner and no content, job,
-  schema, or link validation script in `package.json`.
+- `scripts/validation/check-internal-links.mjs` is the only validation script (`npm run validate:links`). It is a static scan of literal internal paths and does not check anchors or template-string links. There is no test runner and no content, job, or schema validation script in `package.json`. The other `scripts/` folders are placeholders.
 - `src/data/jobs/` holds one job record. Application submissions depend on the forms endpoint, which this repository cannot verify.
 - No `functions/` directory, Wrangler configuration, `_headers`, or `_redirects` file is present.
   Cloudflare Pages deployment is specified in `docs/17-cloudflare-deployment.md`, but this README
