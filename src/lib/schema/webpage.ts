@@ -16,11 +16,14 @@ import { organizationRef } from "@/lib/schema/organization";
  * homepage.
  */
 export function webPageSchema({
+  type = "WebPage",
   pathname,
   name,
   description,
   breadcrumbs,
 }: {
+  /** Defaults to `WebPage`. `/about/` passes `AboutPage` (docs/13 section 9). */
+  readonly type?: "WebPage" | "AboutPage";
   readonly pathname: string;
   readonly name: string;
   readonly description: string;
@@ -32,7 +35,7 @@ export function webPageSchema({
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "WebPage",
+        "@type": type,
         "@id": `${url}#webpage`,
         url,
         name,

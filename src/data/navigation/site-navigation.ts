@@ -78,8 +78,9 @@ export const footerBrandLines: readonly string[] = [
 
 /**
  * Footer navigation groups, rendered as four horizontal columns beside the
- * brand block on desktop. Only built routes appear. There is no About route,
- * so Company holds Our Process, Quality & Safety, and Resources. The careers
+ * brand block on desktop. Only built routes appear. Company holds About, Our
+ * Process, Quality & Safety, and Resources (About is footer-only, not in the
+ * primary nav, to keep the primary nav on conversion routes). The careers
  * column keeps the journeys separate: the current openings and the Apply link
  * (the active opening's own application page) come first, then the Installer
  * Network, a registration for future opportunities, then the commercial
@@ -89,6 +90,7 @@ export const footerColumns: readonly FooterColumn[] = [
   {
     heading: "Company",
     items: [
+      { label: "About", href: "/about/" },
       { label: "Our Process", href: "/our-process/" },
       { label: "Quality & Safety", href: "/quality-safety/" },
       { label: "Resources", href: "/resources/" },

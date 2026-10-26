@@ -34,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/industries/field-service-fleets/",
     "/industries/telematics-technology-providers/",
     "/coverage/",
+    "/about/",
     "/our-process/",
     "/quality-safety/",
     "/faq/",
