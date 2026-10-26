@@ -615,7 +615,7 @@ https://:version.ultimate-fleet-gps-site.pages.dev/*
 - Host-level redirects (production pages.dev to the apex, `www` to the apex, and HTTP to HTTPS) are dashboard settings, not repository files.
 - The apex, `https://ultimatefleetgps.net/`, is the canonical host. All canonicals, `og:url`, sitemap URLs, `robots.txt` and schema URLs derive from `business.url` (`NEXT_PUBLIC_SITE_URL`, defaulting to the apex). Do not set that variable to a pages.dev URL.
 - The sitemap omits `lastmod` until real content-change dates are available.
-- `npm run build` runs `scripts/validation/check-build-output.mjs` afterward. It fails on a relative or off-domain canonical, and on "pages.dev" anywhere in `out/` outside `_headers`.
+- `npm run build` runs `scripts/validation/check-build-output.mjs` afterward. It fails on a relative or off-domain canonical, on a JSON-LD `url`, `@id`, `logo`, `image` or BreadcrumbList `item` off the live domain, and on "pages.dev" anywhere in `out/` outside `_headers`.
 
 ---
 

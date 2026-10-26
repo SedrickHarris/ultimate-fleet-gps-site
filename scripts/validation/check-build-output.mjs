@@ -9,7 +9,10 @@
  * Checks:
  * 1. Every `<link rel="canonical">` is absolute and on https://ultimatefleetgps.net.
  * 2. Every HTML page without a noindex robots meta has exactly one canonical.
- * 3. "pages.dev" appears nowhere in `out/` except `_headers`, where the
+ * 3. Every JSON-LD block has `url`, `@id`, `logo`, `image` and BreadcrumbList
+ *    `item` values on https://ultimatefleetgps.net (an object value is checked
+ *    through its own `url` or `@id`).
+ * 4. "pages.dev" appears nowhere in `out/` except `_headers`, where the
  *    hostname-scoped noindex rules for the build domain live
  *    (docs/17-cloudflare-deployment.md, "pages.dev indexing").
  *
@@ -37,6 +40,32 @@ if (!existsSync(outDir)) {
 const BINARY = /\.(png|jpe?g|webp|avif|gif|ico|svg|woff2?|ttf|otf|mp4|webm|mov|pdf)$/i;
 const violations = [];
 let htmlCount = 0;
+let jsonLdCount = 0;
+let jsonLdUrlCount = 0;
+
+// JSON-LD keys whose string values must be live-domain URLs. `item` is the
+// BreadcrumbList element URL. Object values are walked, so an ImageObject
+// `logo` or `image` is checked through its own `url` or `@id`.
+const URL_KEYS = new Set(["url", "@id", "logo", "image", "item"]);
+
+function checkJsonLd(node, rel, path) {
+  if (Array.isArray(node)) {
+    node.forEach((child, i) => checkJsonLd(child, rel, `${path}[${i}]`));
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  for (const [key, value] of Object.entries(node)) {
+    const here = path ? `${path}.${key}` : key;
+    if (URL_KEYS.has(key) && typeof value === "string") {
+      jsonLdUrlCount += 1;
+      if (value !== LIVE_ORIGIN && !value.startsWith(`${LIVE_ORIGIN}/`)) {
+        violations.push(`${rel}: JSON-LD ${here} "${value}" is not on ${LIVE_ORIGIN}`);
+      }
+    } else {
+      checkJsonLd(value, rel, here);
+    }
+  }
+}
 let fileCount = 0;
 
 function walk(dir, visit) {
@@ -65,6 +94,15 @@ walk(outDir, (file) => {
     const href = m[0].match(/href="([^"]*)"/);
     return href ? href[1] : "";
   });
+  for (const m of text.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) {
+    jsonLdCount += 1;
+    try {
+      checkJsonLd(JSON.parse(m[1]), rel, "");
+    } catch {
+      violations.push(`${rel}: JSON-LD block is not valid JSON`);
+    }
+  }
+
   const noindex = /<meta[^>]*name="robots"[^>]*content="[^"]*noindex/.test(text);
 
   for (const href of canonicals) {
@@ -78,9 +116,10 @@ walk(outDir, (file) => {
 });
 
 console.log(`HTML pages checked: ${htmlCount}`);
+console.log(`JSON-LD blocks parsed: ${jsonLdCount} (${jsonLdUrlCount} URL values checked)`);
 console.log(`Text files searched for "pages.dev": ${fileCount}`);
 if (violations.length === 0) {
-  console.log("Build output is clean: absolute live-domain canonicals, no pages.dev outside _headers.");
+  console.log("Build output is clean: absolute live-domain canonicals and JSON-LD URLs, no pages.dev outside _headers.");
   process.exit(0);
 }
 console.log(`\nViolations (${violations.length}):`);
