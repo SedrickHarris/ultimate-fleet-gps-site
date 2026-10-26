@@ -14,7 +14,7 @@
 | Noindexed utility routes | 3 | `noIndex: true` in `application-received`, `installer-network-received`, `thank-you/service-request` |
 | Sitemap URLs | 32 | `src/app/sitemap.ts` (matches the 35 live routes minus the 3 noindexed) |
 | Outstanding entries with repo evidence (section 3) | 17: 2 core or utility, 4 recruitment, 3 commercial or supporting, 3 conditional hubs, 3 superseded or scope decisions, 2 blocked by missing proof. `/request-a-quote/` (decision 0011), `/careers/faqs/` (decision 0013), and `/careers/mobile-installers/` (decision 0015) were removed from this count | Section 3 |
-| Of those, status Missing | 6 (About, assignments, career resources, remaining commercial articles, technology hub, solutions hub) | Section 3 |
+| Of those, status Missing | 5 (assignments, career resources, remaining commercial articles, technology hub, solutions hub). About was built as a lean page under decision 0016 | Section 3 |
 | Of those, superseded, slug divergence, or not needed now | 3 (`/request-a-quote/`, `/careers/faqs/`, and `/careers/mobile-installers/` are recorded in section 3.5 as resolved by decisions 0011, 0013, and 0015 and no longer count as outstanding) | Section 3.5 |
 | Broken inbound internal links (literal hrefs in `src/`) | 0 found | Section 4 |
 | Stub or thin pages | 1 route family (4 resource articles), plus 1 empty-by-design route | Section 5 |
@@ -25,7 +25,7 @@
 Headline findings:
 
 1. The planned launch inventory in `docs/07-site-architecture.md` section 6 and `docs/08-url-strategy.md` is older than the build. The build diverged on purpose in several places (`/coverage/` instead of `/service-areas/`, `/faq/` instead of `/faqs/`, `/contact/` quote-first, network page kept at its original slug). Those are recorded in decisions 0006, 0007, 0008, and 0009. They are not gaps. The planning docs `docs/07` and `docs/08` were updated to the built slugs under decision 0015, and the stale `.gitkeep` folders were removed.
-2. The only unambiguous missing core page is `/about/`. The site-wide 404 (`not-found.tsx`) is now built (decision 0012).
+2. `/about/` is built as a lean, factual page (decision 0016). No unambiguous core page is missing. The site-wide 404 (`not-found.tsx`) is built (decision 0012).
 3. The largest real content gap is the recruitment support cluster under `/careers/` (how assignments work; the requirements page is built under decision 0014 and the candidate FAQs are resolved by decision 0013) and the unwritten resource articles.
 4. Every page after those depends on stakeholder approvals or keyword work that does not exist in the repo yet.
 
@@ -83,7 +83,7 @@ Workflow for every row: the build starts with `/seo-automation-pipeline`, with i
 
 | Priority | Page | Slug | Type | Status | Evidence | Dependencies | Workflow |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| High | About | `/about/` | core | Missing | `src/app/about/.gitkeep` only. Registry row in `docs/07-site-architecture.md` (priority Launch) and section 29. `docs/08-url-strategy.md` lines 531 and 1346. `docs/13-schema-markup-plan.md` line 334 names `AboutPage`. Footer comment in `src/data/navigation/site-navigation.ts` says "There is no About route" | `docs/07` section 29 states prerequisites: company description, entity structure, leadership, history, and claims need approval. Leadership and history are not approved facts in the repo (**Unverified**) | Pipeline first, then individual-page build prompts (`prompts/individual-homepage-research-prompt.md` and `prompts/conversion-page-research-prompt.md` are the closest fits) |
+| Resolved | About | `/about/` | core | Built (lean, decision 0016) | `src/app/about/page.tsx`, `src/data/site/about-content.ts`, in `sitemap.ts`, footer Company column. Built only from facts approved in `docs/01`. `AboutPage` + `BreadcrumbList` schema. Leadership, history, values, and proof sections are left out until approved facts exist. Keyword fit is **Unverified** (no Keyword Planner export) | Approved leadership, history, values, and proof facts to extend it. A Keyword Planner export | None for launch |
 | High | 404 page | not applicable (`src/app/not-found.tsx`) | utility | Built | `src/app/not-found.tsx`, noindex, no canonical, excluded from sitemap. Decision 0012. Brief: `docs/briefs/404-page-brief.md`. Cloudflare preview check still pending | Links to Careers and Contact per `docs/26` line 134 | None |
 
 ### 3.2 Recruitment support (Careers)
@@ -175,14 +175,14 @@ Batches are ordered by dependency first, then priority. No batch should start un
 
 1. Run the pipeline once with a Keyword Planner export so a route manifest and opportunity ranking exist. Without it, no later batch can be ranked.
 2. Done under decision 0015: `/careers/mobile-installers/` retired, 13 stale `.gitkeep` files removed, and `docs/07` and `docs/08` updated to the built slugs.
-3. Stakeholder decision still needed: approve leadership, history, and entity facts for About, and approved assignment-process facts for How Assignments Work.
+3. Stakeholder decision still needed: approved assignment-process facts for How Assignments Work. About is built lean (decision 0016) and can be extended when leadership, history, and proof facts are approved.
 
 Reasoning: `/request-a-quote/` (decision 0011), `/careers/faqs/` (decision 0013), and `/careers/mobile-installers/` (decision 0015) are resolved. Building the superseded slugs would create duplicate-intent pages.
 
 ### Batch 1 - Launch blockers
 
 1. 404 page (`not-found.tsx`). Built (decision 0012) and committed (`67039c9`). Cloudflare preview check pending.
-2. About (`/about/`). Highest-priority missing core page. Starts once item 2(c) above is approved.
+2. About (`/about/`). Built as a lean page (decision 0016). Awaiting review before commit. Extend when leadership, history, and proof facts are approved.
 
 Reasoning: both are Launch items in `docs/07` and `docs/26`. The 404 has no dependencies, so it can ship first.
 
@@ -212,7 +212,7 @@ Reasoning: the service pillar pages already exist, so supporting articles have l
 
 Limited to items that cannot be determined from the repo:
 
-1. Approved About-page facts: leadership, history, and operating model. `docs/07` section 29 lists them as approval prerequisites, and no approval is recorded.
+1. Approved About-page facts for the sections left out of the lean page: leadership, history beyond 2011, values, and proof. `docs/07` section 29 lists them as approval prerequisites, and no approval is recorded.
 2. Approved assignment-process facts for `/careers/how-assignments-work/`, and whether a training program exists for `/careers/installer-training/`.
 3. Resolved for build purposes. The candidate FAQs are folded into `/careers/` (decision 0013). `/careers/installer-requirements/` is built as the shared baseline requirements page with a cannibalization review recorded in decision 0014, but its keyword fit stays **Unverified** until a Keyword Planner export exists.
 4. Rendered word count and depth of the four resource articles and four industry pages. Only source counts were available.
