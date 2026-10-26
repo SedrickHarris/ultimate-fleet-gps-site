@@ -13,7 +13,7 @@ import {
   INSTALLER_NETWORK_PATH,
   JOBS_INDEX_PATH,
 } from "@/data/jobs";
-import { applyImages } from "@/data/site/careers-apply-images";
+import { applyFinalCtaBackground, applyImages } from "@/data/site/careers-apply-images";
 import { footerBrandLines } from "@/data/navigation/site-navigation";
 import { business } from "@/data/site/business";
 import { AnalyticsEvent } from "@/lib/analytics/events";
@@ -147,7 +147,15 @@ export default function ApplyPage() {
         </div>
       </Section>
 
-      <Section tone="default" density="tight" width="reading" labelledBy="apply-network-heading">
+      <Section
+        tone="default"
+        density="compact"
+        width="reading"
+        labelledBy="apply-network-heading"
+        backgroundImage={applyFinalCtaBackground}
+        backgroundOverlay
+        backgroundPosition="center"
+      >
         <div className="rounded-[var(--radius-lg)] border border-border bg-surface-subtle p-6 md:p-8">
           <h2
             id="apply-network-heading"

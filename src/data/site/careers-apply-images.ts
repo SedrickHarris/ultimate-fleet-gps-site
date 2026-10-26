@@ -8,6 +8,17 @@ import type { HubImageSlot } from "@/data/site/services-hub-images";
  * Alt text describes only what the photo shows and contains no dashes or
  * unverified claims. `altGuidance` is never rendered.
  */
+/**
+ * Decorative text-free background for the Installer Network section at the
+ * foot of the page. Shown under a 55% black overlay (empty alt, scrolls with
+ * the section).
+ */
+export const applyFinalCtaBackground = {
+  src: "/images/careers/ultimate-fleet-gps-installer-network-future-opportunities-16x9.webp",
+  width: 2752,
+  height: 1536,
+} as const;
+
 export const applyImages = {
   opening: {
     slotId: "careers-apply-opening",
