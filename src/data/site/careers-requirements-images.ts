@@ -1,53 +1,61 @@
 import type { HubImageSlot } from "@/data/site/services-hub-images";
 
 /**
- * Image slots for `/careers/installer-requirements/`.
+ * Media for `/careers/installer-requirements/`. Files live in
+ * public/images/careers/installer-requirements.
  *
- * Placeholders only. No slot has a `src`, so production renders the decorative
- * navy fallback (no `img`, no preload, no label) and local development shows
- * the labelled placeholder. The existing `*-4x3.webp` files are deliberately
- * not reused.
- *
- * To fill a slot: set `src` and re-check `alt` against the real photo. The
- * `alt` text here is drafted for the intended subject and must describe only
- * what the supplied photo shows. Photography rules: authentic photos only; no
- * device-brand or competitor logos; no customer information visible; no fake
- * badges. Photos of identifiable technicians need a recorded release. Alt text
- * contains no dashes or unverified claims. `altGuidance` is a note for the
- * supplier and is never rendered.
+ * Alt text describes only what each photo shows. Photography rules: authentic
+ * photos only; no device-brand or competitor logos; no customer information
+ * visible; no fake badges. Alt text contains no dashes or unverified claims.
+ * `altGuidance` is a note for the supplier and is never rendered.
  */
+const DIR = "/images/careers/installer-requirements";
+
+/**
+ * Decorative hero background video and its still poster. The poster is the
+ * fallback for reduced motion, blocked autoplay, and load failure. The video
+ * always plays muted and loops.
+ */
+export const careersRequirementsHeroVideo = {
+  src: `${DIR}/ultimate-fleet-gps-mobile-installer-requirements-on-site-equipment-16x9.mp4`,
+  poster: `${DIR}/ultimate-fleet-gps-mobile-installer-requirements-on-site-equipment-16x9.webp`,
+} as const;
+
 export const careersRequirementsImages = {
-  hero: {
-    slotId: "req-hero-4x3",
-    role: "Installer vehicle with tools staged",
-    aspectRatio: "4 / 3",
-    width: 1600,
-    height: 1200,
-    fallback: "grid",
-    alt: "Installer's vehicle with installation tools staged beside it",
-    altGuidance:
-      "Show a personal or work vehicle with installation tools laid out or staged nearby. Describe only what is shown. No logos, plates, or customer information.",
-  },
   core: {
     slotId: "req-core-4x3",
-    role: "Commercial work vehicle",
+    role: "Commercial work van with tools and cable stored inside",
     aspectRatio: "4 / 3",
-    width: 1600,
-    height: 1200,
+    width: 2528,
+    height: 1696,
     fallback: "grid",
-    alt: "Commercial work vehicle parked at a fleet location",
+    src: `${DIR}/ultimate-fleet-gps-mobile-installer-core-requirements-tools-travel-4x3.webp`,
+    alt: "Open work van with shelving, cable, and installation tools organized inside, parked at a commercial yard",
     altGuidance:
-      "Show a commercial work van or truck. Describe only what is shown. No company names, plates, or customer information.",
+      "Describe only what is shown. No company names, plates, or customer information.",
+  },
+  preferred: {
+    slotId: "req-preferred-4x3",
+    role: "Vehicle electrical work in progress inside a truck cab",
+    aspectRatio: "4 / 3",
+    width: 2528,
+    height: 1696,
+    fallback: "grid",
+    src: `${DIR}/ultimate-fleet-gps-mobile-installer-preferred-vehicle-electrical-experience-4x3.webp`,
+    alt: "Truck cab with a dash panel removed, a GPS device and wiring exposed, and a multimeter and hand tools laid out nearby",
+    altGuidance:
+      "Describe only what is shown. No device-brand logos or customer information.",
   },
   asks: {
     slotId: "req-asks-4x3",
-    role: "Tool case or installation workspace",
+    role: "Installation tools, a device, and paperwork on a workbench beside a vehicle",
     aspectRatio: "4 / 3",
-    width: 1600,
-    height: 1200,
+    width: 2528,
+    height: 1696,
     fallback: "grid",
-    alt: "Open tool case with installation tools organized inside",
+    src: `${DIR}/ultimate-fleet-gps-technician-installation-documentation-equipment-check-4x3.webp`,
+    alt: "Workbench beside a van holding a tracking device with cable, hand tools, a tablet checklist, a paper form, and a phone",
     altGuidance:
-      "Show a tool case or an organized installation workspace. Describe only what is shown. No device-brand logos or customer information.",
+      "Describe only what is shown. No device-brand logos, readable customer information, or fake badges.",
   },
 } as const satisfies Record<string, HubImageSlot>;

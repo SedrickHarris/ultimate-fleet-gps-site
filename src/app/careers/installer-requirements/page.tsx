@@ -14,7 +14,10 @@ import { ImageSlot } from "@/components/ui/ImageSlot";
 import { activeTechnicianJob, APPLY_PATH } from "@/data/jobs";
 import { business } from "@/data/site/business";
 import { careersRequirementsContent as content } from "@/data/site/careers-requirements-content";
-import { careersRequirementsImages as images } from "@/data/site/careers-requirements-images";
+import {
+  careersRequirementsHeroVideo,
+  careersRequirementsImages as images,
+} from "@/data/site/careers-requirements-images";
 import { buildPageMetadata } from "@/lib/metadata/build-page-metadata";
 import { careersPageSchema } from "@/lib/schema/careers-page";
 
@@ -42,8 +45,7 @@ const bulletList =
  *
  * Schema is WebPage + BreadcrumbList + Organization reference + FAQPage (built
  * from the same items the accordion renders). No JobPosting, Occupation, or
- * Offer. Images are placeholders, so
- * production shows the decorative fallback until approved photos exist.
+ * Offer.
  */
 export default function InstallerRequirementsPage() {
   const { requirements, pathways, faq } = content;
@@ -66,7 +68,7 @@ export default function InstallerRequirementsPage() {
         h1={content.h1}
         intro={content.intro}
         primaryCta={content.openingCta}
-        image={images.hero}
+        backgroundVideo={careersRequirementsHeroVideo}
       />
 
       <Section tone="default" width="site" labelledBy="requirements-heading">
@@ -93,29 +95,31 @@ export default function InstallerRequirementsPage() {
           <ImageSlot slot={images.core} className="md:h-full" />
         </div>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-2 md:items-start">
-          <div className="flex flex-col gap-6">
-            <Card tone="light" padding="default">
-              <h3 className={h3Class}>{requirements.preferred.heading}</h3>
-              <p className="mt-2 text-[length:var(--text-label)] font-semibold tracking-wide text-ink uppercase">
-                {requirements.preferred.label}
-              </p>
-              <ul className={bulletList}>
-                {requirements.preferred.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </Card>
-            <Card tone="light" padding="default">
-              <h3 className={h3Class}>{requirements.asks.heading}</h3>
-              <ul className={bulletList}>
-                {requirements.asks.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </Card>
-          </div>
-          <ImageSlot slot={images.asks} />
+        <div className="mt-6 grid gap-6 md:grid-cols-2 md:items-stretch">
+          <ImageSlot slot={images.preferred} className="md:h-full" />
+          <Card tone="light" padding="default">
+            <h3 className={h3Class}>{requirements.preferred.heading}</h3>
+            <p className="mt-2 text-[length:var(--text-label)] font-semibold tracking-wide text-ink uppercase">
+              {requirements.preferred.label}
+            </p>
+            <ul className={bulletList}>
+              {requirements.preferred.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </Card>
+        </div>
+
+        <div className="mt-6 grid gap-6 md:grid-cols-2 md:items-stretch">
+          <Card tone="light" padding="default">
+            <h3 className={h3Class}>{requirements.asks.heading}</h3>
+            <ul className={bulletList}>
+              {requirements.asks.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </Card>
+          <ImageSlot slot={images.asks} className="md:h-full" />
         </div>
 
         <p className="mt-6 max-w-[820px] text-[length:var(--text-small)] leading-relaxed text-pretty text-ink-muted">
