@@ -87,6 +87,7 @@ One person may hold multiple roles, but ownership must be explicit.
 - [ ] Privacy, applicant privacy, accessibility, and terms content are approved.
 - [ ] Testimonials, logos, certifications, statistics, and case studies are approved or removed.
 - [ ] No placeholder copy, fake proof, or unresolved bracketed content remains.
+- [ ] Every `ImagePlaceholder` box in use (none at present; `/careers/apply/` now uses an approved photo) is replaced with a real, verified Ultimate Fleet GPS installation or equipment photo with descriptive alt text. No generic stock-photo team.
 
 ---
 

@@ -6,12 +6,14 @@ import { ApplicationForm } from "@/components/forms/ApplicationForm";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Section } from "@/components/layout/Section";
 import { JsonLd } from "@/components/schema/JsonLd";
+import { ImageSlot } from "@/components/ui/ImageSlot";
 import {
   activeTechnicianJob as job,
   APPLY_PATH,
   INSTALLER_NETWORK_PATH,
   JOBS_INDEX_PATH,
 } from "@/data/jobs";
+import { applyImages } from "@/data/site/careers-apply-images";
 import { utilityBar } from "@/data/navigation/site-navigation";
 import { buildPageMetadata } from "@/lib/metadata/build-page-metadata";
 import { careersPageSchema } from "@/lib/schema/careers-page";
@@ -56,33 +58,48 @@ export default function ApplyPage() {
       />
       <Breadcrumbs items={BREADCRUMBS} />
 
-      <Section tone="default" density="spacious" width="reading" labelledBy="apply-heading">
-        <h1
-          id="apply-heading"
-          className="text-[length:var(--text-h1)] leading-[1.08] font-bold text-balance text-ink"
-        >
-          {H1}
-        </h1>
-        <p className="mt-5 text-[length:var(--text-body-lg)] leading-relaxed text-pretty text-ink-muted">
-          {DESCRIPTION}
-        </p>
-        <h2 className="mt-8 text-[length:var(--text-h4)] font-bold text-ink">
-          {job.title}
-        </h2>
-        <ul className="mt-3 flex list-disc flex-col gap-1 pl-5 text-[length:var(--text-body)] text-ink-muted">
-          {job.summaryFacts.map((fact) => (
-            <li key={fact}>{fact}</li>
-          ))}
-        </ul>
-        <p className="mt-4">
-          <Link
-            href={job.path}
-            className="inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--color-accent-blue-strong)] underline underline-offset-4"
-          >
-            Read the full opening
-            <span aria-hidden="true">&rarr;</span>
-          </Link>
-        </p>
+      <Section tone="default" density="spacious" width="site" labelledBy="apply-heading">
+        {/* Single column below lg: intro, image, opening details. From lg the
+            image takes the right column across both rows, top-aligned with the
+            H1. Static, not sticky: section media scrolls with content
+            (CLAUDE.md section 8). */}
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] lg:gap-x-14">
+          <div className="lg:col-start-1 lg:row-start-1">
+            <h1
+              id="apply-heading"
+              className="text-[length:var(--text-h1)] leading-[1.08] font-bold text-balance text-ink"
+            >
+              {H1}
+            </h1>
+            <p className="mt-5 text-[length:var(--text-body-lg)] leading-relaxed text-pretty text-ink-muted">
+              {DESCRIPTION}
+            </p>
+          </div>
+          <ImageSlot
+            slot={applyImages.opening}
+            priority
+            className="mt-8 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:self-start"
+          />
+          <div className="lg:col-start-1 lg:row-start-2">
+            <h2 className="mt-8 text-[length:var(--text-h4)] font-bold text-ink">
+              {job.title}
+            </h2>
+            <ul className="mt-3 flex list-disc flex-col gap-1 pl-5 text-[length:var(--text-body)] text-ink-muted">
+              {job.summaryFacts.map((fact) => (
+                <li key={fact}>{fact}</li>
+              ))}
+            </ul>
+            <p className="mt-4">
+              <Link
+                href={job.path}
+                className="inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--color-accent-blue-strong)] underline underline-offset-4"
+              >
+                Read the full opening
+                <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </p>
+          </div>
+        </div>
       </Section>
 
       <Section tone="subtle" width="reading" labelledBy="application-form-heading">
