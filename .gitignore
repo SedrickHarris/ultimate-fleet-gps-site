@@ -30,5 +30,6 @@ Thumbs.db
 *.tsbuildinfo
 next-env.d.ts
 
-# Generated SEO pipeline outputs (regenerate with the route scanner)
-docs/seo/
+# Generated SEO pipeline outputs (regenerate with the route scanner).
+# Keyword CSV inputs under docs/seo/keyword-exports/ are not ignored.
+docs/seo/*.json
