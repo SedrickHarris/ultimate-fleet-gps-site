@@ -29,8 +29,10 @@ import {
  * Breakpoint: the full desktop header (utility bar, main navigation, phone
  * button) starts at lg (1024px). The row needs more than 720px, so it cannot
  * fit at md (768px) without horizontal overflow. Below lg the header shows the
- * logo, the Request Service CTA, and the disclosure menu, and MobileNavigation
- * keeps a one-tap phone action visible. Keep HeaderMobileMenu,
+ * logo and the disclosure menu on one row, plus the Request Service CTA from
+ * md up. Below md (phones) the CTA is omitted from the header because
+ * MobileNavigation keeps one-tap phone and Request Service actions visible,
+ * and the header stays a single compact row. Keep HeaderMobileMenu,
  * MainNavigation, and MobileNavigation on this same breakpoint.
  *
  * Not sticky: a fixed header costs mobile viewport height and can cover
@@ -62,7 +64,7 @@ export function Header() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-[1280px] flex-wrap items-center gap-x-4 gap-y-3 px-5 py-2 md:gap-x-8 md:px-6">
+      <div className="mx-auto flex max-w-[1280px] flex-wrap items-center gap-x-4 px-5 py-2 md:gap-x-8 md:px-6">
         <Link
           href="/"
           aria-label="Ultimate Fleet GPS"
@@ -78,7 +80,7 @@ export function Header() {
           />
         </Link>
 
-        <div className="ms-auto flex items-center gap-4">
+        <div className="ms-auto hidden items-center gap-4 md:flex">
           <MainNavigation items={mainNavigation} />
 
           {/*

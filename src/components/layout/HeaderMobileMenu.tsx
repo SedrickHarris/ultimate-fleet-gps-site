@@ -57,14 +57,16 @@ export function HeaderMobileMenu({ items, phone }: HeaderMobileMenuProps) {
   }, [open]);
 
   return (
-    <div className="w-full lg:hidden">
+    // `contents` lets the button join the header row while the open panel
+    // wraps to its own full-width line below it.
+    <div className="contents lg:hidden">
       <button
         ref={triggerRef}
         type="button"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-md border border-border px-3 font-semibold text-ink transition-[box-shadow,background-color] hover:bg-surface-subtle hover:shadow-card"
+        className="ms-auto inline-flex min-h-11 min-w-11 items-center md:ms-0 justify-center gap-2 rounded-md border border-border px-3 font-semibold text-ink transition-[box-shadow,background-color] hover:bg-surface-subtle hover:shadow-card"
       >
         <span aria-hidden="true" className="text-lg leading-none">
           {open ? "×" : "≡"}
@@ -76,7 +78,7 @@ export function HeaderMobileMenu({ items, phone }: HeaderMobileMenuProps) {
         <div
           id={panelId}
           ref={panelRef}
-          className="mt-4 border-t border-border pt-4"
+          className="order-last mt-2 w-full basis-full border-t border-border pt-4"
         >
           <ul className="flex flex-col gap-1">
             {items.map((item) => (
