@@ -50,7 +50,12 @@ interface SectionProps {
   /** Overlay darkness: 55% black by default, 65% black on bright photos. */
   readonly backgroundOverlayStrength?: "default" | "strong";
   /** Crop anchor for `backgroundImage`. Defaults to `left-bottom`. */
-  readonly backgroundPosition?: "left-bottom" | "center";
+  readonly backgroundPosition?: "left-bottom" | "center" | "bottom";
+  /**
+   * Taller section for a background photo: a minimum height with the content
+   * vertically centered, so more of the photo shows. Off by default.
+   */
+  readonly tallMedia?: boolean;
   readonly center?: boolean;
 }
 
@@ -104,6 +109,7 @@ export function Section({
   backgroundOverlay = false,
   backgroundOverlayStrength = "default",
   backgroundPosition = "left-bottom",
+  tallMedia = false,
   center = false,
 }: SectionProps) {
   return (
@@ -113,7 +119,7 @@ export function Section({
       aria-labelledby={labelledBy}
       className={`${id ? "scroll-mt-6 " : ""}px-5 md:px-6 ${toneClasses[tone]} ${densityClasses[density]}${
         backgroundImage ? " relative isolate overflow-hidden" : ""
-      }`}
+      }${tallMedia ? " flex min-h-[440px] items-center md:min-h-[560px]" : ""}`}
     >
       {backgroundImage ? (
         // eslint-disable-next-line @next/next/no-img-element
@@ -125,7 +131,9 @@ export function Section({
           height={backgroundImage.height}
           loading="lazy"
           decoding="async"
-          className={`absolute inset-0 -z-10 h-full w-full object-cover ${backgroundPosition === "center" ? "object-center" : "object-left-bottom"}`}
+          className={`absolute inset-0 -z-10 h-full w-full object-cover ${
+            { center: "object-center", bottom: "object-bottom", "left-bottom": "object-left-bottom" }[backgroundPosition]
+          }`}
         />
       ) : null}
       {backgroundImage && backgroundOverlay ? (
@@ -138,7 +146,7 @@ export function Section({
       ) : null}
       <div
         data-reveal-group
-        className={`mx-auto ${widthClasses[width]} ${center ? "text-center" : ""}`}
+        className={`mx-auto ${tallMedia ? "w-full " : ""}${widthClasses[width]} ${center ? "text-center" : ""}`}
       >
         {children}
       </div>

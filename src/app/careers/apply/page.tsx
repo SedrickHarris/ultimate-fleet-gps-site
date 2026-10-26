@@ -154,7 +154,8 @@ export default function ApplyPage() {
         labelledBy="apply-network-heading"
         backgroundImage={applyFinalCtaBackground}
         backgroundOverlay
-        backgroundPosition="center"
+        backgroundPosition="bottom"
+        tallMedia
       >
         <div className="rounded-[var(--radius-lg)] border border-border bg-surface-subtle p-6 md:p-8">
           <h2
