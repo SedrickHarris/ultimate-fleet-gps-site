@@ -157,14 +157,17 @@ export default function ApplyPage() {
         backgroundPosition="bottom"
         tallMedia
       >
-        <div className="rounded-[var(--radius-lg)] border border-border bg-surface-subtle p-6 md:p-8">
+        <div
+          data-tone="dark"
+          className="rounded-[var(--radius-lg)] border border-[var(--color-border-dark)] bg-[var(--color-surface-dark)] p-6 text-[var(--color-text-on-dark)] md:p-8"
+        >
           <h2
             id="apply-network-heading"
-            className="text-[length:var(--text-h4)] font-bold text-ink"
+            className="text-[length:var(--text-h4)] font-bold text-[var(--color-text-on-dark)]"
           >
             Looking for future opportunities?
           </h2>
-          <p className="mt-2 text-[length:var(--text-body)] text-ink-muted">
+          <p className="mt-2 text-[length:var(--text-body)] text-[var(--color-text-on-dark)]/90">
             The Installer Network is a separate registration and is not an
             application for this opening.
           </p>
@@ -173,7 +176,7 @@ export default function ApplyPage() {
             event={AnalyticsEvent.applyInstallerNetworkClick}
             params={TRACK_PARAMS}
             journey="recruitment"
-            className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md border border-ink bg-surface px-6 py-3 text-center text-base font-semibold text-ink no-underline transition-[background-color] duration-[var(--duration-fast)] hover:bg-surface-subtle sm:w-auto"
+            className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md border border-white bg-transparent px-6 py-3 text-center text-base font-semibold text-white no-underline transition-[background-color] duration-[var(--duration-fast)] hover:bg-white/10 sm:w-auto"
           >
             Learn about the Installer Network
             <span aria-hidden="true">&rarr;</span>
