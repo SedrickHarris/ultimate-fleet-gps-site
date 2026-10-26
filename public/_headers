@@ -3,7 +3,7 @@
 # Both rules are permanent. The production pages.dev rule stays as a fallback:
 # the dashboard Bulk Redirect to the live domain takes precedence while active.
 # See docs/17-cloudflare-deployment.md, section "pages.dev indexing", and
-# docs/decisions/0016-telematics-label-and-single-host-indexing.md.
+# docs/decisions/0017-telematics-label-and-single-host-indexing.md.
 https://ultimate-fleet-gps-site.pages.dev/*
   X-Robots-Tag: noindex
 

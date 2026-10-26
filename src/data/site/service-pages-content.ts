@@ -187,7 +187,7 @@ export const installCardLinks: Readonly<
  * Link wording for a "What We Install" card whose destination page is named
  * differently from the category. "Fleet management equipment" is the confirmed
  * umbrella category (docs/01 section 9.1); "Fleet Telematics Installation" is
- * the page name and the link label (docs/decisions/0016). A card absent here
+ * the page name and the link label (docs/decisions/0017). A card absent here
  * uses its category name.
  */
 export const installCardLinkLabels: Readonly<
