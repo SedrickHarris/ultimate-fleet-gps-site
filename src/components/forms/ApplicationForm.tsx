@@ -36,6 +36,7 @@ interface Fields {
   validLicense: YesNo;
   personalVehicle: YesNo;
   providesOwnTools: YesNo;
+  providesOwnTravel: YesNo;
   smartphone: YesNo;
   backgroundCheck: YesNo;
   travelAcknowledged: YesNo;
@@ -54,6 +55,7 @@ type RequiredKey =
   | "validLicense"
   | "personalVehicle"
   | "providesOwnTools"
+  | "providesOwnTravel"
   | "smartphone"
   | "backgroundCheck"
   | "travelAcknowledged"
@@ -75,6 +77,7 @@ const EMPTY: Fields = {
   validLicense: "",
   personalVehicle: "",
   providesOwnTools: "",
+  providesOwnTravel: "",
   smartphone: "",
   backgroundCheck: "",
   travelAcknowledged: "",
@@ -105,7 +108,11 @@ function validate(fields: Fields): Errors {
   }
   if (!fields.providesOwnTools) {
     errors.providesOwnTools =
-      "Answer Yes or No: will you provide your own tools and travel resources?";
+      "Answer Yes or No: will you provide your own tools?";
+  }
+  if (!fields.providesOwnTravel) {
+    errors.providesOwnTravel =
+      "Answer Yes or No: will you provide your own travel resources?";
   }
   if (!fields.smartphone) {
     errors.smartphone = "Answer Yes or No: do you have a smartphone?";
@@ -246,7 +253,8 @@ export function ApplicationForm() {
       toolsOwned: fields.toolsOwned.trim(),
       validDriversLicense: fields.validLicense === "yes",
       personalVehicle: fields.personalVehicle === "yes",
-      providesOwnToolsAndTravel: fields.providesOwnTools === "yes",
+      providesOwnTools: fields.providesOwnTools === "yes",
+      providesOwnTravelResources: fields.providesOwnTravel === "yes",
       smartphone: fields.smartphone === "yes",
       backgroundCheckConsent: fields.backgroundCheck === "yes",
       travelPercentAcknowledged: fields.travelAcknowledged === "yes",
@@ -397,7 +405,16 @@ export function ApplicationForm() {
           value={fields.providesOwnTools}
           onChange={(v) => update("providesOwnTools", v)}
         >
-          Will you provide your own tools and travel resources?
+          Will you provide your own tools?
+        </YesNoQuestion>
+        <YesNoQuestion
+          id={fieldId("providesOwnTravel")}
+          errorId={errorId("providesOwnTravel")}
+          error={errors.providesOwnTravel}
+          value={fields.providesOwnTravel}
+          onChange={(v) => update("providesOwnTravel", v)}
+        >
+          Will you provide your own travel resources?
         </YesNoQuestion>
         <YesNoQuestion
           id={fieldId("smartphone")}

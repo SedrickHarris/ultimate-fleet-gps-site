@@ -1,7 +1,7 @@
 # Decision 0023: The contractor acknowledgment becomes a Yes or No question
 
 **Date:** October 26, 2026
-**Status:** Applied in code and pushed. Amended by decision 0024: the vehicle question is split in two, so there are now nine Yes or No questions.
+**Status:** Applied in code and pushed. Amended by decision 0024: the vehicle, tools, and travel resources question is split in three, so there are now ten Yes or No questions.
 **Decided by:** Project owner (request in the working session: update this question as well)
 **Affects:** `src/components/forms/ApplicationForm.tsx`, `workers/forms/src/validate.ts`, `docs/32-ghl-workflows.md`
 **References:** `CLAUDE.md` sections 4 and 8; `docs/01` section 33; decisions 0021 and 0022
