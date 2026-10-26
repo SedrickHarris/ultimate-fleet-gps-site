@@ -136,6 +136,12 @@ export default function AboutPage() {
             ))}
           </CardGrid>
         </div>
+        <p className="mt-8">
+          <Link href={page.whatWeInstall.link.href} className={textLink}>
+            {page.whatWeInstall.link.label}
+            <span aria-hidden="true">&rarr;</span>
+          </Link>
+        </p>
       </Section>
 
       {/* How we work: approved facts plus the photo documentation callout. */}

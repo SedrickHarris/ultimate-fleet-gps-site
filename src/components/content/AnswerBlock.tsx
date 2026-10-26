@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Section } from "@/components/layout/Section";
 import { CtaButton } from "@/components/ui/CtaButton";
 import type { ServiceImage } from "@/data/site/service-images";
@@ -46,6 +48,18 @@ export function AnswerBlock({ content, image }: AnswerBlockProps) {
           {paragraph}
         </p>
       ))}
+
+      {content.link ? (
+        <p className="mt-6">
+          <Link
+            href={content.link.href}
+            className="inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--color-accent-blue-strong)] underline underline-offset-4"
+          >
+            {content.link.label}
+            <span aria-hidden="true">&rarr;</span>
+          </Link>
+        </p>
+      ) : null}
 
       {content.pathwaysHeading && content.pathways && content.pathways.length > 0 ? (
         <>

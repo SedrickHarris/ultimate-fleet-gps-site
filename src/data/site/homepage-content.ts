@@ -50,6 +50,7 @@ import type { Cta, HomepageContent } from "@/types/content";
 
 const CONTACT_ROUTE = "/contact/";
 const SERVICES_ROUTE = "/services/";
+const ABOUT_ROUTE = "/about/";
 const TECHNICIAN_ROLE_ROUTE = "/careers/mobile-installation-technician/";
 
 const QUOTE_CTA: Cta = {
@@ -99,6 +100,10 @@ export const homepageContent: HomepageContent = {
       "Mobile installation helps fleet operators coordinate equipment deployment where vehicles are parked, staged, or operating, while reducing unnecessary vehicle downtime. Our services can support individual vehicles, mixed fleets, and larger installation projects that require consistent procedures and installation documentation.",
       "In business since 2011, Ultimate Fleet GPS connects commercial customers with field installation resources for fleet technology deployments. We work on-site at customer locations rather than operating as a walk-in installation facility.",
     ],
+    link: {
+      label: "Learn more about Ultimate Fleet GPS",
+      href: ABOUT_ROUTE,
+    },
     pathwaysHeading: "Choose the right path",
     pathways: [
       {

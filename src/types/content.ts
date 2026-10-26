@@ -65,6 +65,8 @@ export interface DirectAnswerContent {
   readonly eyebrow?: string;
   readonly heading?: string;
   readonly body: string | readonly string[];
+  /** Optional text link under the body paragraphs, above the pathways. */
+  readonly link?: { readonly label: string; readonly href: string };
   readonly pathwaysHeading?: string;
   readonly pathways?: readonly AudiencePathway[];
 }

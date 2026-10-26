@@ -85,6 +85,7 @@ export const aboutContent = {
     h2: "What we install",
     intro:
       "Ultimate Fleet GPS installs GPS tracking, ELD, AOBRD, TPMS, and fleet management equipment on fleet, commercial, and construction vehicles.",
+    link: { label: "Explore all fleet installation services", href: "/services/" },
   },
 
   howWeWork: {
