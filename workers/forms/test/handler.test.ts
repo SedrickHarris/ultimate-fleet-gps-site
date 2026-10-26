@@ -372,16 +372,14 @@ describe("validation", () => {
     assert.equal(calls.length, 0);
   });
 
-  it("still requires the contractor acknowledgment and privacy consent", async () => {
-    for (const key of ["independentContractorAcknowledged", "privacyConsent"]) {
+  it("still requires the privacy consent", async () => {
+    for (const bad of [false, undefined]) {
       const { calls, deps } = setup();
-      const res = await handleRequest(
-        post({ ...application, [key]: false }),
-        env,
-        deps,
-      );
-      assert.equal(res.status, 400, key);
-      assert.equal(calls.length, 0, key);
+      const payload: Record<string, unknown> = { ...application, privacyConsent: bad };
+      if (bad === undefined) delete payload.privacyConsent;
+      const res = await handleRequest(post(payload), env, deps);
+      assert.equal(res.status, 400);
+      assert.equal(calls.length, 0);
     }
   });
 
@@ -393,6 +391,7 @@ describe("validation", () => {
     "travelPercentAcknowledged",
     "stateToStateTravelAcknowledged",
     "trainingAcknowledged",
+    "independentContractorAcknowledged",
   ];
 
   it("accepts a No on each Yes or No application question", async () => {

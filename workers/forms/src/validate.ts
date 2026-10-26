@@ -165,7 +165,7 @@ export function validateSubmission(
       c.text("skillsExperience", { required: false, max: LONG });
       c.text("toolsOwned", { required: false, max: LONG });
       c.stringList("platforms");
-      // Yes or No questions (decision 0022). A "No" is accepted and reaches the
+      // Yes or No questions (decisions 0022 and 0023). A "No" is accepted and reaches the
       // recruiter, who reviews it. Nothing here rejects or scores an applicant.
       for (const key of [
         "validDriversLicense",
@@ -175,14 +175,13 @@ export function validateSubmission(
         "travelPercentAcknowledged",
         "stateToStateTravelAcknowledged",
         "trainingAcknowledged",
+        "independentContractorAcknowledged",
       ]) {
         c.yesNo(key);
       }
-      // These two stay required. Without them the contractor terms are not
-      // acknowledged and there is no consent to use the information.
-      for (const key of ["independentContractorAcknowledged", "privacyConsent"]) {
-        c.mustBeTrue(key);
-      }
+      // This one stays required. Without it there is no consent to use the
+      // information to consider the application.
+      c.mustBeTrue("privacyConsent");
       const travelPercent = body.travelPercent;
       if (typeof travelPercent === "number" && Number.isFinite(travelPercent)) {
         c.fields.travelPercent = travelPercent;

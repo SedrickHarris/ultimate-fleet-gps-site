@@ -42,9 +42,9 @@ export const CUSTOM_FIELDS = [
   ["skillsExperience", "Skills and Experience", "LARGE_TEXT"],
   ["jobSlug", "Job ID", "TEXT"],
   ["jobTitle", "Job Title", "TEXT"],
-  // Application answers (decisions 0021 and 0022). Seven hold "Yes" or "No".
-  // Independent Contractor Status and Privacy Consent are required checkboxes,
-  // so they always hold "Yes". The names are kept so existing IDs still match.
+  // Application answers (decisions 0021 to 0023). Eight hold "Yes" or "No".
+  // Privacy Consent is a required checkbox, so it always holds "Yes". The
+  // names are kept so existing IDs still match.
   ["validDriversLicense", "Confirmed - Valid Driver License", "TEXT"],
   ["personalVehicle", "Confirmed - Personal Vehicle and Tools", "TEXT"],
   ["smartphone", "Confirmed - Smartphone", "TEXT"],

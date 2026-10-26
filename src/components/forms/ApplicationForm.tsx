@@ -40,7 +40,7 @@ interface Fields {
   travelAcknowledged: YesNo;
   stateToStateAcknowledged: YesNo;
   trainingAcknowledged: YesNo;
-  contractorAcknowledged: boolean;
+  contractorAcknowledged: YesNo;
   privacyConsent: boolean;
   website: string;
 }
@@ -77,7 +77,7 @@ const EMPTY: Fields = {
   travelAcknowledged: "",
   stateToStateAcknowledged: "",
   trainingAcknowledged: "",
-  contractorAcknowledged: false,
+  contractorAcknowledged: "",
   privacyConsent: false,
   website: "",
 };
@@ -121,7 +121,7 @@ function validate(fields: Fields): Errors {
   }
   if (!fields.contractorAcknowledged) {
     errors.contractorAcknowledged =
-      "Confirm that you understand this is independent contractor work.";
+      "Answer Yes or No: do you understand that this is independent contractor work?";
   }
   if (!fields.privacyConsent) {
     errors.privacyConsent =
@@ -140,8 +140,8 @@ function validate(fields: Fields): Errors {
  * It collects contact details, Yes or No answers, travel availability,
  * acknowledgments, optional skills, platform and tool details, and consent. A
  * "No" is submitted and reviewed by a person; nothing here rejects or scores
- * an applicant (decision 0022). The contractor acknowledgment and the privacy
- * consent stay required checkboxes. It
+ * an applicant (decisions 0022 and 0023). Only the privacy consent stays a
+ * required checkbox. It
  * never asks for a driver's license number, a Social Security number, a date
  * of birth, or any government identifier. The background check is a
  * confirmation and consent only. Wording of the consent and privacy text needs
@@ -246,7 +246,7 @@ export function ApplicationForm() {
       travelPercent,
       stateToStateTravelAcknowledged: fields.stateToStateAcknowledged === "yes",
       trainingAcknowledged: fields.trainingAcknowledged === "yes",
-      independentContractorAcknowledged: fields.contractorAcknowledged,
+      independentContractorAcknowledged: fields.contractorAcknowledged === "yes",
       privacyConsent: fields.privacyConsent,
     });
 
@@ -516,17 +516,17 @@ export function ApplicationForm() {
           Do you understand that training is provided and that no prior
           installation experience is required?
         </YesNoQuestion>
-        <Check
+        <YesNoQuestion
           id={fieldId("contractorAcknowledged")}
           errorId={errorId("contractorAcknowledged")}
           error={errors.contractorAcknowledged}
-          checked={fields.contractorAcknowledged}
+          value={fields.contractorAcknowledged}
           onChange={(v) => update("contractorAcknowledged", v)}
         >
-          I understand that this is independent contractor work, not employee
-          employment, and that the starting rate of {startingRate} is not
-          guaranteed income.
-        </Check>
+          Do you understand that this is independent contractor work, not
+          employee employment, and that the starting rate of {startingRate} is
+          not guaranteed income?
+        </YesNoQuestion>
         <Check
           id={fieldId("privacyConsent")}
           errorId={errorId("privacyConsent")}

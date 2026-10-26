@@ -1,7 +1,7 @@
 # Decision 0022: Seven application boxes become required Yes or No questions
 
 **Date:** October 26, 2026
-**Status:** Applied in code. Not yet deployed or checked on the live form.
+**Status:** Applied in code and pushed. Amended by decision 0023: the contractor acknowledgment is also a Yes or No question now.
 **Decided by:** Project owner (request in the working session: update the boxes with Yes or No radio buttons instead of not submitting)
 **Affects:** `src/components/forms/ApplicationForm.tsx`, `workers/forms/src/validate.ts`, `docs/32-ghl-workflows.md`
 **References:** `CLAUDE.md` sections 4 and 8; `docs/01` section 33; decisions 0019 and 0021
