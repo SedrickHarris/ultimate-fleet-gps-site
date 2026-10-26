@@ -64,8 +64,10 @@ const VEHICLE_EXAMPLE_LIST = joinWithAnd(
 export const coverage = {
   nationwide: {
     h1: "Nationwide Mobile Fleet Installation Coverage",
+    // Meta title and description: Oct 26 2026 metadata audit approval.
+    metaTitle: "Nationwide Installation Coverage",
     metaDescription:
-      "Learn about nationwide mobile fleet installation service delivered at the customer's location. Share your equipment, vehicle count, project locations, and preferred timing in an installation quote request.",
+      "We travel to fleets across the United States. Check coverage, then share your locations, vehicle count, and timing to request a quote.",
     hero: {
       eyebrow: "Nationwide Mobile Installation Context",
       paragraphs: [

@@ -29,7 +29,7 @@ const PATHNAME = "/services/";
 const BREADCRUMBS = [{ label: "Home", href: "/" }, { label: "Services" }];
 
 export const metadata: Metadata = buildPageMetadata({
-  title: servicesHubContent.h1,
+  title: servicesHubContent.metaTitle ?? servicesHubContent.h1,
   description: servicesHubContent.metaDescription,
   pathname: PATHNAME,
 });

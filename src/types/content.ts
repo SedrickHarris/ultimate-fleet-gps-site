@@ -306,6 +306,8 @@ export interface CoverageExploreCard {
 /** Confirmed-facts content for the single nationwide coverage page (Sprint 2). */
 export interface NationwideCoverageContent {
   readonly h1: string;
+  /** Meta title without the brand suffix. Falls back to `h1` when absent. */
+  readonly metaTitle?: string;
   readonly metaDescription: string;
   /** Hero copy and the commercial CTA. The secondary action is the phone button. */
   readonly hero: {

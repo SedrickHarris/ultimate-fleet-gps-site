@@ -18,7 +18,7 @@ const BREADCRUMBS = [
 ];
 
 export const metadata: Metadata = buildPageMetadata({
-  title: constructionHeavyEquipmentContent.h1,
+  title: constructionHeavyEquipmentContent.metaTitle ?? constructionHeavyEquipmentContent.h1,
   description: constructionHeavyEquipmentContent.metaDescription,
   pathname: PATHNAME,
 });

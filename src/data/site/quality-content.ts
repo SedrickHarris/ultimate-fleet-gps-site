@@ -32,9 +32,10 @@ const NATIONWIDE_SENTENCE =
 export const qualitySafetyContent = {
   h1: "Quality & Safety",
   // The layout title template appends " | Ultimate Fleet GPS".
-  metaTitle: "Quality & Safety | Mobile Fleet Installation",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "Installation Quality and Safety",
   metaDescription:
-    "Nationwide mobile installation service, delivered at the customer's location. Every installation is photo documented, and you'll receive that documentation automatically.",
+    "How we approach installation quality and safety on commercial vehicles. Every installation is photo documented. Request a quote.",
 
   hero: {
     eyebrow: "INSTALLATION QUALITY & SAFETY",

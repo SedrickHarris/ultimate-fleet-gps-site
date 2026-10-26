@@ -15,7 +15,7 @@ import type { IndustriesHubPageContent } from "@/types/service-content";
  * file; a spaced hyphen is used instead.
  */
 export const industriesHubPageContent: IndustriesHubPageContent = {
-  metaTitle: "Fleet Technology Installation by Industry",
+  metaTitle: "Industries We Install For",
 
   hero: {
     primaryCta: {

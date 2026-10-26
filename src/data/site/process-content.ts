@@ -34,9 +34,10 @@ const CLARIFICATION =
 export const ourProcessContent = {
   h1: "Our Nationwide Fleet Installation Process",
   // The layout title template appends " | Ultimate Fleet GPS".
-  metaTitle: "Our Process | Mobile Fleet Installation",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "How Mobile Installation Works",
   metaDescription:
-    "Learn what to include in an installation quote request: equipment, vehicle count, project locations, and preferred timing. Nationwide mobile installation service, delivered at the customer's location, with automatic photo documentation.",
+    "See what to include in a quote request and how nationwide mobile installation works at your location, with automatic photo documentation.",
 
   hero: {
     eyebrow: "NATIONWIDE MOBILE FLEET INSTALLATION",

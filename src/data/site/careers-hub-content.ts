@@ -35,7 +35,7 @@ export const pendingEntryLevelFit = {
 } as const;
 
 export const careersHubPageContent: CareersHubPageContent = {
-  metaTitle: "Mobile Installation Technician | Installer Network",
+  metaTitle: "Mobile Installation Technician Network",
 
   hero: {
     eyebrow: "Installer Network",

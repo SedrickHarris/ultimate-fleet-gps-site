@@ -4,8 +4,9 @@ import { buildPageMetadata } from "@/lib/metadata/build-page-metadata";
 
 export const metadata = buildPageMetadata({
   title: "Accessibility Statement",
+  // Meta description: Oct 26 2026 metadata audit approval.
   description:
-    "Accessibility Statement for the Ultimate Fleet GPS website. This page has not yet been reviewed by an attorney.",
+    "How Ultimate Fleet GPS works to make its website usable with screen readers, keyboards, and zoom, and how to contact us about accessibility difficulties.",
   pathname: "/accessibility/",
 });
 

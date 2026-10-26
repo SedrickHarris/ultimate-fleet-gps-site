@@ -28,7 +28,7 @@ const BREADCRUMBS = [
 ];
 
 export const metadata: Metadata = buildPageMetadata({
-  title: commercialFleetsContent.h1,
+  title: commercialFleetsContent.metaTitle ?? commercialFleetsContent.h1,
   description: commercialFleetsContent.metaDescription,
   pathname: PATHNAME,
 });

@@ -61,10 +61,11 @@ const CAREERS_CTA: Cta = {
 
 export const aboutContent = {
   h1: "About Ultimate Fleet GPS",
-  // The layout title template appends " | Ultimate Fleet GPS".
-  metaTitle: "About Us | Mobile Fleet Installation",
+  // Rendered as an absolute title (no brand suffix) because it already names the brand.
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "About Ultimate Fleet GPS",
   metaDescription:
-    "Mobile electronic equipment installation for fleet and construction vehicles, delivered at your location nationwide. In business since 2011.",
+    "Ultimate Fleet GPS provides mobile fleet technology installation nationwide, in business since 2011. Learn who we serve and how we work.",
 
   hero: {
     eyebrow: "ABOUT US",

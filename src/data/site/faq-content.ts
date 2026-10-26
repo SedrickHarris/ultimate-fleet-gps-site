@@ -36,9 +36,10 @@ const CLARIFICATION =
 export const faqHubContent: FaqHubContent = {
   h1: "Frequently Asked Questions",
   // The layout title template appends " | Ultimate Fleet GPS".
-  metaTitle: "Frequently Asked Questions",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "Mobile GPS & ELD Installation FAQ",
   metaDescription:
-    "Answers about commercial mobile fleet installation, approved service categories, installation quote requests, nationwide mobile installation service delivered at the customer's location, and installation photo documentation.",
+    "Answers on how mobile installation works, what we install, coverage, scheduling, and quotes. Find your question, or contact us.",
 
   hero: {
     support:

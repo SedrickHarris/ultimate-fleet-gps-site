@@ -12,8 +12,10 @@ import { buildPageMetadata } from "@/lib/metadata/build-page-metadata";
 import { careersPageSchema } from "@/lib/schema/careers-page";
 
 const H1 = "Current Installer Openings";
+// Meta title and description: Oct 26 2026 metadata audit approval.
+const META_TITLE = "GPS & ELD Installer Jobs";
 const DESCRIPTION =
-  "Current installer openings at Ultimate Fleet GPS. Independent contractor work, nationwide applicants accepted, no prior installation experience required, and training provided.";
+  "See current openings for mobile GPS and ELD installers. Independent contractor work, training provided. Read the details and apply.";
 const BREADCRUMBS = [
   { label: "Home", href: "/" },
   { label: "Careers", href: "/careers/" },
@@ -21,7 +23,7 @@ const BREADCRUMBS = [
 ];
 
 export const metadata: Metadata = buildPageMetadata({
-  title: H1,
+  title: META_TITLE,
   description: DESCRIPTION,
   pathname: JOBS_INDEX_PATH,
 });

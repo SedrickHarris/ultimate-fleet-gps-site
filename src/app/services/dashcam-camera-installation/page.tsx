@@ -7,7 +7,7 @@ import { buildPageMetadata } from "@/lib/metadata/build-page-metadata";
 const bundle = getServicePage("dashcam-camera-installation");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: bundle.page.h1,
+  title: bundle.page.metaTitle ?? bundle.page.h1,
   description: bundle.page.metaDescription,
   pathname: bundle.content.pathname,
 });

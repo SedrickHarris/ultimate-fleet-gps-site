@@ -6,6 +6,8 @@ import type { Cta, FaqItem, WhatWeInstallContent } from "@/types/content";
 /** Shared content shape for the services hub and each service detail page. */
 export interface ServicePageContent {
   readonly h1: string;
+  /** Meta title without the brand suffix. Falls back to `h1` when absent. */
+  readonly metaTitle?: string;
   readonly metaDescription: string;
   readonly intro: string;
   /** Body paragraphs, confirmed facts only. */
@@ -556,6 +558,8 @@ export interface CareersPageContent {
  */
 export interface InformationalPageContent {
   readonly h1: string;
+  /** Meta title without the brand suffix. Falls back to `h1` when absent. */
+  readonly metaTitle?: string;
   readonly metaDescription: string;
   readonly intro: string;
   readonly body: readonly string[];
@@ -623,6 +627,8 @@ export interface FaqHubContent {
 export interface ResourceArticleContent {
   readonly slug: string;
   readonly h1: string;
+  /** Meta title without the brand suffix. Falls back to `h1` when absent. */
+  readonly metaTitle?: string;
   readonly metaDescription: string;
   readonly intro: string;
   readonly body: readonly string[];

@@ -23,7 +23,7 @@ export async function generateMetadata({
   if (!article) return {};
 
   return buildPageMetadata({
-    title: article.h1,
+    title: article.metaTitle ?? article.h1,
     description: article.metaDescription,
     pathname: `/resources/${article.slug}/`,
     type: "article",

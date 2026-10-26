@@ -26,9 +26,10 @@ import type { CareersPageContent } from "@/types/service-content";
  * `/faq/` no longer imports this FAQ.
  */
 export const careersHubContent: CareersPageContent = {
+  // Meta title and description: Oct 26 2026 metadata audit approval.
   h1: "Installer Careers at Ultimate Fleet GPS",
   metaDescription:
-    "Current openings for Mobile GPS, ELD, and AOBRD installation technicians. Independent contractor work, nationwide applicants accepted, no prior installation experience required, and training provided.",
+    "Independent contractor installation work, nationwide applicants accepted. Training provided. See current openings and requirements.",
   intro:
     "Ultimate Fleet GPS has current openings for Mobile GPS, ELD, and AOBRD installation technicians. This is independent contractor field work, applicants are accepted nationwide, and no prior installation experience is required. Training is provided.",
   body: [],
@@ -163,9 +164,10 @@ export const careersPageFaq: readonly FaqItem[] = [
  * opportunities, separate from the application for the current opening.
  */
 export const installerNetworkContent: CareersPageContent = {
+  // Meta title and description: Oct 26 2026 metadata audit approval.
   h1: "Mobile Installation Technician",
   metaDescription:
-    "Experienced mobile fleet-installation technicians can express interest in the Ultimate Fleet GPS Installer Network. Submitting interest does not indicate a current opening or guarantee future work.",
+    "Register interest in our Installer Network for future mobile installation work. Not a current opening. No work or pay is guaranteed.",
   intro:
     "Ultimate Fleet GPS is building an Installer Network for experienced mobile fleet-installation technicians. Share your information to express interest and help us understand your installation background.",
   body: [],

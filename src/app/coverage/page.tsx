@@ -31,7 +31,7 @@ const BREADCRUMBS = [{ label: "Home", href: "/" }, { label: "Coverage" }];
 const page = coverage.nationwide;
 
 export const metadata: Metadata = buildPageMetadata({
-  title: page.h1,
+  title: page.metaTitle ?? page.h1,
   description: page.metaDescription,
   pathname: PATHNAME,
 });

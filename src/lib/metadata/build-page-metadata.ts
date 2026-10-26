@@ -9,7 +9,13 @@ import {
 } from "@/lib/metadata/page-defaults";
 
 export type PageMetadataInput = {
-  title: string;
+  /**
+   * Page title. A string takes the layout template suffix. `{ absolute }`
+   * skips the template, for titles that already carry the brand.
+   */
+  title: string | { absolute: string };
+  /** Open Graph and Twitter title when it should differ from the page title. */
+  socialTitle?: string;
   description: string;
   pathname: string;
   noIndex?: boolean;
@@ -28,6 +34,7 @@ export type PageMetadataInput = {
  */
 export function buildPageMetadata({
   title,
+  socialTitle,
   description,
   pathname,
   noIndex = false,
@@ -35,6 +42,8 @@ export function buildPageMetadata({
   type = DEFAULT_OG_TYPE,
 }: PageMetadataInput): Metadata {
   const url = `${SITE_URL}${pathname}`;
+  const plainTitle = typeof title === "string" ? title : title.absolute;
+  const shareTitle = socialTitle ?? plainTitle;
   const isDefaultImage = image !== undefined && image === DEFAULT_OG_IMAGE;
 
   return {
@@ -46,7 +55,7 @@ export function buildPageMetadata({
       type,
       url,
       siteName: SITE_NAME,
-      title,
+      title: shareTitle,
       description,
       ...(image
         ? {
@@ -64,7 +73,7 @@ export function buildPageMetadata({
     },
     twitter: {
       card: isDefaultImage ? "summary" : "summary_large_image",
-      title,
+      title: shareTitle,
       description,
       ...(image ? { images: [image] } : {}),
     },

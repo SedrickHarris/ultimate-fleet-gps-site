@@ -17,7 +17,7 @@ import { buildPageMetadata } from "@/lib/metadata/build-page-metadata";
  */
 export const metadata: Metadata = buildPageMetadata({
   title: "Application Status",
-  description: "Application status.",
+  description: "Confirmation page for a submitted job application. This page is not indexed.",
   pathname: APPLICATION_RECEIVED_PATH,
   noIndex: true,
 });

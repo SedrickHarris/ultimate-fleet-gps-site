@@ -19,8 +19,10 @@ import type { ServicePageContent } from "@/types/service-content";
  */
 export const servicesHubContent: ServicePageContent = {
   h1: "Mobile Fleet Technology Installation Services",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "Mobile Fleet Technology Installation",
   metaDescription:
-    "On-site GPS tracking, ELD, dashcam, and fleet management equipment installation for fleet, commercial, and construction vehicles nationwide. Request a quote.",
+    "On-site installation of GPS tracking, ELDs, dashcams, and fleet telematics, nationwide. Compare our services and request an installation quote.",
   intro:
     "Ultimate Fleet GPS provides on-site installation of GPS tracking, ELD, AOBRD, TPMS, fleet dashcam, and fleet management equipment for fleet, commercial, and construction vehicles nationwide. Technicians travel directly to your location - one vehicle or an entire fleet.",
   body: [],
@@ -84,8 +86,10 @@ export const servicesHubContent: ServicePageContent = {
 
 export const fleetTelematicsInstallationContent: ServicePageContent = {
   h1: "Fleet Telematics Installation",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "Mobile Fleet Telematics Installation",
   metaDescription:
-    "Learn about mobile fleet telematics installation for commercial vehicle projects. Request an installation quote and share your equipment, vehicle count, project locations, and preferred timing.",
+    "We install telematics hardware on commercial vehicles at your location, nationwide. See what we support and request an installation quote.",
   intro:
     "Ultimate Fleet GPS provides mobile installation support for approved connected fleet hardware, including GPS tracking, ELD, AOBRD, TPMS, fleet dashcam, and fleet management equipment, on fleet, commercial, and construction vehicles. Technicians travel to your location. Share your equipment, vehicle count, project locations, and preferred timing to start an installation conversation.",
   body: [],
@@ -155,8 +159,10 @@ export const fleetTelematicsInstallationContent: ServicePageContent = {
 
 export const gpsTrackingInstallationContent: ServicePageContent = {
   h1: "GPS Tracking Installation",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "Mobile GPS Tracking Installation",
   metaDescription:
-    "Learn about mobile GPS tracking installation for commercial vehicle projects. Request an installation quote and share your equipment, vehicle count, project locations, and preferred timing.",
+    "On-site GPS tracker installation for trucks, vans, and equipment. Technicians come to your location. Request a fleet installation quote.",
   intro:
     "Ultimate Fleet GPS provides mobile GPS tracking hardware installation support for commercial vehicle projects.",
   body: [],
@@ -229,8 +235,10 @@ export const gpsTrackingInstallationContent: ServicePageContent = {
 
 export const eldInstallationContent: ServicePageContent = {
   h1: "ELD Installation",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "Mobile ELD Installation, Nationwide",
   metaDescription:
-    "Learn about mobile ELD and AOBRD hardware installation for commercial vehicle projects. Request an installation quote and share your equipment, vehicle count, project locations, and preferred timing.",
+    "We install electronic logging devices (ELDs) on commercial vehicles at your location, nationwide. See how it works and request a quote.",
   intro:
     "Ultimate Fleet GPS provides mobile installation support for ELD and AOBRD hardware in commercial vehicle project contexts.",
   body: [],
@@ -280,8 +288,10 @@ export const eldInstallationContent: ServicePageContent = {
 
 export const dashcamCameraInstallationContent: ServicePageContent = {
   h1: "Dashcam & Camera Installation Services",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "Mobile Dashcam Installation",
   metaDescription:
-    "Learn about mobile fleet dashcam and video recorder installation for commercial vehicle projects. Request an installation quote and share your equipment, vehicle count, project locations, and preferred timing.",
+    "Dashcam and fleet camera installation for commercial fleets, done on-site by our technicians. See what we install and request a quote.",
   intro:
     "Ultimate Fleet GPS provides mobile installation support for fleet dashcam and windshield-mounted video recorder hardware in commercial vehicle project contexts. We install the hardware; we are not the video platform vendor.",
   body: [],
@@ -339,8 +349,10 @@ export const dashcamCameraInstallationContent: ServicePageContent = {
  */
 export const fleetRolloutsContent: ServicePageContent = {
   h1: "Fleet Rollout Installation Services",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "Nationwide Fleet Installation Rollouts",
   metaDescription:
-    "Discuss nationwide installation support for one vehicle or an entire fleet, including multiple project locations. Share your equipment, vehicle count, project locations, and preferred timing in an installation quote request.",
+    "Multi-vehicle, multi-location GPS and ELD rollouts, scheduled and installed on-site. Share your vehicle count and timeline for a quote.",
   intro:
     "Discuss installation support for one vehicle or an entire fleet, including multiple project locations.",
   body: [],

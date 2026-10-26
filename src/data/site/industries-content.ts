@@ -45,7 +45,7 @@ import type { InformationalPageContent } from "@/types/service-content";
 export const industriesHubContent: InformationalPageContent = {
   h1: "Fleet Technology Installation for Commercial Operations",
   metaDescription:
-    "On-site GPS, ELD, dashcam, and fleet equipment installation for commercial fleets and construction vehicles nationwide. Request an installation quote.",
+    "Mobile GPS, ELD, and fleet electronics installation for commercial, field service, logistics, and construction fleets. Find your industry.",
   intro:
     "Ultimate Fleet GPS provides on-site fleet technology installation for fleet, commercial, and construction vehicles nationwide. Explore the fleet environments our installation services support, then choose a starting point for your project.",
   body: [],
@@ -115,8 +115,10 @@ export const industriesHubContent: InformationalPageContent = {
 
 export const commercialFleetsContent: InformationalPageContent = {
   h1: "Mobile Installation for Commercial Fleets",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "Commercial Fleet GPS Installation",
   metaDescription:
-    "On-site GPS, ELD, and fleet electronics installation for commercial fleet vehicles nationwide. Technicians travel directly to your location, one vehicle or an entire fleet.",
+    "On-site GPS, ELD, and dashcam installation for commercial fleets, nationwide. Technicians come to you. Request a fleet quote.",
   intro:
     "Ultimate Fleet GPS installs GPS tracking, ELD, AOBRD, TPMS, fleet dashcam, and fleet management equipment on commercial fleet vehicles, with technicians traveling directly to your location nationwide.",
   body: [
@@ -215,8 +217,10 @@ export const commercialFleetsPage = {
 
 export const constructionHeavyEquipmentContent: InformationalPageContent = {
   h1: "Mobile Installation for Construction Vehicle Fleets",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "Construction Equipment GPS Installation",
   metaDescription:
-    "On-site GPS, ELD, and fleet electronics installation for construction vehicles nationwide. Technicians travel directly to your location.",
+    "GPS and ELD installation on construction vehicles and heavy equipment, done at your location, nationwide. Request an installation quote.",
   intro:
     "Ultimate Fleet GPS installs GPS tracking, ELD, AOBRD, TPMS, fleet dashcam, and fleet management equipment on construction vehicles, with technicians traveling directly to your location nationwide.",
   body: [
@@ -236,8 +240,10 @@ export const constructionHeavyEquipmentContent: InformationalPageContent = {
 
 export const logisticsDeliveryFleetsContent: InformationalPageContent = {
   h1: "Mobile Installation for Logistics and Delivery Fleets",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "Logistics & Delivery Fleet Installation",
   metaDescription:
-    "On-site GPS, ELD, and fleet electronics installation for logistics and delivery fleet vehicles nationwide. Technicians travel directly to your location.",
+    "On-site GPS and ELD installation for delivery and logistics fleets, done at your location. Nationwide. Request an installation quote.",
   intro:
     "Logistics and delivery operations that run commercial fleet vehicles are supported under Ultimate Fleet GPS's confirmed commercial fleet vehicle scope, with technicians traveling directly to your location nationwide.",
   body: [
@@ -249,8 +255,10 @@ export const logisticsDeliveryFleetsContent: InformationalPageContent = {
 
 export const fieldServiceFleetsContent: InformationalPageContent = {
   h1: "Mobile Installation for Field Service Fleets",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "Field Service Fleet GPS Installation",
   metaDescription:
-    "On-site GPS, ELD, and fleet electronics installation for field service fleet vehicles nationwide. Technicians travel directly to your location.",
+    "On-site GPS and ELD installation for field service vans and trucks, nationwide. Technicians travel to your location. Request a quote.",
   intro:
     "Field service operations that run commercial fleet vehicles are supported under Ultimate Fleet GPS's confirmed commercial fleet vehicle scope, with technicians traveling directly to your location nationwide.",
   body: [
@@ -262,8 +270,10 @@ export const fieldServiceFleetsContent: InformationalPageContent = {
 
 export const telematicsTechnologyProvidersContent: InformationalPageContent = {
   h1: "Field Installation Partner for Telematics and Technology Providers",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "Installation for Telematics Providers",
   metaDescription:
-    "Ultimate Fleet GPS provides field installation support for telematics and fleet-technology hardware, working with the platforms fleets already run on, nationwide.",
+    "Field installation support for telematics and fleet-technology hardware providers, nationwide. Tell us your hardware, vehicle count, and locations.",
   intro:
     "Ultimate Fleet GPS provides field installation support for telematics and fleet-technology hardware providers, working with the platforms fleets already run on.",
   body: [

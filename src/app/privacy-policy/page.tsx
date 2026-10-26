@@ -4,8 +4,9 @@ import { buildPageMetadata } from "@/lib/metadata/build-page-metadata";
 
 export const metadata = buildPageMetadata({
   title: "Privacy Policy",
+  // Meta description: Oct 26 2026 metadata audit approval.
   description:
-    "Privacy Policy for the Ultimate Fleet GPS website. This page has not yet been reviewed by an attorney.",
+    "How Ultimate Fleet GPS handles information submitted through its website forms, including quote requests, applications, and Installer Network registrations.",
   pathname: "/privacy-policy/",
 });
 

@@ -94,7 +94,7 @@ if (!experienceFact || !trainingFact) {
 }
 
 export const careersLandingContent: CareersLandingContent = {
-  metaTitle: "Installer Careers",
+  metaTitle: "Careers and Installer Opportunities",
 
   hero: {
     primaryCta: applyCta,

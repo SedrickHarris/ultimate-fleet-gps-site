@@ -18,7 +18,7 @@ const BREADCRUMBS = [
 ];
 
 export const metadata: Metadata = buildPageMetadata({
-  title: telematicsTechnologyProvidersContent.h1,
+  title: telematicsTechnologyProvidersContent.metaTitle ?? telematicsTechnologyProvidersContent.h1,
   description: telematicsTechnologyProvidersContent.metaDescription,
   pathname: PATHNAME,
 });

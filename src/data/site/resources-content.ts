@@ -21,8 +21,10 @@ export const EDITORIAL_NOTE =
 
 export const resourcesHubContent = {
   h1: "Resources for Fleet Managers and Technicians",
+  // Meta title and description: Oct 26 2026 metadata audit approval.
+  metaTitle: "Fleet Installation Resources",
   metaDescription:
-    "Educational operational guidance on planning fleet installation rollouts, reducing vehicle downtime, and preparing for GPS, ELD, and dashcam installation projects.",
+    "Guides for planning GPS, ELD, and fleet electronics installation, from preparing vehicles to scheduling rollouts and reducing downtime.",
   intro:
     "Operational guidance for planning an installation project. This is educational content, not legal, regulatory, safety, compliance, device-manufacturer, or fleet-management-system advice.",
 };
@@ -76,8 +78,10 @@ export const resourceArticles: readonly ResourceArticleContent[] = [
   {
     slug: "preparing-your-fleet-for-gps-tracking-installation",
     h1: "Preparing Your Fleet for GPS Tracking Installation",
+    // Meta title and description: Oct 26 2026 metadata audit approval.
+    metaTitle: "Prepare Your Fleet for GPS Installation",
     metaDescription:
-      "Operational guidance for fleet managers preparing vehicles ahead of a GPS tracking hardware installation.",
+      "How to prepare vehicles, access, and documentation contacts before a GPS tracker installation. Operational guidance for fleet managers.",
     intro:
       "A little preparation before a GPS tracking installation date can reduce delays and keep the installation on schedule.",
     editorialNote: EDITORIAL_NOTE,
