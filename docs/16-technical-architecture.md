@@ -110,9 +110,9 @@ Use a separate approved backend boundary for:
 | Static export | Recommended baseline | Matches Cloudflare Pages requirement and content-first site |
 | Cloudflare Pages | Approved hosting target | Production branch and previews configured through Git integration |
 | GitHub repository | Created | `SedrickHarris/ultimate-fleet-gps-site` |
-| Serverless form boundary | Required if forms are owned onsite | Exact Worker, Pages Function, GHL, ATS, or vendor path pending |
-| ATS/recruiting CRM | Blocked | Platform not yet approved |
-| Commercial CRM | Blocked | Platform not yet approved |
+| Serverless form boundary | Built, not deployed | Cloudflare Worker in `workers/forms/` relays to GoHighLevel (decision 0019) |
+| ATS/recruiting CRM | GoHighLevel selected | Applicant-data review and account setup pending (decision 0019) |
+| Commercial CRM | GoHighLevel selected | Account setup and field mapping pending (decision 0019) |
 | Content source | Recommended: typed files in repository | External CMS not justified at launch unless stakeholder workflow requires it |
 | Job source of truth | Blocked | Must be assigned before active job publication |
 | Image delivery | Recommended: optimized source assets with static-compatible rendering | Final loader/transformation decision at build setup |

@@ -14,6 +14,8 @@ const eslintConfig = [
       "out/**",
       "node_modules/**",
       "seo-automation/**",
+      "workers/**/node_modules/**",
+      "workers/**/.wrangler/**",
       "next-env.d.ts",
     ],
   },

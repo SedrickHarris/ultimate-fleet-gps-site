@@ -1,0 +1,17 @@
+name = "ultimate-fleet-gps-forms"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+
+# Public, non-secret configuration only. Secrets are set with
+# `wrangler secret put` and are listed in README.md.
+[vars]
+# Production host plus the Pages build domain and its previews. Add
+# http://localhost:3000 in .dev.vars for local work, never here.
+ALLOWED_ORIGINS = "https://ultimatefleetgps.net,https://www.ultimatefleetgps.net,https://ultimate-fleet-gps-site.pages.dev,https://*.ultimate-fleet-gps-site.pages.dev"
+
+# Openings that currently accept applications. Keep in step with src/data/jobs.
+ACTIVE_JOB_SLUGS = "mobile-gps-eld-aobrd-installation-technician"
+
+# Route (docs/17 section 29 recommends a dedicated forms host). Uncomment after
+# the DNS and zone decision is made:
+# routes = [{ pattern = "forms.ultimatefleetgps.net", custom_domain = true }]

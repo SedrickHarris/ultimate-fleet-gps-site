@@ -935,7 +935,7 @@ The design system must not treat colors, fonts, taglines, or visual motifs as ap
 | Bing Webmaster Tools | Unknown | Pending setup or verification |
 | Analytics platform | Unknown | Pending decision |
 | Tag manager | Unknown | Pending decision |
-| CRM | Unknown | Pending decision |
+| CRM | GoHighLevel (GHL) selected by the project owner on Oct 26 2026 for form submissions | Account setup and workflows unverified (decision 0019) |
 | Call tracking | Unknown | Pending decision |
 | Social profiles | Unknown | Pending verification |
 | Industry directory profiles | External recruiting listing observed | Verify ownership and relevance |
