@@ -6,9 +6,12 @@ import { Header } from "@/components/layout/Header";
 import { MobileNavigation } from "@/components/layout/MobileNavigation";
 import { RevealObserver } from "@/components/motion/RevealObserver";
 import { bodyFont, headingFont } from "@/lib/fonts";
+import { SITE_URL } from "@/lib/metadata/base";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
+  // Resolves any relative metadata URL against the live domain.
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Ultimate Fleet GPS",
     template: "%s | Ultimate Fleet GPS",

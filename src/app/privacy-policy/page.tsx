@@ -1,14 +1,13 @@
-import type { Metadata } from "next";
-
 import { LegalPage } from "@/components/content/LegalPage";
 import { privacyPolicy } from "@/data/site/legal-content";
+import { buildPageMetadata } from "@/lib/metadata/build-page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Privacy Policy",
   description:
     "Privacy Policy for the Ultimate Fleet GPS website. This page has not yet been reviewed by an attorney.",
-  alternates: { canonical: "/privacy-policy/" },
-};
+  pathname: "/privacy-policy/",
+});
 
 export default function Page() {
   return <LegalPage content={privacyPolicy} />;

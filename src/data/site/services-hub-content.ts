@@ -141,7 +141,7 @@ export const servicesHubPageContent: ServicesHubPageContent = {
         supporting:
           "Start here when the project combines GPS tracking, ELD, dashcam, TPMS, or other fleet-management equipment.",
         destination: "Fleet Telematics Installation",
-        linkLabel: "Explore telematics installation",
+        linkLabel: "Explore fleet telematics installation",
         href: "/services/fleet-telematics-installation/",
       },
       {

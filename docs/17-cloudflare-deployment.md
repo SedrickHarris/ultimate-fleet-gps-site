@@ -572,10 +572,10 @@ Use Cloudflare Access or another approved restriction for stakeholder previews c
 
 ### Production `pages.dev` hostname
 
-The default production Pages hostname can also become discoverable. Either:
+The default production Pages hostname can also become discoverable. The approved handling, set 2026-10-26, is both layers:
 
-- keep it accessible with `noindex` and canonical references to the custom domain; or
-- redirect only the production project hostname to the canonical custom domain through a host-capable Cloudflare Redirect Rule.
+- keep the hostname-scoped `noindex` rule in `public/_headers` permanently, with canonical references to the custom domain; and
+- at launch, 301 only the production project hostname to the canonical custom domain with a Cloudflare Bulk Redirect.
 
 Do not redirect all wildcard preview hostnames to production, because that would destroy preview behavior and could publish unapproved paths indirectly.
 
@@ -601,11 +601,21 @@ https://:version.ultimate-fleet-gps-site.pages.dev/*
 
 **At launch**
 
-- Remove the `noindex` rule for the production pages.dev hostname.
-- Add a Cloudflare Redirect Rule in the dashboard that 301s the production pages.dev hostname to `https://ultimatefleetgps.net/`.
+- Keep both `noindex` rules in `public/_headers`. Do not remove the production pages.dev rule.
+- Add a Cloudflare Bulk Redirect in the dashboard that 301s the production pages.dev hostname to `https://ultimatefleetgps.net/`. Cloudflare's page for this case, "Redirecting *.pages.dev to a Custom Domain" (https://developers.cloudflare.com/pages/how-to/redirect-to-custom-domain/), uses a Bulk Redirect list with the `<project>.pages.dev` hostname as the source, a 301 status, and the options Preserve query string, Subpath matching, Preserve path suffix, and Include subdomains. No Pages Functions are needed.
+- A zone Redirect Rule matching a pages.dev host was not confirmed in the Cloudflare documentation. The pages.dev hostname is not in the project's zone, so use Bulk Redirects unless Cloudflare documents otherwise.
 - Redirect only that hostname. Never redirect preview wildcard hosts, which keep the `noindex` rule.
 
-**Never combine** `noindex` and the 301 on the same host. Cloudflare documents that redirects take priority over headers when both match, so a combined rule would silently drop the `noindex`.
+**Precedence.** Cloudflare documents that redirects run before headers (https://developers.cloudflare.com/pages/configuration/redirects/). While the Bulk Redirect is active, the production pages.dev `noindex` rule never reaches a visitor, because the redirect wins. The rule stays as a permanent fallback for when the redirect is removed or fails. Preview hostnames are never redirected, so their `noindex` rule always applies.
+
+### Deployment assumptions (2026-10-26)
+
+- The site is a Next.js static export (`output: "export"`, `trailingSlash: true`). There are no Pages Functions or Workers.
+- `public/_headers` is the only header and redirect file in the build. There is no `_redirects` file, and `_redirects` cannot redirect by hostname.
+- Host-level redirects (production pages.dev to the apex, `www` to the apex, and HTTP to HTTPS) are dashboard settings, not repository files.
+- The apex, `https://ultimatefleetgps.net/`, is the canonical host. All canonicals, `og:url`, sitemap URLs, `robots.txt` and schema URLs derive from `business.url` (`NEXT_PUBLIC_SITE_URL`, defaulting to the apex). Do not set that variable to a pages.dev URL.
+- The sitemap omits `lastmod` until real content-change dates are available.
+- `npm run build` runs `scripts/validation/check-build-output.mjs` afterward. It fails on a relative or off-domain canonical, and on "pages.dev" anywhere in `out/` outside `_headers`.
 
 ---
 
@@ -631,7 +641,7 @@ The final choice must consider the current live site, backlinks, Search Console 
 - sitemap URLs use the canonical host;
 - internal links use canonical paths;
 - Google Business Profile, Apple Business Connect, Bing, job platforms, social profiles, and citations use the canonical host; and
-- the default production `pages.dev` hostname is noindex or redirected as approved.
+- the default production `pages.dev` hostname is redirected with a Bulk Redirect and keeps its `noindex` rule as a fallback.
 
 ---
 
@@ -808,7 +818,7 @@ Cloudflare documents that `_redirects` rules do not apply to requests handled by
 The `_redirects` file does not provide the full domain-level redirect behavior needed for every host case. Use Cloudflare Redirect Rules, Bulk Redirects, or another host-aware edge rule for:
 
 - `www` to apex or apex to `www`;
-- production `pages.dev` host to the canonical domain; and
+- production `pages.dev` host to the canonical domain (Bulk Redirects, see section 17); and
 - HTTP-to-HTTPS behavior not already enforced by the platform.
 
 ---
@@ -1799,7 +1809,7 @@ The required reviewer and launch window should scale with impact.
 7. Will GitHub Actions run the full gate before Cloudflare builds?
 8. Which branches receive previews?
 9. Will stakeholder previews require Cloudflare Access?
-10. Will the production `pages.dev` hostname be redirected or kept noindex?
+10. Will the production `pages.dev` hostname be redirected or kept noindex? Answered 2026-10-26: both. See section 17.
 11. What is the verified legacy URL inventory?
 12. Which form backend will be deployed?
 13. Which ATS/recruiting CRM receives applications?

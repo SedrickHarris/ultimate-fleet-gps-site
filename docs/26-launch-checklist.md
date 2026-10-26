@@ -325,7 +325,7 @@ Run these in order on launch day. They overlap with the items above (custom doma
 
 - [ ] Step 1: Attach `ultimatefleetgps.net` as the Pages custom domain and confirm HTTPS serves the site.
 - [ ] Step 2: Confirm canonicals, `og:url`, the sitemap, and schema URLs all use `https://ultimatefleetgps.net/` on the live host.
-- [ ] Step 3: Remove the pages.dev `noindex` for the production hostname and add the 301 to `https://ultimatefleetgps.net/`. Preview hostnames keep the `noindex`.
+- [ ] Step 3: Add a Cloudflare Bulk Redirect (not a zone Redirect Rule) that 301s the production pages.dev hostname to `https://ultimatefleetgps.net/`, per "Redirecting *.pages.dev to a Custom Domain" (https://developers.cloudflare.com/pages/how-to/redirect-to-custom-domain/). Do not remove the `noindex` rules in `public/_headers`: the redirect takes precedence while it is active, and the rules remain as a fallback. Preview hostnames are never redirected. See docs/17 section 17.
 - [ ] Step 4: Add and verify the property in Google Search Console and Bing Webmaster Tools, then submit the sitemap.
 - [ ] Step 5: Update the website URL in Google Business Profile, Bing Places, and Apple Business Connect to `ultimatefleetgps.net`.
 

@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "validate:links": "node scripts/validation/check-internal-links.mjs"
+    "validate:links": "node scripts/validation/check-internal-links.mjs",
+    "validate:output": "node scripts/validation/check-build-output.mjs",
+    "postbuild": "npm run validate:output"
   },
   "dependencies": {
     "next": "^15.5.25",

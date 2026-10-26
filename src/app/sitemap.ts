@@ -52,8 +52,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/accessibility/",
   ];
 
+  // No `lastModified`: lastmod will be added only from real content-change
+  // dates (docs/08 "lastmod", docs/10), never the build or deploy time.
   return routes.map((route) => ({
     url: `${business.url}${route}`,
-    lastModified: new Date(),
   }));
 }

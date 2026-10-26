@@ -4,7 +4,10 @@ import { CardGrid } from "@/components/layout/CardGrid";
 import { Section } from "@/components/layout/Section";
 import { Card } from "@/components/ui/Card";
 import { business } from "@/data/site/business";
-import { installCardLinks } from "@/data/site/service-pages-content";
+import {
+  installCardLinkLabels,
+  installCardLinks,
+} from "@/data/site/service-pages-content";
 import { serviceImages } from "@/data/site/service-images";
 import type { WhatWeInstallContent } from "@/types/content";
 
@@ -96,7 +99,7 @@ export function InstallCategoryCard({
               href={installCardLinks[service]}
               className="inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--color-accent-blue-strong)] underline underline-offset-4"
             >
-              Learn more about {service}
+              Learn more about {installCardLinkLabels[service] ?? service}
               <span aria-hidden="true">&rarr;</span>
             </Link>
           </p>
