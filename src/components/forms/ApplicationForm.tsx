@@ -579,26 +579,31 @@ export function ApplicationForm() {
         {job.disclaimer}
       </p>
 
-      <button
-        type="submit"
-        disabled={submitting}
-        className="inline-flex min-h-12 items-center justify-center rounded-md bg-[var(--color-accent-blue-strong)] px-6 py-3 text-base font-semibold text-white transition-[filter] duration-150 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {submitting ? "Sending..." : "Submit Application"}
-      </button>
+      <div>
+        <p className="mb-4 text-[length:var(--text-small)] leading-relaxed text-ink">
+          {job.preSubmitNote}
+        </p>
+        <button
+          type="submit"
+          disabled={submitting}
+          className="inline-flex min-h-12 w-full items-center justify-center rounded-md bg-[var(--color-accent-blue-strong)] px-6 py-3 text-base font-semibold text-white transition-[filter] duration-150 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        >
+          {submitting ? "Sending..." : "Submit Application"}
+        </button>
 
-      <div role="status" aria-live="polite" className="text-[length:var(--text-small)]">
-        {status === "error" && errorMessage ? (
-          <p className="rounded-md border border-error bg-surface-subtle p-4 text-error">
-            {errorMessage}{" "}
-            <a
-              href={`tel:${business.telephone.replace(/[^0-9+]/g, "")}`}
-              className="font-semibold underline"
-            >
-              Call {business.telephone}
-            </a>
-          </p>
-        ) : null}
+        <div role="status" aria-live="polite" className="text-[length:var(--text-small)]">
+          {status === "error" && errorMessage ? (
+            <p className="mt-4 rounded-md border border-error bg-surface-subtle p-4 text-error">
+              {errorMessage}{" "}
+              <a
+                href={`tel:${business.telephone.replace(/[^0-9+]/g, "")}`}
+                className="font-semibold underline"
+              >
+                Call {business.telephone}
+              </a>
+            </p>
+          ) : null}
+        </div>
       </div>
     </form>
   );

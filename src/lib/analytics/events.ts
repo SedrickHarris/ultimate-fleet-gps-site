@@ -30,6 +30,12 @@ export const AnalyticsEvent = {
   applicationSuccess: "application_success",
   applicationFailure: "application_failure",
 
+  // Apply page final CTA group. Submit has no click event of its own:
+  // `application_submit` already fires once per valid submit, so a click
+  // event would double count and would also count invalid attempts.
+  applyPhoneClick: "apply_phone_click",
+  applyInstallerNetworkClick: "apply_installer_network_click",
+
   // CTA click events, referenced by data-event on CtaButton/Link instances.
   ctaApplyClick: "cta_apply_click",
   ctaCareersClick: "cta_careers_click",

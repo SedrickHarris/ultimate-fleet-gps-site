@@ -229,6 +229,8 @@ export interface JobRecord {
   readonly requirements: JobRequirements;
   /** No-guarantee disclosure shown beside every Apply action. */
   readonly disclaimer: string;
+  /** Short reassurance shown directly above the application Submit button. */
+  readonly preSubmitNote: string;
   readonly faqH2: string;
   readonly faqIntro: string;
   /** Single source for the visible accordion and the FAQPage JSON-LD. */

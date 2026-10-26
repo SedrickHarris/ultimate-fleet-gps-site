@@ -372,6 +372,8 @@ export const activeTechnicianJob: JobRecord = {
   },
   disclaimer:
     "Applying does not guarantee contact, an interview, a contract, an assignment, a schedule, work volume, or pay. The starting rate is not guaranteed income.",
+  preSubmitNote:
+    "Before you submit: this is independent contractor work, not employee employment. A valid driver's license and background check are required.",
   faqH2: "ELD and GPS Installation Technician Opening: Frequently Asked Questions",
   faqIntro: `Answers to common questions about the Ultimate Fleet GPS installation technician opening: independent contractor work, approximately ${travel}% travel, and applicants accepted nationwide.`,
   faq: [

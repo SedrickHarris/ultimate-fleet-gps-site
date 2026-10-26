@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { CorporateOffice } from "@/components/content/CorporateOffice";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { ApplicationForm } from "@/components/forms/ApplicationForm";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Section } from "@/components/layout/Section";
@@ -14,7 +14,9 @@ import {
   JOBS_INDEX_PATH,
 } from "@/data/jobs";
 import { applyImages } from "@/data/site/careers-apply-images";
-import { utilityBar } from "@/data/navigation/site-navigation";
+import { footerBrandLines } from "@/data/navigation/site-navigation";
+import { business } from "@/data/site/business";
+import { AnalyticsEvent } from "@/lib/analytics/events";
 import { buildPageMetadata } from "@/lib/metadata/build-page-metadata";
 import { careersPageSchema } from "@/lib/schema/careers-page";
 
@@ -27,6 +29,14 @@ const BREADCRUMBS = [
   { label: "Current Openings", href: JOBS_INDEX_PATH },
   { label: "Apply" },
 ];
+
+const PHONE_HREF = `tel:+1${business.telephone.replace(/\D/g, "")}`;
+const PHONE_LABEL = `Call ${business.telephone}`;
+const HOURS = footerBrandLines.find((line) => line.startsWith("Monday")) ?? "";
+const TRACK_PARAMS = {
+  page_path: APPLY_PATH,
+  cta_location: "apply_final_cta",
+} as const;
 
 export const metadata: Metadata = buildPageMetadata({
   title: H1,
@@ -102,7 +112,7 @@ export default function ApplyPage() {
         </div>
       </Section>
 
-      <Section tone="subtle" width="reading" labelledBy="application-form-heading">
+      <Section tone="subtle" density="compact" width="reading" labelledBy="application-form-heading">
         <h2
           id="application-form-heading"
           className="text-[length:var(--text-h2)] leading-[1.12] font-bold text-balance text-ink"
@@ -115,40 +125,51 @@ export default function ApplyPage() {
         <div className="mt-6">
           <ApplicationForm />
         </div>
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
-          <p className="text-[length:var(--text-body)] text-ink-muted">
-            Prefer to talk it through? Call
+        {/* Reassurance, Submit button (inside the form), and this phone block
+            are one compact action group. The submit event is the form's own
+            `application_submit`, not a click event. */}
+        <div className="mt-5">
+          <p className="text-[length:var(--text-small)] text-ink-muted">
+            Prefer to talk it through?
           </p>
-          <a
-            href={utilityBar.phoneHref}
-            className="inline-flex min-h-11 items-center font-semibold text-[var(--color-accent-blue-strong)] underline underline-offset-4"
+          <TrackedLink
+            href={PHONE_HREF}
+            event={AnalyticsEvent.applyPhoneClick}
+            params={TRACK_PARAMS}
+            journey="recruitment"
+            className="inline-flex min-h-11 items-center text-[length:var(--text-body)] font-semibold text-[var(--color-accent-blue-strong)] underline underline-offset-4"
           >
-            {utilityBar.phoneLabel}
-          </a>
+            {PHONE_LABEL}
+          </TrackedLink>
+          <p className="text-[length:var(--text-small)] text-ink-muted">
+            {HOURS}
+          </p>
         </div>
       </Section>
 
-      <Section tone="default" density="compact" width="reading" labelledBy="apply-network-heading">
-        <h2
-          id="apply-network-heading"
-          className="text-[length:var(--text-h4)] font-bold text-ink"
-        >
-          Looking for future opportunities?
-        </h2>
-        <p className="mt-2 text-[length:var(--text-body)] text-ink-muted">
-          The Installer Network is a separate registration and is not an
-          application for this opening.
-        </p>
-        <p className="mt-3">
-          <Link
+      <Section tone="default" density="tight" width="reading" labelledBy="apply-network-heading">
+        <div className="rounded-[var(--radius-lg)] border border-border bg-surface-subtle p-6 md:p-8">
+          <h2
+            id="apply-network-heading"
+            className="text-[length:var(--text-h4)] font-bold text-ink"
+          >
+            Looking for future opportunities?
+          </h2>
+          <p className="mt-2 text-[length:var(--text-body)] text-ink-muted">
+            The Installer Network is a separate registration and is not an
+            application for this opening.
+          </p>
+          <TrackedLink
             href={INSTALLER_NETWORK_PATH}
-            className="inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--color-accent-blue-strong)] underline underline-offset-4"
+            event={AnalyticsEvent.applyInstallerNetworkClick}
+            params={TRACK_PARAMS}
+            journey="recruitment"
+            className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md border border-ink bg-surface px-6 py-3 text-center text-base font-semibold text-ink no-underline transition-[background-color] duration-[var(--duration-fast)] hover:bg-surface-subtle sm:w-auto"
           >
             Learn about the Installer Network
             <span aria-hidden="true">&rarr;</span>
-          </Link>
-        </p>
-        <CorporateOffice className="mt-6" />
+          </TrackedLink>
+        </div>
       </Section>
     </>
   );
