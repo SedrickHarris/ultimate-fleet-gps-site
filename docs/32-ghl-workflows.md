@@ -27,7 +27,7 @@ Because each pipeline has its own workflow trigger, the three journeys stay sepa
 - Acknowledgement is by email only. The consent text on the forms covers being contacted, but it does not establish SMS consent, so send no SMS to the visitor.
 - Do not copy submission data into analytics, shared channels, or tools outside GHL.
 
-**Consent record.** The Worker rejects any submission in which a required consent or acknowledgment box is unticked. A record that arrives has every box ticked, and the `receivedAt` custom field is when. For job applications the nine confirmations are also stored as individual `Yes` fields, at the owner's request (decision 0021). Commercial and Installer Network consent boxes are not stored separately.
+**Consent record.** The Worker rejects any submission in which a required consent or acknowledgment box is unticked. A record that arrives has every box ticked, and the `receivedAt` custom field is when. For job applications the nine answers are also stored as individual fields, at the owner's request (decisions 0021 and 0022). Seven are Yes or No questions, and a `No` is accepted and stored as `No`. Only the contractor acknowledgment and the privacy consent must be ticked, so those two always read `Yes`. Commercial and Installer Network consent boxes are not stored separately.
 
 **Same person, two journeys.** GHL keeps one contact per person, by the location's duplicate-contact setting. Someone who is both a customer and a candidate is one contact with two opportunities. Keep the journeys apart by pipeline and tag, never by merging. If that is not acceptable, use separate sub-accounts for commercial and recruitment, which also isolates applicant data. Restrict custom-field and pipeline visibility to the staff who need each journey.
 
@@ -59,7 +59,7 @@ All are single-line text unless noted. The Worker sends a field only when its pa
 | `skillsExperience` | Skills and Experience (multi-line) | Application |
 | `jobSlug` | Job ID | Application |
 | `jobTitle` | Job Title | Application |
-| `validDriversLicense`, `personalVehicle`, `smartphone`, `backgroundCheckConsent`, `travelPercentAcknowledged`, `stateToStateTravelAcknowledged`, `trainingAcknowledged`, `independentContractorAcknowledged`, `privacyConsent` | Confirmed - Valid Driver License, Confirmed - Personal Vehicle and Tools, Confirmed - Smartphone, Confirmed - Background Check Consent, Confirmed - Travel Requirement, Confirmed - State-to-State Travel, Confirmed - Training Provided, Confirmed - Independent Contractor Status, Confirmed - Privacy Consent (each holds `Yes`) | Application |
+| `validDriversLicense`, `personalVehicle`, `smartphone`, `backgroundCheckConsent`, `travelPercentAcknowledged`, `stateToStateTravelAcknowledged`, `trainingAcknowledged`, `independentContractorAcknowledged`, `privacyConsent` | Confirmed - Valid Driver License, Confirmed - Personal Vehicle and Tools, Confirmed - Smartphone, Confirmed - Background Check Consent, Confirmed - Travel Requirement, Confirmed - State-to-State Travel, Confirmed - Training Provided, Confirmed - Independent Contractor Status, Confirmed - Privacy Consent (each holds `Yes` or `No`, except Independent Contractor Status and Privacy Consent, which are always `Yes`) | Application |
 | `receivedAt` | Consent Recorded At | All |
 | `submissionId` | Submission ID | All |
 | `sourcePage`, `referrer`, `utmSource`, `utmMedium`, `utmCampaign`, `utmContent`, `utmTerm` | Source Page, Referrer, UTM Source, UTM Medium, UTM Campaign, UTM Content, UTM Term | All |
@@ -165,7 +165,7 @@ An Installer Network registration is not an application and is never counted as 
 **Do not send production traffic to this workflow until the applicant-data review in decision 0019 is recorded.** That review covers who can see applicant data, retention, and employment-related compliance (`docs/16` section 21). Build and test it in the test sub-account in the meantime.
 
 1. **Trigger:** Opportunity Created, pipeline equals Recruitment.
-2. **Update Opportunity:** move to Review pending, with no condition, so every application is queued for a person. Do not add any step that qualifies, scores, or rejects an application.
+2. **Update Opportunity:** move to Review pending, with no condition, so every application is queued for a person. Do not add any step that qualifies, scores, or rejects an application. A `No` on a Yes or No question (decision 0022) is not a rejection. It changes nothing automatically, and a person decides what it means.
 3. **Internal Notification (email, to the recruiting owner).** Subject: `New application: {{job title}}`. Body: name, job title, and a link to the opportunity. Leave the answers out of the email. Staff open them in GHL.
 4. **Send Email to the contact:**
 

@@ -58,6 +58,17 @@ class Collector {
     else this.fields[key] = true;
   }
 
+  /**
+   * A Yes or No question. The visitor must answer, and either answer is
+   * accepted. Anything other than a real boolean, including a missing value,
+   * is rejected, so a "No" is a recorded answer and never a skipped question.
+   */
+  yesNo(key: string) {
+    const raw = this.input[key];
+    if (typeof raw !== "boolean") this.fail(key);
+    else this.fields[key] = raw;
+  }
+
   stringList(key: string) {
     const raw = this.input[key];
     if (raw === undefined) {
@@ -154,6 +165,8 @@ export function validateSubmission(
       c.text("skillsExperience", { required: false, max: LONG });
       c.text("toolsOwned", { required: false, max: LONG });
       c.stringList("platforms");
+      // Yes or No questions (decision 0022). A "No" is accepted and reaches the
+      // recruiter, who reviews it. Nothing here rejects or scores an applicant.
       for (const key of [
         "validDriversLicense",
         "personalVehicle",
@@ -162,9 +175,12 @@ export function validateSubmission(
         "travelPercentAcknowledged",
         "stateToStateTravelAcknowledged",
         "trainingAcknowledged",
-        "independentContractorAcknowledged",
-        "privacyConsent",
       ]) {
+        c.yesNo(key);
+      }
+      // These two stay required. Without them the contractor terms are not
+      // acknowledged and there is no consent to use the information.
+      for (const key of ["independentContractorAcknowledged", "privacyConsent"]) {
         c.mustBeTrue(key);
       }
       const travelPercent = body.travelPercent;

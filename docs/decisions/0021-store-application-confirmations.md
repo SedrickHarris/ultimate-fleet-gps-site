@@ -1,7 +1,7 @@
 # Decision 0021: Store the nine application confirmations as contact fields
 
 **Date:** October 26, 2026
-**Status:** Applied in code. Fields not yet created in GHL, and `GHL_CONFIG` not yet updated.
+**Status:** Applied in code and deployed. Amended by decision 0022: seven of the nine fields can now hold `No`, and an unticked box no longer blocks a submission for those seven.
 **Decided by:** Project owner (request in the working session: capture all the checkbox inputs)
 **Affects:** `workers/forms/`, `docs/32-ghl-workflows.md`
 **References:** `docs/32` sections 2 and 4; decisions 0019 and 0020

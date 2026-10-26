@@ -23,6 +23,8 @@ const job = activeTechnicianJob;
 const travelPercent = business.recruitment.travel.approximatePercent;
 const startingRate = business.recruitment.startingRate.display;
 
+type YesNo = "yes" | "no" | "";
+
 interface Fields {
   name: string;
   email: string;
@@ -31,13 +33,13 @@ interface Fields {
   skillsExperience: string;
   toolsOwned: string;
   platforms: string[];
-  validLicense: boolean;
-  personalVehicle: boolean;
-  smartphone: boolean;
-  backgroundCheck: boolean;
-  travelAcknowledged: boolean;
-  stateToStateAcknowledged: boolean;
-  trainingAcknowledged: boolean;
+  validLicense: YesNo;
+  personalVehicle: YesNo;
+  smartphone: YesNo;
+  backgroundCheck: YesNo;
+  travelAcknowledged: YesNo;
+  stateToStateAcknowledged: YesNo;
+  trainingAcknowledged: YesNo;
   contractorAcknowledged: boolean;
   privacyConsent: boolean;
   website: string;
@@ -68,13 +70,13 @@ const EMPTY: Fields = {
   skillsExperience: "",
   toolsOwned: "",
   platforms: [],
-  validLicense: false,
-  personalVehicle: false,
-  smartphone: false,
-  backgroundCheck: false,
-  travelAcknowledged: false,
-  stateToStateAcknowledged: false,
-  trainingAcknowledged: false,
+  validLicense: "",
+  personalVehicle: "",
+  smartphone: "",
+  backgroundCheck: "",
+  travelAcknowledged: "",
+  stateToStateAcknowledged: "",
+  trainingAcknowledged: "",
   contractorAcknowledged: false,
   privacyConsent: false,
   website: "",
@@ -93,28 +95,29 @@ function validate(fields: Fields): Errors {
     errors.travelAvailability = "Describe your travel availability.";
   }
   if (!fields.validLicense) {
-    errors.validLicense = "Confirm that you have a valid driver's license.";
+    errors.validLicense = "Answer Yes or No: do you have a valid driver's license?";
   }
   if (!fields.personalVehicle) {
-    errors.personalVehicle = "Confirm that you have a personal vehicle.";
+    errors.personalVehicle =
+      "Answer Yes or No: do you have a personal vehicle and will you provide your own tools and travel resources?";
   }
   if (!fields.smartphone) {
-    errors.smartphone = "Confirm that you have a smartphone.";
+    errors.smartphone = "Answer Yes or No: do you have a smartphone?";
   }
   if (!fields.backgroundCheck) {
     errors.backgroundCheck =
-      "Confirm that you understand and consent to the background check.";
+      "Answer Yes or No: do you consent to a background check?";
   }
   if (!fields.travelAcknowledged) {
-    errors.travelAcknowledged = `Confirm that you understand approximately ${travelPercent}% travel is required.`;
+    errors.travelAcknowledged = `Answer Yes or No: do you understand that approximately ${travelPercent}% travel is required?`;
   }
   if (!fields.stateToStateAcknowledged) {
     errors.stateToStateAcknowledged =
-      "Confirm that you understand state-to-state travel is required.";
+      "Answer Yes or No: do you understand that state-to-state travel is required?";
   }
   if (!fields.trainingAcknowledged) {
     errors.trainingAcknowledged =
-      "Confirm that you understand training is provided.";
+      "Answer Yes or No: do you understand that training is provided?";
   }
   if (!fields.contractorAcknowledged) {
     errors.contractorAcknowledged =
@@ -134,8 +137,11 @@ function validate(fields: Fields): Errors {
  * and never shares a handler, route, payload type, or confirmation with the
  * commercial inquiry form or the Installer Network form (CLAUDE.md section 4).
  *
- * It collects contact details, confirmations, travel availability,
- * acknowledgments, optional skills, platform and tool details, and consent. It
+ * It collects contact details, Yes or No answers, travel availability,
+ * acknowledgments, optional skills, platform and tool details, and consent. A
+ * "No" is submitted and reviewed by a person; nothing here rejects or scores
+ * an applicant (decision 0022). The contractor acknowledgment and the privacy
+ * consent stay required checkboxes. It
  * never asks for a driver's license number, a Social Security number, a date
  * of birth, or any government identifier. The background check is a
  * confirmation and consent only. Wording of the consent and privacy text needs
@@ -232,14 +238,14 @@ export function ApplicationForm() {
       skillsExperience: fields.skillsExperience.trim(),
       platforms: fields.platforms,
       toolsOwned: fields.toolsOwned.trim(),
-      validDriversLicense: fields.validLicense,
-      personalVehicle: fields.personalVehicle,
-      smartphone: fields.smartphone,
-      backgroundCheckConsent: fields.backgroundCheck,
-      travelPercentAcknowledged: fields.travelAcknowledged,
+      validDriversLicense: fields.validLicense === "yes",
+      personalVehicle: fields.personalVehicle === "yes",
+      smartphone: fields.smartphone === "yes",
+      backgroundCheckConsent: fields.backgroundCheck === "yes",
+      travelPercentAcknowledged: fields.travelAcknowledged === "yes",
       travelPercent,
-      stateToStateTravelAcknowledged: fields.stateToStateAcknowledged,
-      trainingAcknowledged: fields.trainingAcknowledged,
+      stateToStateTravelAcknowledged: fields.stateToStateAcknowledged === "yes",
+      trainingAcknowledged: fields.trainingAcknowledged === "yes",
       independentContractorAcknowledged: fields.contractorAcknowledged,
       privacyConsent: fields.privacyConsent,
     });
@@ -359,45 +365,45 @@ export function ApplicationForm() {
           Do not enter a license number or any other identification number in
           this form.
         </p>
-        <Check
+        <YesNoQuestion
           id={fieldId("validLicense")}
           errorId={errorId("validLicense")}
           error={errors.validLicense}
-          checked={fields.validLicense}
+          value={fields.validLicense}
           onChange={(v) => update("validLicense", v)}
         >
-          I have a valid driver&apos;s license.
-        </Check>
-        <Check
+          Do you have a valid driver&apos;s license?
+        </YesNoQuestion>
+        <YesNoQuestion
           id={fieldId("personalVehicle")}
           errorId={errorId("personalVehicle")}
           error={errors.personalVehicle}
-          checked={fields.personalVehicle}
+          value={fields.personalVehicle}
           onChange={(v) => update("personalVehicle", v)}
         >
-          I have a personal vehicle, and I will provide my own tools and travel
-          resources.
-        </Check>
-        <Check
+          Do you have a personal vehicle, and will you provide your own
+          tools and travel resources?
+        </YesNoQuestion>
+        <YesNoQuestion
           id={fieldId("smartphone")}
           errorId={errorId("smartphone")}
           error={errors.smartphone}
-          checked={fields.smartphone}
+          value={fields.smartphone}
           onChange={(v) => update("smartphone", v)}
         >
-          I have a smartphone for submitting installation data and installation
-          photos.
-        </Check>
-        <Check
+          Do you have a smartphone for submitting installation data and
+          installation photos?
+        </YesNoQuestion>
+        <YesNoQuestion
           id={fieldId("backgroundCheck")}
           errorId={errorId("backgroundCheck")}
           error={errors.backgroundCheck}
-          checked={fields.backgroundCheck}
+          value={fields.backgroundCheck}
           onChange={(v) => update("backgroundCheck", v)}
         >
-          I understand that a background check is required, and I consent to a
-          background check as part of the application process.
-        </Check>
+          A background check is required. Do you consent to a background check
+          as part of the application process?
+        </YesNoQuestion>
       </fieldset>
 
       <fieldset className="flex flex-col gap-4">
@@ -422,24 +428,25 @@ export function ApplicationForm() {
             className={inputClass}
           />
         </Field>
-        <Check
+        <YesNoQuestion
           id={fieldId("travelAcknowledged")}
           errorId={errorId("travelAcknowledged")}
           error={errors.travelAcknowledged}
-          checked={fields.travelAcknowledged}
+          value={fields.travelAcknowledged}
           onChange={(v) => update("travelAcknowledged", v)}
         >
-          I understand that approximately {travelPercent}% travel is required.
-        </Check>
-        <Check
+          Do you understand that approximately {travelPercent}% travel is
+          required?
+        </YesNoQuestion>
+        <YesNoQuestion
           id={fieldId("stateToStateAcknowledged")}
           errorId={errorId("stateToStateAcknowledged")}
           error={errors.stateToStateAcknowledged}
-          checked={fields.stateToStateAcknowledged}
+          value={fields.stateToStateAcknowledged}
           onChange={(v) => update("stateToStateAcknowledged", v)}
         >
-          I understand that state-to-state travel is required.
-        </Check>
+          Do you understand that state-to-state travel is required?
+        </YesNoQuestion>
       </fieldset>
 
       <fieldset className="flex flex-col gap-4">
@@ -499,16 +506,16 @@ export function ApplicationForm() {
         <legend className="text-[length:var(--text-h4)] font-bold text-ink">
           Acknowledgments and consent
         </legend>
-        <Check
+        <YesNoQuestion
           id={fieldId("trainingAcknowledged")}
           errorId={errorId("trainingAcknowledged")}
           error={errors.trainingAcknowledged}
-          checked={fields.trainingAcknowledged}
+          value={fields.trainingAcknowledged}
           onChange={(v) => update("trainingAcknowledged", v)}
         >
-          I understand that training is provided and that no prior installation
-          experience is required.
-        </Check>
+          Do you understand that training is provided and that no prior
+          installation experience is required?
+        </YesNoQuestion>
         <Check
           id={fieldId("contractorAcknowledged")}
           errorId={errorId("contractorAcknowledged")}
@@ -596,6 +603,62 @@ function Field({
         </p>
       ) : null}
     </div>
+  );
+}
+
+/**
+ * A required Yes or No question. Either answer can be submitted (decision
+ * 0022). The first radio carries the field id so the error summary link lands
+ * on a focusable control.
+ */
+function YesNoQuestion({
+  id,
+  errorId,
+  error,
+  value,
+  onChange,
+  children,
+}: {
+  id: string;
+  errorId: string;
+  error?: string;
+  value: YesNo;
+  onChange: (value: "yes" | "no") => void;
+  children: ReactNode;
+}) {
+  return (
+    <fieldset
+      className="flex flex-col gap-1"
+      aria-describedby={error ? errorId : undefined}
+    >
+      <legend className="text-[length:var(--text-small)] text-ink-muted">
+        {children}
+      </legend>
+      <div className="mt-1 flex gap-6">
+        {(["yes", "no"] as const).map((option) => (
+          <label
+            key={option}
+            className="flex min-h-11 items-center gap-2 text-[length:var(--text-small)] text-ink"
+          >
+            <input
+              id={option === "yes" ? id : `${id}-no`}
+              type="radio"
+              name={id}
+              value={option}
+              checked={value === option}
+              onChange={() => onChange(option)}
+              className="size-5 shrink-0"
+            />
+            {option === "yes" ? "Yes" : "No"}
+          </label>
+        ))}
+      </div>
+      {error ? (
+        <p id={errorId} className="text-[length:var(--text-small)] text-error">
+          {error}
+        </p>
+      ) : null}
+    </fieldset>
   );
 }
 

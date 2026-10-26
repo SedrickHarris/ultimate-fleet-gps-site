@@ -21,6 +21,7 @@ const CONFIG = JSON.stringify({
     submissionId: "CF-sub",
     receivedAt: "CF-recv",
     validDriversLicense: "CF-license",
+    smartphone: "CF-smartphone",
     privacyConsent: "CF-privacy",
     unusedKey: "CF-unused",
   },
@@ -371,14 +372,61 @@ describe("validation", () => {
     assert.equal(calls.length, 0);
   });
 
-  it("requires every application acknowledgment", async () => {
-    const { deps } = setup();
-    const res = await handleRequest(
-      post({ ...application, backgroundCheckConsent: false }),
-      env,
-      deps,
-    );
-    assert.equal(res.status, 400);
+  it("still requires the contractor acknowledgment and privacy consent", async () => {
+    for (const key of ["independentContractorAcknowledged", "privacyConsent"]) {
+      const { calls, deps } = setup();
+      const res = await handleRequest(
+        post({ ...application, [key]: false }),
+        env,
+        deps,
+      );
+      assert.equal(res.status, 400, key);
+      assert.equal(calls.length, 0, key);
+    }
+  });
+
+  const YES_NO_KEYS = [
+    "validDriversLicense",
+    "personalVehicle",
+    "smartphone",
+    "backgroundCheckConsent",
+    "travelPercentAcknowledged",
+    "stateToStateTravelAcknowledged",
+    "trainingAcknowledged",
+  ];
+
+  it("accepts a No on each Yes or No application question", async () => {
+    for (const key of YES_NO_KEYS) {
+      const { calls, deps } = setup();
+      const res = await handleRequest(
+        post({ ...application, [key]: false }),
+        env,
+        deps,
+      );
+      assert.equal(res.status, 200, key);
+      assert.equal(calls.filter((c) => c.path === "/opportunities/").length, 1, key);
+    }
+  });
+
+  it("rejects an unanswered or non-boolean Yes or No question", async () => {
+    for (const key of YES_NO_KEYS) {
+      for (const bad of [undefined, "no", "yes", null, 0]) {
+        const { calls, deps } = setup();
+        const payload: Record<string, unknown> = { ...application, [key]: bad };
+        if (bad === undefined) delete payload[key];
+        const res = await handleRequest(post(payload), env, deps);
+        assert.equal(res.status, 400, `${key} = ${String(bad)}`);
+        assert.equal(calls.length, 0, key);
+      }
+    }
+  });
+
+  it("stores a No answer as No", async () => {
+    const { calls, deps } = setup();
+    await handleRequest(post({ ...application, smartphone: false }), env, deps);
+    const fields = calls[0]!.body.customFields as { id: string; fieldValue: string }[];
+    assert.ok(fields.some((f) => f.id === "CF-license" && f.fieldValue === "Yes"));
+    assert.ok(fields.some((f) => f.id === "CF-smartphone" && f.fieldValue === "No"));
   });
 
   it("rejects an unknown form type", async () => {
