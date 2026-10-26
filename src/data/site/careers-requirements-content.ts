@@ -66,68 +66,63 @@ const hours = footerBrandLines.find((line) => line.startsWith("Monday")) ?? "";
  */
 const requirementsFaqItems: readonly RichFaqItem[] = [
   {
-    question: "Is prior installation experience required?",
-    answer: [
-      "No. Prior installation experience is not required for the current Mobile GPS, ELD and AOBRD Installation Technician opening, and training is provided. Applicants who can follow a checklist, work carefully on commercial vehicles, and document each installation with photos are encouraged to apply.",
-    ],
-  },
-  {
-    question:
-      "Are Installer Network technicians independent contractors or employees?",
-    answer: [
-      "Installer Network technicians work as independent contractors, not employees. Contractors provide their own vehicle, tools, smartphone, and travel resources, and complete installation assignments for Ultimate Fleet GPS customers. Review the ",
-      { text: "current opening", href: jobPath },
-      " for full details on the contractor arrangement.",
-    ],
-  },
-  {
     question: "What are the requirements to become a GPS and ELD installer?",
     answer: [
-      "Applicants need a valid driver's license, a successful background check, and a smartphone for submitting installation data and photos. As independent contractors, Installer Network technicians also supply their own personal vehicle, tools, and travel resources, and must be able to travel approximately 75% of the time.",
+      "To work as an installation technician with Ultimate Fleet GPS, you need a valid driver's license, the ability to pass a background check, a smartphone, your own vehicle and tools, and the ability to travel about 75% of the time. No prior installation experience is required, and training is provided.",
+    ],
+  },
+  {
+    question: "Is prior installation experience required?",
+    answer: [
+      "No. Prior installation experience is not required for the current Mobile GPS, ELD, and AOBRD Installation Technician opening, and training is provided. The work suits mechanics, auto electricians, car audio and accessory installers, and career changers who are comfortable with hands-on work and frequent travel.",
+    ],
+  },
+  {
+    question: "Are ELD and GPS installers independent contractors or employees?",
+    answer: [
+      "Installers for this opening work as independent contractors, not employees. This is independent contractor (1099-style) work. Review the ",
+      { text: "current opening", href: jobPath },
+      " for how the role is classified and what contractors provide.",
+    ],
+  },
+  {
+    question: "What vehicle, tools, and equipment do I need to provide?",
+    answer: [
+      "You provide your own personal vehicle, tools, smartphone, and travel resources. The smartphone is used to submit installation data and photos for each completed installation. A valid driver's license is also required.",
     ],
   },
   {
     question: "How much travel does an installer position require?",
     answer: [
-      "Approximately 75% travel is required, including state-to-state travel. Installers travel to customer fleet locations to complete installations, and contractors cover their own travel resources, so plan for extended time away from home before applying. See ",
+      "Approximately 75% travel is required, including state-to-state travel. Installation is field work at customer locations, so technicians travel to the vehicles rather than working from a fixed shop. Some of that time is away from home. See ",
       { text: "current coverage areas", href: "/coverage/" },
-      " and the ",
-      { text: "full opening details", href: jobPath },
       ".",
-    ],
-  },
-  {
-    question: "What tools and equipment do I need to provide?",
-    answer: [
-      "Independent contractors provide their own reliable personal vehicle, installation tools, travel resources, and a smartphone. The smartphone is used to submit installation data and photos for each job. A valid driver's license is also required. The opening page lists the full requirements.",
     ],
   },
   {
     question: "What types of devices will I install?",
     answer: [
-      "Installers work on commercial fleet technology, including ",
+      "Technicians install ",
       { text: "GPS tracking", href: "/services/gps-tracking-installation/" },
       ", ",
       { text: "ELD", href: "/services/eld-installation/" },
-      " and AOBRD devices, and ",
-      {
-        text: "dashcams and cameras",
-        href: "/services/dashcam-camera-installation/",
-      },
-      ". Training is provided on the installation process, so prior experience with these specific devices is not required.",
+      ", and AOBRD equipment on fleet, commercial, and construction vehicles. A GPS tracker reports a vehicle's location, an ELD records a commercial driver's hours of service, and an AOBRD is an older logging device that ELDs replaced. Training is provided.",
+    ],
+  },
+  {
+    question: "Does applying guarantee a position?",
+    answer: [
+      "No. Applying does not guarantee contact, an interview, a contract, an assignment, a schedule, work volume, or pay. The starting rate is not guaranteed income.",
     ],
   },
   {
     question: "How do I apply to become an installer?",
-    // "Arizona time" and "before assignments begin" were left out: neither is
-    // supported by the opening page or the footer. TODO restore the time zone
-    // and background check timing once confirmed.
     answer: [
-      "Submit an application through the ",
+      "Complete the online application on the ",
       { text: "Apply page", href: APPLY_PATH },
       " or review the ",
       { text: "current openings", href: JOBS_INDEX_PATH },
-      ` first. Questions can go to ${business.telephone}, ${hours}. Applicants must pass a background check.`,
+      ` first. Applicants are accepted nationwide, and no closing date is currently published. Questions can go to ${business.telephone}, ${hours}. The background check is completed if you move forward.`,
     ],
   },
 ];
@@ -175,7 +170,7 @@ export const careersRequirementsContent = {
   },
 
   faq: {
-    h2: "Installer Requirements Questions",
+    h2: "ELD and GPS Installer Requirements: Frequently Asked Questions",
     items: requirementsFaqItems,
   },
 
