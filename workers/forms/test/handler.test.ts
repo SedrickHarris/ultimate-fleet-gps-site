@@ -20,6 +20,8 @@ const CONFIG = JSON.stringify({
     utmSource: "CF-utm",
     submissionId: "CF-sub",
     receivedAt: "CF-recv",
+    validDriversLicense: "CF-license",
+    privacyConsent: "CF-privacy",
     unusedKey: "CF-unused",
   },
 });
@@ -209,6 +211,14 @@ describe("GHL API calls", () => {
     await handleRequest(post({ ...network, platforms: [] }), env, noPlatforms.deps);
     const empty = noPlatforms.calls[0]!.body.customFields as { id: string }[];
     assert.ok(!empty.some((f) => f.id === "CF-platforms"));
+  });
+
+  it("stores application confirmations as Yes", async () => {
+    const { calls, deps } = setup();
+    await handleRequest(post(application), env, deps);
+    const fields = calls[0]!.body.customFields as { id: string; fieldValue: string }[];
+    assert.ok(fields.some((f) => f.id === "CF-license" && f.fieldValue === "Yes"));
+    assert.ok(fields.some((f) => f.id === "CF-privacy" && f.fieldValue === "Yes"));
   });
 
   it("puts each journey in its own pipeline and stage", async () => {

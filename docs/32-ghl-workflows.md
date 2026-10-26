@@ -27,7 +27,7 @@ Because each pipeline has its own workflow trigger, the three journeys stay sepa
 - Acknowledgement is by email only. The consent text on the forms covers being contacted, but it does not establish SMS consent, so send no SMS to the visitor.
 - Do not copy submission data into analytics, shared channels, or tools outside GHL.
 
-**Consent record.** The Worker rejects any submission in which a required consent or acknowledgment box is unticked. A record that arrives has every box ticked, and the `receivedAt` custom field is when. Do not store a copy of every always-true checkbox.
+**Consent record.** The Worker rejects any submission in which a required consent or acknowledgment box is unticked. A record that arrives has every box ticked, and the `receivedAt` custom field is when. For job applications the nine confirmations are also stored as individual `Yes` fields, at the owner's request (decision 0021). Commercial and Installer Network consent boxes are not stored separately.
 
 **Same person, two journeys.** GHL keeps one contact per person, by the location's duplicate-contact setting. Someone who is both a customer and a candidate is one contact with two opportunities. Keep the journeys apart by pipeline and tag, never by merging. If that is not acceptable, use separate sub-accounts for commercial and recruitment, which also isolates applicant data. Restrict custom-field and pipeline visibility to the staff who need each journey.
 
@@ -59,6 +59,7 @@ All are single-line text unless noted. The Worker sends a field only when its pa
 | `skillsExperience` | Skills and Experience (multi-line) | Application |
 | `jobSlug` | Job ID | Application |
 | `jobTitle` | Job Title | Application |
+| `validDriversLicense`, `personalVehicle`, `smartphone`, `backgroundCheckConsent`, `travelPercentAcknowledged`, `stateToStateTravelAcknowledged`, `trainingAcknowledged`, `independentContractorAcknowledged`, `privacyConsent` | Confirmed - Valid Driver License, Confirmed - Personal Vehicle and Tools, Confirmed - Smartphone, Confirmed - Background Check Consent, Confirmed - Travel Requirement, Confirmed - State-to-State Travel, Confirmed - Training Provided, Confirmed - Independent Contractor Status, Confirmed - Privacy Consent (each holds `Yes`) | Application |
 | `receivedAt` | Consent Recorded At | All |
 | `submissionId` | Submission ID | All |
 | `sourcePage`, `referrer`, `utmSource`, `utmMedium`, `utmCampaign`, `utmContent`, `utmTerm` | Source Page, Referrer, UTM Source, UTM Medium, UTM Campaign, UTM Content, UTM Term | All |

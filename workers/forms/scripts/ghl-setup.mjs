@@ -42,6 +42,17 @@ export const CUSTOM_FIELDS = [
   ["skillsExperience", "Skills and Experience", "LARGE_TEXT"],
   ["jobSlug", "Job ID", "TEXT"],
   ["jobTitle", "Job Title", "TEXT"],
+  // Application confirmations (decision 0021). Each holds "Yes", because the
+  // Worker rejects a submission unless the box was ticked.
+  ["validDriversLicense", "Confirmed - Valid Driver License", "TEXT"],
+  ["personalVehicle", "Confirmed - Personal Vehicle and Tools", "TEXT"],
+  ["smartphone", "Confirmed - Smartphone", "TEXT"],
+  ["backgroundCheckConsent", "Confirmed - Background Check Consent", "TEXT"],
+  ["travelPercentAcknowledged", "Confirmed - Travel Requirement", "TEXT"],
+  ["stateToStateTravelAcknowledged", "Confirmed - State-to-State Travel", "TEXT"],
+  ["trainingAcknowledged", "Confirmed - Training Provided", "TEXT"],
+  ["independentContractorAcknowledged", "Confirmed - Independent Contractor Status", "TEXT"],
+  ["privacyConsent", "Confirmed - Privacy Consent", "TEXT"],
   ["receivedAt", "Consent Recorded At", "TEXT"],
   ["submissionId", "Submission ID", "TEXT"],
   ["sourcePage", "Source Page", "TEXT"],
