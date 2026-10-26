@@ -30,6 +30,7 @@
     "jobTitle": "REPLACE_CUSTOM_FIELD_ID",
     "validDriversLicense": "REPLACE_CUSTOM_FIELD_ID",
     "personalVehicle": "REPLACE_CUSTOM_FIELD_ID",
+    "providesOwnToolsAndTravel": "REPLACE_CUSTOM_FIELD_ID",
     "smartphone": "REPLACE_CUSTOM_FIELD_ID",
     "backgroundCheckConsent": "REPLACE_CUSTOM_FIELD_ID",
     "travelPercentAcknowledged": "REPLACE_CUSTOM_FIELD_ID",

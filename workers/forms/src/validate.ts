@@ -170,6 +170,7 @@ export function validateSubmission(
       for (const key of [
         "validDriversLicense",
         "personalVehicle",
+        "providesOwnToolsAndTravel",
         "smartphone",
         "backgroundCheckConsent",
         "travelPercentAcknowledged",

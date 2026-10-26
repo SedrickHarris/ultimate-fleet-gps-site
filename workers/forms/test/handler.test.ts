@@ -22,6 +22,7 @@ const CONFIG = JSON.stringify({
     receivedAt: "CF-recv",
     validDriversLicense: "CF-license",
     smartphone: "CF-smartphone",
+    providesOwnToolsAndTravel: "CF-tools",
     privacyConsent: "CF-privacy",
     unusedKey: "CF-unused",
   },
@@ -91,6 +92,7 @@ const application = {
   platforms: [],
   validDriversLicense: true,
   personalVehicle: true,
+  providesOwnToolsAndTravel: true,
   smartphone: true,
   backgroundCheckConsent: true,
   travelPercentAcknowledged: true,
@@ -386,6 +388,7 @@ describe("validation", () => {
   const YES_NO_KEYS = [
     "validDriversLicense",
     "personalVehicle",
+    "providesOwnToolsAndTravel",
     "smartphone",
     "backgroundCheckConsent",
     "travelPercentAcknowledged",
@@ -426,6 +429,18 @@ describe("validation", () => {
     const fields = calls[0]!.body.customFields as { id: string; fieldValue: string }[];
     assert.ok(fields.some((f) => f.id === "CF-license" && f.fieldValue === "Yes"));
     assert.ok(fields.some((f) => f.id === "CF-smartphone" && f.fieldValue === "No"));
+  });
+
+  it("keeps the vehicle and tools answers separate", async () => {
+    const { calls, deps } = setup();
+    await handleRequest(
+      post({ ...application, personalVehicle: true, providesOwnToolsAndTravel: false }),
+      env,
+      deps,
+    );
+    const fields = calls[0]!.body.customFields as { id: string; fieldValue: string }[];
+    assert.ok(fields.some((f) => f.id === "CF-tools" && f.fieldValue === "No"));
+    assert.ok(!fields.some((f) => f.id === "CF-license" && f.fieldValue === "No"));
   });
 
   it("rejects an unknown form type", async () => {
