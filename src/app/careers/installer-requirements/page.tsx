@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import { InstallerQuestions } from "@/components/content/InstallerQuestions";
 import { RichFaqSection } from "@/components/content/RichFaqSection";
@@ -202,18 +201,6 @@ export default function InstallerRequirementsPage() {
         phoneLocation="installer-requirements-contact"
         trackPaths
       />
-
-      <Section tone="default" width="site" density="compact">
-        <p>
-          <Link
-            href={content.backLink.href}
-            className="inline-flex min-h-11 items-center gap-2 text-[length:var(--text-body)] font-semibold text-[var(--color-accent-blue-strong)] underline underline-offset-4"
-          >
-            <span aria-hidden="true">&larr;</span>
-            {content.backLink.label}
-          </Link>
-        </p>
-      </Section>
     </>
   );
 }
