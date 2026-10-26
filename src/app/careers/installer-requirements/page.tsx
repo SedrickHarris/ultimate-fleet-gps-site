@@ -132,20 +132,27 @@ export default function InstallerRequirementsPage() {
           {pathways.h2}
         </h2>
         <div className="mt-8 grid gap-6 md:grid-cols-2 md:items-stretch">
-          <article className="flex h-full flex-col rounded-lg border-2 border-[var(--color-accent-blue-strong)] bg-[var(--color-surface-brand-tint)] p-6">
+          <article
+            data-tone="dark"
+            className="flex h-full flex-col rounded-lg border border-[var(--color-border-dark)] bg-[var(--color-surface-dark)] p-6 text-[var(--color-text-on-dark)]"
+          >
             <div className="flex items-center justify-between gap-3">
-              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-[var(--color-accent-blue-strong)]/10 text-[var(--color-accent-blue-strong)]">
+              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-white/10 text-[var(--color-text-on-dark)]">
                 <Icon name="briefcase" size={24} />
               </span>
-              <span className="rounded-full bg-[var(--color-accent-blue-strong)] px-3 py-1 text-[length:var(--text-label)] font-semibold tracking-wide text-white uppercase">
+              <span className="rounded-full bg-white px-3 py-1 text-[length:var(--text-label)] font-semibold tracking-wide text-ink uppercase">
                 {pathways.opening.badge}
               </span>
             </div>
-            <p className="mt-5 text-[length:var(--text-label)] font-semibold tracking-wide text-[var(--color-accent-blue-strong)] uppercase">
+            <p className="mt-5 text-[length:var(--text-label)] font-semibold tracking-wide text-[var(--color-text-on-dark)]/80 uppercase">
               {pathways.opening.label}
             </p>
-            <h3 className={`${h3Class} mt-1`}>{pathways.opening.question}</h3>
-            <p className="mt-3 text-[length:var(--text-body)] leading-relaxed text-ink">
+            <h3
+              className={`${h3Class} mt-1 !text-[var(--color-text-on-dark)]`}
+            >
+              {pathways.opening.question}
+            </h3>
+            <p className="mt-3 text-[length:var(--text-body)] leading-relaxed text-[var(--color-text-on-dark)]/90">
               {pathways.opening.body}
             </p>
             <div className="mt-auto pt-6">
@@ -153,6 +160,7 @@ export default function InstallerRequirementsPage() {
                 cta={pathways.opening.cta}
                 ariaLabel={pathways.opening.ariaLabel}
                 emphasis="primary"
+                onDark
                 blockOnMobile
               />
             </div>
