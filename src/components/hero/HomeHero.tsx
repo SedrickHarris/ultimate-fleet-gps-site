@@ -30,7 +30,7 @@ export function HomeHero({ content }: HomeHeroProps) {
   return (
     <section
       data-tone="dark"
-      className="relative isolate flex min-h-[560px] items-center overflow-hidden bg-[var(--color-surface-dark)] px-5 py-16 text-[var(--color-text-on-dark)] md:min-h-[760px] md:px-6 md:py-24"
+      className="relative isolate flex min-h-[560px] items-center overflow-hidden bg-[var(--color-surface-dark)] px-5 py-16 text-[var(--color-text-on-dark)] md:min-h-[680px] md:px-6 md:py-24"
     >
       {/* Still frame: shown while the video loads and, for users who prefer
           reduced motion, in place of the video. */}

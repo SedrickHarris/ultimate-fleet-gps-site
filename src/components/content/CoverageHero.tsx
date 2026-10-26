@@ -72,7 +72,7 @@ export function CoverageHero({
       aria-labelledby={headingId}
       className={
         dark
-          ? "relative isolate overflow-hidden bg-[var(--color-surface-dark)] px-5 py-16 text-[var(--color-text-on-dark)] md:px-6 md:py-24"
+          ? "relative isolate flex min-h-[560px] flex-col justify-center overflow-hidden bg-[var(--color-surface-dark)] px-5 py-16 text-[var(--color-text-on-dark)] md:min-h-[680px] md:px-6 md:py-24"
           : "bg-surface px-5 py-10 text-ink md:px-6 md:py-14"
       }
     >
@@ -108,7 +108,7 @@ export function CoverageHero({
       ) : null}
 
       <div
-        className={`mx-auto max-w-[1280px] ${
+        className={`mx-auto w-full max-w-[1280px] ${
           showImage ? "grid gap-8 md:grid-cols-2 md:items-center md:gap-14" : ""
         }`}
       >

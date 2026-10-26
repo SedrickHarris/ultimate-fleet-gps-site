@@ -102,7 +102,7 @@ export function ServicesHero({
   const scopeList =
     scopeItems && scopeItems.length > 0 ? (
       <ul
-        className={`list-none flex-wrap gap-x-8 gap-y-2 border-t border-[var(--color-border-dark)] p-0 pt-6 text-[length:var(--text-small)] font-semibold text-[var(--color-text-on-dark)]/90 ${backgroundImage ? "mt-8 flex" : "mx-auto mt-10 flex max-w-[1280px]"}`}
+        className={`list-none flex-wrap gap-x-8 gap-y-2 border-t border-[var(--color-border-dark)] p-0 pt-6 text-[length:var(--text-small)] font-semibold text-[var(--color-text-on-dark)]/90 ${backgroundImage ? "mt-8 flex" : "mx-auto mt-10 flex w-full max-w-[1280px]"}`}
       >
         {scopeItems.map((item) => (
           <li key={item}>{item}</li>
@@ -114,7 +114,7 @@ export function ServicesHero({
     <section
       data-tone="dark"
       aria-labelledby={headingId}
-      className={`${backgroundVideo || backgroundImage ? "relative isolate overflow-hidden " : ""}bg-[var(--color-surface-dark)] px-5 py-12 text-[var(--color-text-on-dark)] md:px-6 md:py-20`}
+      className={`${backgroundVideo || backgroundImage ? "relative isolate overflow-hidden " : ""}flex min-h-[560px] flex-col justify-center bg-[var(--color-surface-dark)] px-5 py-12 text-[var(--color-text-on-dark)] md:min-h-[680px] md:px-6 md:py-20`}
     >
       {backgroundImage ? (
         // eslint-disable-next-line @next/next/no-img-element
@@ -166,7 +166,7 @@ export function ServicesHero({
         </>
       ) : null}
       <div
-        className={`mx-auto max-w-[1280px] ${image ? "grid gap-10 md:grid-cols-2 md:items-center md:gap-16" : ""}`}
+        className={`mx-auto w-full max-w-[1280px] ${image ? "grid gap-10 md:grid-cols-2 md:items-center md:gap-16" : ""}`}
       >
         <div
           className={
