@@ -11,6 +11,8 @@ interface CtaButtonProps {
   readonly blockOnMobile?: boolean;
   /** Primary only: white border so the fill reads against a navy surface. */
   readonly onDark?: boolean;
+  /** Accessible name when the visible label alone is ambiguous. Must contain the visible label. */
+  readonly ariaLabel?: string;
 }
 
 /**
@@ -82,10 +84,12 @@ export function CtaButton({
   emphasis,
   blockOnMobile = false,
   onDark = false,
+  ariaLabel,
 }: CtaButtonProps) {
   return (
     <Link
       href={cta.href}
+      aria-label={ariaLabel}
       data-journey={cta.journey}
       data-event={cta.event}
       className={[

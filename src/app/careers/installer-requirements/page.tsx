@@ -5,11 +5,11 @@ import { inlineLinkClass } from "@/components/content/LinkedText";
 import { RichFaqSection } from "@/components/content/RichFaqSection";
 import { ServicesHero } from "@/components/content/ServicesHero";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
-import { CardGrid } from "@/components/layout/CardGrid";
 import { Section } from "@/components/layout/Section";
 import { JsonLd } from "@/components/schema/JsonLd";
 import { Card } from "@/components/ui/Card";
 import { CtaButton } from "@/components/ui/CtaButton";
+import { Icon } from "@/components/ui/Icon";
 import { ImageSlot } from "@/components/ui/ImageSlot";
 import { activeTechnicianJob, APPLY_PATH } from "@/data/jobs";
 import { business } from "@/data/site/business";
@@ -131,27 +131,57 @@ export default function InstallerRequirementsPage() {
         <h2 id="pathways-heading" className={h2Class}>
           {pathways.h2}
         </h2>
-        <div className="mt-8">
-          <CardGrid columns={2}>
-            <Card tone="light" padding="default" className="flex h-full flex-col">
-              <h3 className={h3Class}>{pathways.opening.title}</h3>
-              <p className="mt-3 text-[length:var(--text-body)] leading-relaxed text-ink-muted">
-                {pathways.opening.body}
-              </p>
-              <div className="mt-6">
-                <CtaButton cta={pathways.opening.cta} emphasis="primary" blockOnMobile />
-              </div>
-            </Card>
-            <Card tone="light" padding="default" className="flex h-full flex-col">
-              <h3 className={h3Class}>{pathways.network.title}</h3>
-              <p className="mt-3 text-[length:var(--text-body)] leading-relaxed text-ink-muted">
-                {pathways.network.body}
-              </p>
-              <div className="mt-6">
-                <CtaButton cta={pathways.network.cta} emphasis="secondary" blockOnMobile />
-              </div>
-            </Card>
-          </CardGrid>
+        <div className="mt-8 grid gap-6 md:grid-cols-2 md:items-stretch">
+          <article className="flex h-full flex-col rounded-lg border-2 border-[var(--color-accent-blue-strong)] bg-[var(--color-surface-brand-tint)] p-6">
+            <div className="flex items-center justify-between gap-3">
+              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-[var(--color-accent-blue-strong)]/10 text-[var(--color-accent-blue-strong)]">
+                <Icon name="briefcase" size={24} />
+              </span>
+              <span className="rounded-full bg-[var(--color-accent-blue-strong)] px-3 py-1 text-[length:var(--text-label)] font-semibold tracking-wide text-white uppercase">
+                {pathways.opening.badge}
+              </span>
+            </div>
+            <p className="mt-5 text-[length:var(--text-label)] font-semibold tracking-wide text-[var(--color-accent-blue-strong)] uppercase">
+              {pathways.opening.label}
+            </p>
+            <h3 className={`${h3Class} mt-1`}>{pathways.opening.question}</h3>
+            <p className="mt-3 text-[length:var(--text-body)] leading-relaxed text-ink">
+              {pathways.opening.body}
+            </p>
+            <div className="mt-auto pt-6">
+              <CtaButton
+                cta={pathways.opening.cta}
+                ariaLabel={pathways.opening.ariaLabel}
+                emphasis="primary"
+                blockOnMobile
+              />
+            </div>
+          </article>
+          <article className="flex h-full flex-col rounded-lg border border-border bg-surface p-6">
+            <div className="flex items-center justify-between gap-3">
+              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-ink/5 text-ink">
+                <Icon name="users" size={24} />
+              </span>
+              <span className="rounded-full border border-ink px-3 py-1 text-[length:var(--text-label)] font-semibold tracking-wide text-ink uppercase">
+                {pathways.network.badge}
+              </span>
+            </div>
+            <p className="mt-5 text-[length:var(--text-label)] font-semibold tracking-wide text-ink-muted uppercase">
+              {pathways.network.label}
+            </p>
+            <h3 className={`${h3Class} mt-1`}>{pathways.network.question}</h3>
+            <p className="mt-3 text-[length:var(--text-body)] leading-relaxed text-ink-muted">
+              {pathways.network.body}
+            </p>
+            <div className="mt-auto pt-6">
+              <CtaButton
+                cta={pathways.network.cta}
+                ariaLabel={pathways.network.ariaLabel}
+                emphasis="secondary"
+                blockOnMobile
+              />
+            </div>
+          </article>
         </div>
       </Section>
 

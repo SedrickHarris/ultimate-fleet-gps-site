@@ -51,7 +51,7 @@ const openingCta: Cta = {
 };
 
 const networkCta: Cta = {
-  label: "Share Your Interest",
+  label: "Join the Installer Network",
   href: INSTALLER_NETWORK_PATH,
   journey: "recruitment",
   event: "cta_installer_network_click",
@@ -158,12 +158,20 @@ export const careersRequirementsContent = {
   pathways: {
     h2: "Current Opening or Installer Network",
     opening: {
-      title: "Current Opening",
+      badge: "Accepting applications",
+      label: "Current Opening",
+      question: "Is Ultimate Fleet GPS hiring ELD and GPS installers?",
+      ariaLabel:
+        "View the Current Opening: job details for the Mobile GPS, ELD, and AOBRD installation technician opening",
       body: approvedFaq(careersPageFaq, "Are there current installer openings?").answer,
       cta: openingCta,
     },
     network: {
-      title: "Installer Network",
+      badge: "Not an application",
+      label: "Installer Network",
+      question: "What is the Installer Network?",
+      ariaLabel:
+        "Join the Installer Network: registration for future opportunities, not an application for the current opening",
       body: approvedFaq(careersPageFaq, "What is the Installer Network?").answer,
       cta: networkCta,
     },
