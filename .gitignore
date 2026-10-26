@@ -14,6 +14,9 @@ out/
 .env.local
 .env.*.local
 
+# Generated GHL config (IDs for the forms Worker). Never commit.
+ghl-config.generated.json
+
 # Cloudflare
 .wrangler/
 .dev.vars

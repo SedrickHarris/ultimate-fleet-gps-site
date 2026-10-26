@@ -8,6 +8,8 @@ export interface Env {
   /** Comma-separated slugs of job openings that currently accept applications. */
   readonly ACTIVE_JOB_SLUGS: string;
 
+  /** Optional. Overrides the GHL API Version header (default `v3`). */
+  readonly GHL_API_VERSION?: string;
   /** Secret. GHL Private Integration token. */
   readonly GHL_API_TOKEN?: string;
   /**

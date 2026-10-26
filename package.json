@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit && tsc --noEmit -p workers/forms",
-    "test:forms": "node --test \"workers/forms/test/*.test.ts\"",
+    "test:forms": "node --test \"workers/forms/test/*.test.*\"",
     "validate:links": "node scripts/validation/check-internal-links.mjs",
     "validate:output": "node scripts/validation/check-build-output.mjs",
     "postbuild": "npm run validate:output"

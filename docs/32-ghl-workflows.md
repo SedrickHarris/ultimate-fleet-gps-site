@@ -34,12 +34,11 @@ Because each pipeline has its own workflow trigger, the three journeys stay sepa
 ## 3. Account setup, in order
 
 1. Use a test sub-account for Preview and a production sub-account for the live site (`docs/17` section 29).
-2. Create the custom fields in section 4.
-3. Create the three pipelines and their stages in section 5.
-4. Create a Private Integration token with write access to contacts and opportunities. Confirm the scope names in GHL's picker.
-5. Run `workers/forms/scripts/ghl-discover.mjs` to list the pipeline, stage, and custom field IDs, and fill in `GHL_CONFIG` (`workers/forms/README.md`).
-6. Build the three workflows in sections 6 to 8.
-7. Test with section 9.
+2. Create a Private Integration token inside the sub-account, with the scopes listed in `workers/forms/README.md`, and keep the token and location ID in a git-ignored env file on your own machine.
+3. Run `workers/forms/scripts/ghl-setup.mjs`. It creates the custom fields in section 4 and the pipelines and stages in section 5 through the API, skips anything that already exists, and writes the Worker's `GHL_CONFIG`. It is a dry run until you pass `--apply`. Check the Installer Network stages first, because they are a proposal. You can instead create everything by hand in GHL and run `ghl-discover.mjs` to collect the IDs.
+4. Set the Worker secrets (`workers/forms/README.md`).
+5. Build the three workflows in sections 6 to 8. The API does not create workflows, so this step is done in the GHL app.
+6. Test with section 10.
 
 ## 4. Custom fields (contact)
 

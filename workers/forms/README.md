@@ -52,33 +52,48 @@ sent as comma-separated text.
 
 ## Setup
 
-1. In GHL, create the custom fields, pipelines, and stages (`docs/32`).
-2. Create a Private Integration token with write access to contacts and
-   opportunities. Confirm the exact scope names in GHL's scope picker. Use
-   a test sub-account for Preview and production for the live site.
-3. Find the IDs the config needs (read-only, run locally):
+1. In the GHL sub-account (Settings > Private Integrations), create two tokens,
+   and note the location ID from the sub-account URL. Use a test sub-account for
+   Preview and production for the live site.
+   - **Setup token**, for the scripts on your machine only: read and write for
+     location custom fields, create for pipelines, and read for opportunities.
+     Delete it when setup is done.
+   - **Worker token**, the one that goes in the Worker: write for contacts and
+     opportunities, and nothing else.
+
+   Confirm the exact scope names in GHL's scope picker.
+2. Put the setup token as `GHL_API_TOKEN`, with `GHL_LOCATION_ID`, in a git-ignored
+   env file on your own machine. Never paste them into chat or commit them.
+3. Create the custom fields and pipelines from `docs/32-ghl-workflows.md`. The
+   script does it for you, and skips anything that already exists by name:
 
    ```sh
-   GHL_API_TOKEN=... GHL_LOCATION_ID=... node scripts/ghl-discover.mjs
+   cd workers/forms
+   node --env-file=PATH_TO_ENV scripts/ghl-setup.mjs           # dry run, creates nothing
+   node --env-file=PATH_TO_ENV scripts/ghl-setup.mjs --apply   # create what is missing
    ```
 
-   The token for this needs read access to opportunities and custom fields.
+   `--apply` also writes `ghl-config.generated.json` (IDs only, git-ignored).
+   The Installer Network stages in the script are a proposal awaiting approval.
+   Edit them in the script before `--apply`, or rename them in GHL afterward.
+   `scripts/ghl-discover.mjs` lists the same IDs read-only if you built the
+   fields and pipelines by hand.
 
-4. Copy `ghl-config.example.json` somewhere outside the repo, fill in the IDs,
-   and set both secrets:
+4. Set the two Worker secrets, then delete the generated file. `GHL_API_TOKEN` here
+   is the Worker token, not the setup token:
 
    ```sh
-   cd workers/forms && npm install && npx wrangler login
+   npx wrangler login
    npx wrangler secret put GHL_API_TOKEN
-   npx wrangler secret put GHL_CONFIG < /path/to/your-filled-config.json
+   npx wrangler secret put GHL_CONFIG < ghl-config.generated.json
    ```
 
-   Delete the filled file afterward. Never commit it.
-
-5. `npm run deploy`, then attach the Worker to its host (docs/17 section 29
-   recommends `forms.ultimatefleetgps.net`) by uncommenting `routes` in
-   `wrangler.toml`.
-6. In the Pages project, set `NEXT_PUBLIC_FORMS_ENDPOINT` to the Worker URL,
+5. Build the three notification and acknowledgement workflows in the GHL app
+   (`docs/32` sections 6 to 8). The API setup above does not create workflows.
+6. `npm install` here, then `npm run deploy`, and attach the Worker to its host
+   (docs/17 section 29 recommends `forms.ultimatefleetgps.net`) by uncommenting
+   `routes` in `wrangler.toml`.
+7. In the Pages project, set `NEXT_PUBLIC_FORMS_ENDPOINT` to the Worker URL,
    then rebuild.
 
 Local development: put `GHL_API_TOKEN` and `GHL_CONFIG` in
@@ -87,14 +102,20 @@ Local development: put `GHL_API_TOKEN` and `GHL_CONFIG` in
 
 ## Verify before launch
 
-The GHL API reference could not be checked when this was written. Confirm these
-with one submission per form in the test sub-account:
+The official endpoint pages were read on Oct 26 2026 (decision 0020). They are
+the source for `Version: v3`, the `fieldValue` custom field key, and the
+opportunity body. Confirm these with one submission per form in the test
+sub-account:
 
-- The `Version` header (`2021-07-28`) is accepted.
 - `POST /contacts/upsert` creates or updates a contact and returns its ID.
-- `POST /contacts/{id}/tags` adds tags without removing existing ones.
-- Custom field values (`id` and `field_value`) land on the contact.
+- `POST /contacts/{id}/tags` adds tags without removing existing ones. Its page
+  does not say whether it adds or replaces.
+- Custom field values (`id` and `fieldValue`) land on the contact.
 - `POST /opportunities/` creates an opportunity in the right pipeline and stage.
+- The token's scopes are enough. The pages for the contact and opportunity
+  calls list no scopes.
+- If GHL rejects `v3`, set `GHL_API_VERSION` to the value its error asks for.
+  The Private Integrations page uses `2021-07-28` in its example.
 
 ## Tests
 

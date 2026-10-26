@@ -22,7 +22,8 @@ import type { Env, FormType, ValidSubmission } from "./types.ts";
  */
 
 export const GHL_API_BASE = "https://services.leadconnectorhq.com";
-export const GHL_API_VERSION = "2021-07-28";
+/** The endpoints this Worker calls document `v3` as the only allowed Version. */
+export const GHL_API_VERSION = "v3";
 export const GHL_TIMEOUT_MS = 10_000;
 
 export interface GhlConfig {
@@ -136,7 +137,7 @@ export function buildContactBody(
   const customFields = Object.entries(config.customFields).flatMap(
     ([key, id]) => {
       const value = text(values[key]);
-      return value ? [{ id, field_value: value }] : [];
+      return value ? [{ id, fieldValue: value }] : [];
     },
   );
 
@@ -178,7 +179,6 @@ export function buildOpportunityBody(
     contactId,
     name: journey.opportunityName(submission.fields).trim(),
     status: "open",
-    source: journey.source,
   };
 }
 
@@ -199,6 +199,7 @@ async function call(
   path: string,
   body: Record<string, unknown>,
   token: string,
+  version: string,
   fetchImpl: typeof fetch,
 ): Promise<CallResult> {
   let lastStatus: number | undefined;
@@ -210,7 +211,7 @@ async function call(
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
-          Version: GHL_API_VERSION,
+          Version: version,
           "Content-Type": "application/json",
           Accept: "application/json",
         },
@@ -253,11 +254,13 @@ export async function forwardToGhl(
   const config = parseConfig(env.GHL_CONFIG, submission.formType);
   const token = env.GHL_API_TOKEN;
   if (!config || !token) return { ok: false, reason: "not_configured" };
+  const version = env.GHL_API_VERSION || GHL_API_VERSION;
 
   const contact = await call(
     "/contacts/upsert",
     buildContactBody(submission, config, meta),
     token,
+    version,
     fetchImpl,
   );
   if (!contact.ok) return { ...contact, step: "contact" };
@@ -268,6 +271,7 @@ export async function forwardToGhl(
     `/contacts/${encodeURIComponent(contactId)}/tags`,
     { tags: buildTags(submission) },
     token,
+    version,
     fetchImpl,
   );
   if (!tags.ok) return { ...tags, step: "tags" };
@@ -276,6 +280,7 @@ export async function forwardToGhl(
     "/opportunities/",
     buildOpportunityBody(submission, config, contactId),
     token,
+    version,
     fetchImpl,
   );
   if (!opportunity.ok) return { ...opportunity, step: "opportunity" };

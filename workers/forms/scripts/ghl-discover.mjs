@@ -18,7 +18,7 @@ if (!token || !locationId) {
 const base = "https://services.leadconnectorhq.com";
 const headers = {
   Authorization: `Bearer ${token}`,
-  Version: "2021-07-28",
+  Version: process.env.GHL_API_VERSION || "v3",
   Accept: "application/json",
 };
 

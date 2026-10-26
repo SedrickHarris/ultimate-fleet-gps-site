@@ -17,17 +17,26 @@ Decision 0019 relayed each form to its own GHL inbound webhook. The owner wants 
 3. Each accepted submission makes three calls, in this order: upsert the contact, add the journey's tags, create an opportunity in that journey's own pipeline. The opportunity is last so a retry after a failure does not create a second one.
 4. The Worker returns success only after all three calls succeed. Any failure returns an error, and the site shows its error and click-to-call fallback.
 5. Notifications and acknowledgement emails are GHL workflows triggered by "Opportunity Created", filtered to one pipeline each. The Worker sends no email.
-6. Scopes are the minimum: write access to contacts and opportunities. The token is least-privilege and rotated if exposed (`CLAUDE.md` section 7).
+6. Two tokens, each least-privilege. The Worker token has write access to contacts and opportunities only. A separate setup token, used on the owner's machine to run `ghl-setup.mjs`, has custom field and pipeline scopes and is deleted after setup. Either is rotated if exposed (`CLAUDE.md` section 7).
 
-## Not verified
+## Verified and not verified
 
-The official GHL API reference could not be opened in the working session. These details come from third-party documentation and the author's recollection, and each needs a check against a test sub-account before launch:
+The official endpoint pages for upsert contact, add tags, create opportunity, create pipeline, and create custom field were read on Oct 26 2026.
 
-- The `Version` header value (`2021-07-28`).
-- The upsert contact endpoint, and that it matches on the location's duplicate-contact setting.
-- The add-tags endpoint, and that it adds rather than replaces.
-- The custom field format (`id` and `field_value`) on the contact body.
-- The scope names offered for a Private Integration token.
+Taken from those pages:
+
+- Each documents `Version: v3` as the only allowed value. The Worker defaults to `v3`, and `GHL_API_VERSION` overrides it, because the Private Integrations page uses `2021-07-28` in its example.
+- Upsert follows the location's "Allow Duplicate Contact" setting and returns `new` and `contact.id`. Tags sent on upsert replace existing tags, so the Worker adds tags through the tags endpoint instead.
+- Custom field items use `id` and `fieldValue`, on contacts and on opportunities.
+- Create Opportunity requires `pipelineId`, `locationId`, `name`, `status`, and `contactId`. It has no `source` field, so the Worker does not send one.
+- Pipelines and custom fields can be created through the API, which the setup script uses (`workers/forms/scripts/ghl-setup.mjs`). DATE_TIME custom fields are Labs-only, so `receivedAt` is text.
+
+Still unverified, to be checked against a test sub-account:
+
+- Scopes for upsert, tags, and create opportunity. Their pages list none.
+- Whether the add-tags endpoint adds or replaces. Its page is unclear.
+- The response shapes the setup script reads from the list pipelines and list custom fields endpoints, which were not read.
+- Create Pipeline does not document stage IDs in its response, so the script reloads pipelines after creating them.
 
 ## Consequences
 

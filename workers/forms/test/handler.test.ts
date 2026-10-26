@@ -163,8 +163,20 @@ describe("GHL API calls", () => {
     await handleRequest(post(commercial), env, deps);
     for (const call of calls) {
       assert.equal(call.headers.Authorization, "Bearer test-token");
-      assert.ok(call.headers.Version);
+      assert.equal(call.headers.Version, "v3");
     }
+  });
+
+  it("sends the Version override when one is configured", async () => {
+    const { calls, deps } = setup();
+    await handleRequest(post(commercial), { ...env, GHL_API_VERSION: "2021-07-28" }, deps);
+    assert.ok(calls.every((c) => c.headers.Version === "2021-07-28"));
+  });
+
+  it("sends no source on the opportunity, which its schema does not define", async () => {
+    const { calls, deps } = setup();
+    await handleRequest(post(commercial), env, deps);
+    assert.ok(!("source" in calls[2]!.body));
   });
 
   it("maps the contact and only the configured custom fields", async () => {
@@ -177,10 +189,10 @@ describe("GHL API calls", () => {
     assert.equal(body.companyName, "Example Fleet Co");
     assert.equal(body.source, "Website - Commercial Inquiry");
     assert.deepEqual(body.customFields, [
-      { id: "CF-service", field_value: "GPS tracking" },
-      { id: "CF-utm", field_value: "google" },
-      { id: "CF-sub", field_value: "11111111-2222-3333-4444-555555555555" },
-      { id: "CF-recv", field_value: "2026-10-26T20:00:01.000Z" },
+      { id: "CF-service", fieldValue: "GPS tracking" },
+      { id: "CF-utm", fieldValue: "google" },
+      { id: "CF-sub", fieldValue: "11111111-2222-3333-4444-555555555555" },
+      { id: "CF-recv", fieldValue: "2026-10-26T20:00:01.000Z" },
     ]);
   });
 
@@ -191,8 +203,8 @@ describe("GHL API calls", () => {
       env,
       deps,
     );
-    const fields = calls[0]!.body.customFields as { id: string; field_value: string }[];
-    assert.ok(fields.some((f) => f.id === "CF-platforms" && f.field_value === "Samsara, Geotab"));
+    const fields = calls[0]!.body.customFields as { id: string; fieldValue: string }[];
+    assert.ok(fields.some((f) => f.id === "CF-platforms" && f.fieldValue === "Samsara, Geotab"));
     const noPlatforms = setup();
     await handleRequest(post({ ...network, platforms: [] }), env, noPlatforms.deps);
     const empty = noPlatforms.calls[0]!.body.customFields as { id: string }[];
