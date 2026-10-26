@@ -30,6 +30,10 @@ export const metadata: Metadata = buildPageMetadata({
   title: H1,
   description: DESCRIPTION,
   pathname: APPLY_PATH,
+  // Form step that overlaps /careers/jobs/. Crawlable so the noindex is seen;
+  // not in the sitemap or robots disallow. Decision 0018.
+  noIndex: true,
+  followLinks: true,
 });
 
 /**

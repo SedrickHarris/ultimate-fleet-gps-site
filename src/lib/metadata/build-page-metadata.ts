@@ -19,6 +19,8 @@ export type PageMetadataInput = {
   description: string;
   pathname: string;
   noIndex?: boolean;
+  /** Link-following when `noIndex` is set. Defaults to false (`noindex, nofollow`). */
+  followLinks?: boolean;
   image?: string;
   type?: "website" | "article";
 };
@@ -38,6 +40,7 @@ export function buildPageMetadata({
   description,
   pathname,
   noIndex = false,
+  followLinks = false,
   image = DEFAULT_OG_IMAGE,
   type = DEFAULT_OG_TYPE,
 }: PageMetadataInput): Metadata {
@@ -78,7 +81,7 @@ export function buildPageMetadata({
       ...(image ? { images: [image] } : {}),
     },
     robots: noIndex
-      ? { index: false, follow: false }
+      ? { index: false, follow: followLinks }
       : { index: true, follow: true },
   };
 }

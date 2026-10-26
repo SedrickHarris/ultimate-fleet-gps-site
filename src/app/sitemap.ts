@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { activeJobs, APPLY_PATH, JOBS_INDEX_PATH } from "@/data/jobs";
+import { activeJobs, JOBS_INDEX_PATH } from "@/data/jobs";
 import { business } from "@/data/site/business";
 import { resourceArticles } from "@/data/site/resources-content";
 
@@ -11,7 +11,8 @@ export const dynamic = "force-static";
  * Static sitemap generator. Includes only routes that exist at build time;
  * append new routes as future sprints land. Thank-you/confirmation routes
  * are noindexed and deliberately excluded here, including the application
- * confirmation page. Each active opening is included through the job records.
+ * confirmation page. `/careers/apply/` is noindexed (decision 0018) and also
+ * excluded. Each active opening is included through the job records.
  *
  * `/case-studies/` and `/case-studies/*` are deliberately excluded: the
  * case-study registry is empty (see src/data/site/case-studies.ts), the hub
@@ -44,7 +45,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/careers/",
     JOBS_INDEX_PATH,
     ...activeJobs.map((job) => job.path),
-    APPLY_PATH,
     "/careers/mobile-installation-technician/",
     "/careers/installer-requirements/",
     "/privacy-policy/",

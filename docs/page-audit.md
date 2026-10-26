@@ -61,7 +61,7 @@ Type key: core, service, industry, hub, recruitment, commercial, resource, legal
 | `/careers/` | `src/app/careers/page.tsx` | recruitment hub | Built, nav and footer |
 | `/careers/jobs/` | `src/app/careers/jobs/page.tsx` | recruitment | Built, footer and header utility bar |
 | `/careers/mobile-gps-eld-aobrd-installation-technician/` | `src/app/careers/mobile-gps-eld-aobrd-installation-technician/page.tsx` | recruitment (active job, only `JobPosting` page) | Built, in sitemap via `activeJobs` |
-| `/careers/apply/` | `src/app/careers/apply/page.tsx` | recruitment | Built, footer |
+| `/careers/apply/` | `src/app/careers/apply/page.tsx` | recruitment | Built, footer; noindex, follow and not in the sitemap (decision 0018) |
 | `/careers/mobile-installation-technician/` | `src/app/careers/mobile-installation-technician/page.tsx` | recruitment (Installer Network) | Built, footer. Planned slug was `/careers/join-our-installer-network/` |
 | `/careers/installer-requirements/` | `src/app/careers/installer-requirements/page.tsx` | recruitment | Built, in sitemap, indexable. Linked from the `/careers/` FAQ, the Installer Network page, and the opening page. Decision 0014 |
 | `/careers/application-received/` | `src/app/careers/application-received/page.tsx` | utility, noindex | Built, excluded from sitemap, disallowed in `robots.ts` |

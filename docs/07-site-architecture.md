@@ -147,7 +147,7 @@ This tree represents supported architecture, not automatic publication approval 
 | `/careers/jobs/[job-slug]/` | Active Job Detail | Candidates | Specific active opening | Launch if verified | Index only while eligible |
 | `/careers/installer-requirements/` | Installer Requirements | Candidates | Qualification and self-screening | Launch | Index |
 | `/careers/how-assignments-work/` | How Assignments Work | Candidates | Process and expectations | Launch | Index |
-| `/careers/apply/` | Installer Application | Candidates | Application completion | Launch | Conditional or noindex |
+| `/careers/apply/` | Installer Application | Candidates | Application completion | Launch | Noindex, follow; excluded from the sitemap (decision 0018) |
 | `/careers/application-received/` | Application Received | Candidates | Confirmation and next steps | Utility | Noindex |
 | `/careers/faqs/` | Candidate FAQs | Candidates | Objection resolution | Launch | Superseded by /careers/#careers-faq (decision 0013) |
 | `/careers/mobile-installation-technician/` | Installer Network | Candidates | Future-opportunity registration | Launch | Index if substantial |

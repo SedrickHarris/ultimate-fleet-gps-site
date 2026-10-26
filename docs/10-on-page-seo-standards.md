@@ -136,6 +136,8 @@ Google generates title links algorithmically from several page signals. The HTML
 
 ### Working length guidance
 
+**Superseded in part by decision 0018:** rendered titles are 60 characters or fewer, and the page-specific part is 39 characters or fewer where the layout suffix applies.
+
 Aim for approximately 45 to 60 characters when possible, but do not force a title into a fixed count. Search engines may truncate or rewrite titles based on device, query, and context.
 
 ### Recommended patterns
@@ -185,6 +187,8 @@ Google may use a page’s meta description when it provides a useful summary, or
 - Set the correct next-step expectation.
 
 ### Working length guidance
+
+**Superseded in part by decision 0018:** descriptions are 120-160 characters and unique across indexable pages.
 
 Aim for approximately 140 to 165 characters when practical. This is an editorial guideline, not a ranking factor or guaranteed display length.
 

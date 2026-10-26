@@ -33,6 +33,8 @@ export const resourceArticles: readonly ResourceArticleContent[] = [
   {
     slug: "planning-a-fleet-installation-rollout",
     h1: "Planning a Multi-Vehicle Installation Rollout",
+    // Meta title: Oct 26 2026 metadata audit approval.
+    metaTitle: "Planning a Fleet Installation Rollout",
     metaDescription:
       "Operational guidance for fleet managers planning a multi-vehicle or multi-location GPS, ELD, or dashcam installation rollout.",
     intro:
@@ -48,6 +50,8 @@ export const resourceArticles: readonly ResourceArticleContent[] = [
   {
     slug: "reducing-installation-downtime",
     h1: "Reducing Vehicle Downtime During Installation",
+    // Meta title: Oct 26 2026 metadata audit approval.
+    metaTitle: "Reducing Installation Downtime",
     metaDescription:
       "Operational guidance for fleet managers on reducing vehicle downtime during GPS, ELD, dashcam, and fleet electronics installation.",
     intro:

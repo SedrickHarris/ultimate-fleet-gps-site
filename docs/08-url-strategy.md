@@ -443,7 +443,7 @@ Preferred methods, in order:
 
 ### Canonical treatment
 
-The canonical application URL is `/careers/apply/` if the shared page is indexable. Parameterized application variants should not create separately indexed pages.
+The canonical application URL is `/careers/apply/`. The page is `noindex, follow` and excluded from the sitemap (decision 0018), but is not disallowed in robots. Parameterized application variants should not create separately indexed pages.
 
 ### Campaign attribution
 
