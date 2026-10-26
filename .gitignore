@@ -29,3 +29,6 @@ Thumbs.db
 # TypeScript build artifacts (generated)
 *.tsbuildinfo
 next-env.d.ts
+
+# Generated SEO pipeline outputs (regenerate with the route scanner)
+docs/seo/

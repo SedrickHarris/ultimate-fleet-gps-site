@@ -64,9 +64,9 @@ Type key: core, service, industry, hub, recruitment, commercial, resource, legal
 | `/careers/apply/` | `src/app/careers/apply/page.tsx` | recruitment | Built, footer; noindex, follow and not in the sitemap (decision 0018) |
 | `/careers/mobile-installation-technician/` | `src/app/careers/mobile-installation-technician/page.tsx` | recruitment (Installer Network) | Built, footer. Planned slug was `/careers/join-our-installer-network/` |
 | `/careers/installer-requirements/` | `src/app/careers/installer-requirements/page.tsx` | recruitment | Built, in sitemap, indexable. Linked from the `/careers/` FAQ, the Installer Network page, and the opening page. Decision 0014 |
-| `/careers/application-received/` | `src/app/careers/application-received/page.tsx` | utility, noindex | Built, excluded from sitemap, disallowed in `robots.ts` |
-| `/careers/installer-network-received/` | `src/app/careers/installer-network-received/page.tsx` | utility, noindex | Built, excluded from sitemap, disallowed in `robots.ts` |
-| `/thank-you/service-request/` | `src/app/thank-you/service-request/page.tsx` | utility, noindex | Built. Target of `THANK_YOU_ROUTE` in `src/components/forms/CommercialInquiryForm.tsx`. Not in `robots.ts` disallow list by exact path, but covered by `/thank-you/` prefix |
+| `/careers/application-received/` | `src/app/careers/application-received/page.tsx` | utility, noindex | Built, excluded from sitemap, not disallowed in `robots.ts` so the noindex is seen (decision 0018) |
+| `/careers/installer-network-received/` | `src/app/careers/installer-network-received/page.tsx` | utility, noindex | Built, excluded from sitemap, not disallowed in `robots.ts` so the noindex is seen (decision 0018) |
+| `/thank-you/service-request/` | `src/app/thank-you/service-request/page.tsx` | utility, noindex | Built. Target of `THANK_YOU_ROUTE` in `src/components/forms/CommercialInquiryForm.tsx`. Not disallowed in `robots.ts` (decision 0018), so the noindex is seen |
 | `/privacy-policy/` | `src/app/privacy-policy/page.tsx` | legal | Built, footer |
 | `/terms/` | `src/app/terms/page.tsx` | legal | Built, footer |
 | `/accessibility/` | `src/app/accessibility/page.tsx` | legal | Built, footer |
@@ -144,7 +144,6 @@ Method: extracted every literal `"/..."` path used as an `href` or in a route co
 Related observations:
 
 - `src/data/navigation/site-navigation.ts` states the nav and footer include only built routes, and every footer and nav `href` resolves.
-- The `/thank-you/` string in `src/app/robots.ts` is a disallow prefix, not a link.
 - In-page anchors such as `#request-quote` (`src/data/site/industries-content.ts` line 152) were not checked against their target ids. Status **Unverified**.
 - This result was a manual static scan. A script now repeats it (`npm run validate:links`, added after this audit), and it also found 0 broken literal internal links.
 

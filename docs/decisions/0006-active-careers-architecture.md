@@ -23,7 +23,7 @@ Network registration, with no application path and no `JobPosting`.
      page and the only page with `JobPosting`.
    - `/careers/apply/` is the application page with `ApplicationForm`.
    - `/careers/application-received/` is the noindex confirmation, excluded
-     from the sitemap and disallowed in `robots.txt`.
+     from the sitemap. (It was disallowed in `robots.txt` when this decision was made. The disallow was removed on Oct 26 2026, decision 0018, so the noindex can be seen.)
 2. **The Installer Network stays separate.** It keeps its existing route,
    `/careers/mobile-installation-technician/`, because the homepage and other
    pages already link there. It is a registration for future opportunities and

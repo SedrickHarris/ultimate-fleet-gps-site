@@ -44,4 +44,4 @@ Privacy, Terms and Accessibility stay indexed with plain descriptions. The attor
 
 - A new indexable page needs a title within the limits above and a unique description.
 - The two `/resources/*` articles use short `metaTitle` values (58 and 51 characters rendered).
-- `robots.ts` still disallows the three confirmation routes. Those pages carry noindex, but a disallow stops crawlers from seeing it. Revisit separately if confirmation URLs ever appear in search results.
+- The disallow entries for the three confirmation routes (`/thank-you/`, `/careers/installer-network-received/`, `/careers/application-received/`) were removed from `robots.ts` on Oct 26 2026, so crawlers can fetch those pages and see their noindex. The confirmation pages rely on `noindex` alone. `robots.txt` is now allow-all for `*` plus the sitemap line.

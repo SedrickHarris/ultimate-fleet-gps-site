@@ -11,11 +11,8 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: [
-          "/thank-you/",
-          "/careers/installer-network-received/",
-          "/careers/application-received/",
-        ],
+        // Confirmation pages are not disallowed: a disallowed page cannot be
+        // crawled, so its noindex would never be seen (decision 0018).
       },
     ],
     sitemap: `${business.url}/sitemap.xml`,
