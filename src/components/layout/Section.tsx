@@ -47,6 +47,8 @@ interface SectionProps {
   };
   /** 55% black overlay over `backgroundImage`, under the content. */
   readonly backgroundOverlay?: boolean;
+  /** Overlay darkness: 55% black by default, 65% black on bright photos. */
+  readonly backgroundOverlayStrength?: "default" | "strong";
   /** Crop anchor for `backgroundImage`. Defaults to `left-bottom`. */
   readonly backgroundPosition?: "left-bottom" | "center";
   readonly center?: boolean;
@@ -100,6 +102,7 @@ export function Section({
   labelledBy,
   backgroundImage,
   backgroundOverlay = false,
+  backgroundOverlayStrength = "default",
   backgroundPosition = "left-bottom",
   center = false,
 }: SectionProps) {
@@ -128,7 +131,9 @@ export function Section({
       {backgroundImage && backgroundOverlay ? (
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-black/55"
+          className={`absolute inset-0 -z-10 ${
+            backgroundOverlayStrength === "strong" ? "bg-black/65" : "bg-black/55"
+          }`}
         />
       ) : null}
       <div

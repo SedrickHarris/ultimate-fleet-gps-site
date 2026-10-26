@@ -4,13 +4,16 @@ import { LinkedText } from "@/components/content/LinkedText";
 import { Section } from "@/components/layout/Section";
 import { Card } from "@/components/ui/Card";
 import { Icon } from "@/components/ui/Icon";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { ImageSlot } from "@/components/ui/ImageSlot";
+import type { HubImageSlot } from "@/data/site/services-hub-images";
 import { iconCircle, StepCard } from "@/components/ui/StepCard";
 import type { JobWork } from "@/types/jobs";
 
 interface JobWorkSectionProps {
   readonly id: string;
   readonly content: JobWork;
+  /** Approved photo for the media column. */
+  readonly image: HubImageSlot;
   readonly tone?: "default" | "subtle";
 }
 
@@ -28,6 +31,7 @@ const pClass =
 export function JobWorkSection({
   id,
   content,
+  image,
   tone = "default",
 }: JobWorkSectionProps) {
   const headingId = `${id}-heading`;
@@ -47,12 +51,7 @@ export function JobWorkSection({
           </p>
         </div>
 
-        {/*
-          Image slot. Intended alt text: "Technician installing a GPS tracking
-          device on a commercial truck at a customer yard". See ImagePlaceholder
-          for the swap.
-        */}
-        <ImagePlaceholder slot="careers-technician-the-work" />
+        <ImageSlot slot={image} />
       </div>
 
       <h3 className={h3Class}>{content.vehiclesHeading}</h3>

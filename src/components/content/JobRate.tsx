@@ -14,6 +14,12 @@ interface JobRateSectionProps {
   readonly content: JobRate;
   readonly cta: Cta;
   readonly tone?: "default" | "subtle" | "brandTint" | "dark";
+  /** Decorative photo behind the section, under a 55% black overlay. */
+  readonly backgroundImage?: {
+    readonly src: string;
+    readonly width: number;
+    readonly height: number;
+  };
 }
 
 const h3Class = "text-[length:var(--text-h4)] font-bold text-ink";
@@ -30,11 +36,21 @@ export function JobRateSection({
   content,
   cta,
   tone = "dark",
+  backgroundImage,
 }: JobRateSectionProps) {
   const headingId = `${id}-heading`;
 
   return (
-    <Section id={id} tone={tone} width="site" labelledBy={headingId}>
+    <Section
+      id={id}
+      tone={tone}
+      width="site"
+      labelledBy={headingId}
+      backgroundImage={backgroundImage}
+      backgroundOverlay={Boolean(backgroundImage)}
+      backgroundOverlayStrength="strong"
+      backgroundPosition="center"
+    >
       <div className="max-w-[820px]">
         <h2
           id={headingId}

@@ -17,6 +17,11 @@ import {
   JOBS_INDEX_PATH,
 } from "@/data/jobs";
 import { utilityBar } from "@/data/navigation/site-navigation";
+import {
+  technicianHeroVideo,
+  technicianImages,
+  technicianRateBackground,
+} from "@/data/site/careers-technician-images";
 import { AnalyticsEvent } from "@/lib/analytics/events";
 import { buildPageMetadata } from "@/lib/metadata/build-page-metadata";
 import { jobFaqPageSchema } from "@/lib/schema/job-faq";
@@ -95,11 +100,13 @@ export default function ActiveOpeningPage() {
         phoneJourney="recruitment"
         phoneEvent={null}
         scopeItems={job.heroScopeItems}
+        backgroundVideo={technicianHeroVideo}
       />
 
       <JobAboutSection
         id="about-opening"
         tone="default"
+        image={technicianImages.about}
         content={job.about}
         cta={applyCta}
       />
@@ -107,6 +114,7 @@ export default function ActiveOpeningPage() {
       <JobRequirementsSection
         id="requirements"
         tone="subtle"
+        image={technicianImages.requirements}
         content={job.requirements}
         cta={applyCta}
         secondaryCta={{
@@ -117,11 +125,17 @@ export default function ActiveOpeningPage() {
         }}
       />
 
-      <JobWorkSection id="the-work" tone="default" content={job.work} />
+      <JobWorkSection
+        id="the-work"
+        tone="default"
+        image={technicianImages.work}
+        content={job.work}
+      />
 
       <JobRateSection
         id="starting-rate"
         tone="dark"
+        backgroundImage={technicianRateBackground}
         content={job.rate}
         cta={applyCta}
       />
@@ -129,6 +143,7 @@ export default function ActiveOpeningPage() {
       <JobApplySection
         id="apply"
         tone="subtle"
+        image={technicianImages.apply}
         content={job.apply}
         disclaimer={job.disclaimer}
         cta={applyCta}

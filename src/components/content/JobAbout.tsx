@@ -3,7 +3,8 @@ import { Section } from "@/components/layout/Section";
 import { Card } from "@/components/ui/Card";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Icon } from "@/components/ui/Icon";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { ImageSlot } from "@/components/ui/ImageSlot";
+import type { HubImageSlot } from "@/data/site/services-hub-images";
 import { iconCircle, StepCard } from "@/components/ui/StepCard";
 import type { Cta } from "@/types/content";
 import type { JobAbout } from "@/types/jobs";
@@ -13,6 +14,8 @@ interface JobAboutSectionProps {
   readonly content: JobAbout;
   /** The shared apply CTA. Carries the destination, journey, and click event. */
   readonly cta: Cta;
+  /** Approved photo for the media column. */
+  readonly image: HubImageSlot;
   readonly tone?: "default" | "subtle";
 }
 
@@ -33,6 +36,7 @@ export function JobAboutSection({
   id,
   content,
   cta,
+  image,
   tone = "default",
 }: JobAboutSectionProps) {
   const headingId = `${id}-heading`;
@@ -49,11 +53,7 @@ export function JobAboutSection({
           </p>
         </div>
 
-        {/*
-          Image slot. Intended alt text: "Technician installing an ELD device
-          in a commercial truck cab". See ImagePlaceholder for the swap.
-        */}
-        <ImagePlaceholder slot="careers-technician-about" />
+        <ImageSlot slot={image} />
       </div>
 
       <h3 id="opening-details" className={`${h3Class} scroll-mt-6`}>

@@ -2,7 +2,8 @@ import { CtaBand } from "@/components/content/CtaBand";
 import { Section } from "@/components/layout/Section";
 import { Card } from "@/components/ui/Card";
 import { Icon } from "@/components/ui/Icon";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { ImageSlot } from "@/components/ui/ImageSlot";
+import type { HubImageSlot } from "@/data/site/services-hub-images";
 import type { Cta } from "@/types/content";
 import type { JobRequirements } from "@/types/jobs";
 
@@ -13,6 +14,8 @@ interface JobRequirementsSectionProps {
   readonly cta: Cta;
   /** Outline button to the full installer requirements page. */
   readonly secondaryCta: Cta;
+  /** Approved photo for the media column. */
+  readonly image: HubImageSlot;
   readonly tone?: "default" | "subtle";
 }
 
@@ -38,6 +41,7 @@ export function JobRequirementsSection({
   content,
   cta,
   secondaryCta,
+  image,
   tone = "subtle",
 }: JobRequirementsSectionProps) {
   const headingId = `${id}-heading`;
@@ -57,11 +61,7 @@ export function JobRequirementsSection({
           </p>
         </div>
 
-        {/*
-          Image slot. Intended alt text: "Technician with a smartphone and hand
-          tools beside a fleet truck". See ImagePlaceholder for the swap.
-        */}
-        <ImagePlaceholder slot="careers-technician-requirements" />
+        <ImageSlot slot={image} />
       </div>
 
       <h3 className={h3Class}>{content.needHeading}</h3>

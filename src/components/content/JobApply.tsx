@@ -3,7 +3,8 @@ import { LinkedText } from "@/components/content/LinkedText";
 import { Section } from "@/components/layout/Section";
 import { CompactTile } from "@/components/ui/CompactTile";
 import { CtaButton } from "@/components/ui/CtaButton";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { ImageSlot } from "@/components/ui/ImageSlot";
+import type { HubImageSlot } from "@/data/site/services-hub-images";
 import { NoticeBar } from "@/components/ui/NoticeBar";
 import type { Cta } from "@/types/content";
 import type { JobApply } from "@/types/jobs";
@@ -17,6 +18,8 @@ interface JobApplySectionProps {
   readonly cta: Cta;
   /** The secondary Installer Network CTA. Never the apply action. */
   readonly networkCta: Cta;
+  /** Approved photo for the media column. */
+  readonly image: HubImageSlot;
   readonly tone?: "default" | "subtle";
 }
 
@@ -35,6 +38,7 @@ export function JobApplySection({
   disclaimer,
   cta,
   networkCta,
+  image,
   tone = "subtle",
 }: JobApplySectionProps) {
   const headingId = `${id}-heading`;
@@ -58,12 +62,7 @@ export function JobApplySection({
           </p>
         </div>
 
-        {/*
-          Image slot. Intended alt text: "Installation technician with a
-          smartphone ready to start a fleet installation". See ImagePlaceholder
-          for the swap.
-        */}
-        <ImagePlaceholder slot="careers-technician-apply" />
+        <ImageSlot slot={image} />
       </div>
 
       <h3 className={h3Class}>{content.beforeHeading}</h3>
