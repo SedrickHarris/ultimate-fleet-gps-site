@@ -7,13 +7,29 @@ import type { Env } from "../src/types.ts";
 const ORIGIN = "https://ultimatefleetgps.net";
 const JOB = "mobile-gps-eld-aobrd-installation-technician";
 
+const CONFIG = JSON.stringify({
+  locationId: "LOC1",
+  pipelines: {
+    commercial_inquiry: { pipelineId: "P-COM", stageId: "S-COM" },
+    installer_network: { pipelineId: "P-NET", stageId: "S-NET" },
+    job_application: { pipelineId: "P-APP", stageId: "S-APP" },
+  },
+  customFields: {
+    serviceNeed: "CF-service",
+    platforms: "CF-platforms",
+    utmSource: "CF-utm",
+    submissionId: "CF-sub",
+    receivedAt: "CF-recv",
+    unusedKey: "CF-unused",
+  },
+});
+
 const env: Env = {
   ALLOWED_ORIGINS:
     "https://ultimatefleetgps.net,https://*.ultimate-fleet-gps-site.pages.dev",
   ACTIVE_JOB_SLUGS: JOB,
-  GHL_WEBHOOK_COMMERCIAL: "https://services.leadconnectorhq.com/hooks/LOC/webhook-trigger/commercial",
-  GHL_WEBHOOK_APPLICATION: "https://services.leadconnectorhq.com/hooks/LOC/webhook-trigger/application",
-  GHL_WEBHOOK_INSTALLER_NETWORK: "https://services.leadconnectorhq.com/hooks/LOC/webhook-trigger/network",
+  GHL_API_TOKEN: "test-token",
+  GHL_CONFIG: CONFIG,
 };
 
 const attribution = {
@@ -83,20 +99,38 @@ const application = {
 };
 
 interface Call {
-  url: string;
+  path: string;
+  headers: Record<string, string>;
   body: Record<string, unknown>;
 }
 
-function setup(ghlStatuses: number[] = [200]) {
+/**
+ * Fake GHL. `failures` maps a path fragment to the statuses to return for
+ * calls matching it, in order. Everything else succeeds.
+ */
+function setup(failures: Record<string, number[]> = {}) {
   const calls: Call[] = [];
   const logs: Record<string, unknown>[] = [];
-  let i = 0;
+  const seen: Record<string, number> = {};
   const deps: Deps = {
     fetch: (async (input: RequestInfo | URL, init?: RequestInit) => {
-      const url = String(input);
-      calls.push({ url, body: JSON.parse(String(init?.body ?? "{}")) });
-      const status = ghlStatuses[Math.min(i++, ghlStatuses.length - 1)] ?? 200;
-      return new Response("{}", { status });
+      const path = String(input).replace("https://services.leadconnectorhq.com", "");
+      calls.push({
+        path,
+        headers: init?.headers as Record<string, string>,
+        body: JSON.parse(String(init?.body ?? "{}")),
+      });
+      const key = Object.keys(failures).find((k) => path.includes(k));
+      if (key) {
+        const n = seen[key] ?? 0;
+        seen[key] = n + 1;
+        const status = failures[key]![Math.min(n, failures[key]!.length - 1)]!;
+        if (status !== 200) return new Response("{}", { status });
+      }
+      if (path === "/contacts/upsert") {
+        return Response.json({ new: true, contact: { id: "C123" } });
+      }
+      return Response.json({});
     }) as typeof fetch,
     now: () => new Date("2026-10-26T20:00:01.000Z"),
     uuid: () => "11111111-2222-3333-4444-555555555555",
@@ -113,77 +147,176 @@ function post(body: unknown, headers: Record<string, string> = {}) {
   });
 }
 
-describe("routing to GHL", () => {
-  it("sends a commercial inquiry only to the commercial webhook", async () => {
+describe("GHL API calls", () => {
+  it("upserts the contact, adds tags, then creates the opportunity, in that order", async () => {
     const { calls, deps } = setup();
     const res = await handleRequest(post(commercial), env, deps);
     assert.equal(res.status, 200);
-    assert.equal(calls.length, 1);
-    assert.ok(calls[0]!.url.endsWith("/commercial"));
-    assert.equal(calls[0]!.body.pipeline, "commercial");
-    assert.equal(calls[0]!.body.first_name, "Pat");
-    assert.equal(calls[0]!.body.last_name, "Example");
-    assert.equal(calls[0]!.body.company_name, "Example Fleet Co");
-    assert.equal(calls[0]!.body.utmSource, "google");
-    assert.equal(calls[0]!.body.submissionId, "11111111-2222-3333-4444-555555555555");
+    assert.deepEqual(
+      calls.map((c) => c.path),
+      ["/contacts/upsert", "/contacts/C123/tags", "/opportunities/"],
+    );
   });
 
-  it("sends an installer network registration only to the network webhook", async () => {
+  it("authenticates every call with the bearer token and API version", async () => {
     const { calls, deps } = setup();
-    const res = await handleRequest(post(network), env, deps);
-    assert.equal(res.status, 200);
-    assert.ok(calls[0]!.url.endsWith("/network"));
-    assert.equal(calls[0]!.body.pipeline, "recruitment");
-    assert.deepEqual(calls[0]!.body.tags, ["website-lead", "installer-network"]);
+    await handleRequest(post(commercial), env, deps);
+    for (const call of calls) {
+      assert.equal(call.headers.Authorization, "Bearer test-token");
+      assert.ok(call.headers.Version);
+    }
   });
 
-  it("sends an application only to the application webhook and tags the job", async () => {
+  it("maps the contact and only the configured custom fields", async () => {
     const { calls, deps } = setup();
-    const res = await handleRequest(post(application), env, deps);
-    assert.equal(res.status, 200);
-    assert.ok(calls[0]!.url.endsWith("/application"));
-    assert.ok((calls[0]!.body.tags as string[]).includes(`job-${JOB}`));
+    await handleRequest(post(commercial), env, deps);
+    const body = calls[0]!.body;
+    assert.equal(body.locationId, "LOC1");
+    assert.equal(body.firstName, "Pat");
+    assert.equal(body.lastName, "Example");
+    assert.equal(body.companyName, "Example Fleet Co");
+    assert.equal(body.source, "Website - Commercial Inquiry");
+    assert.deepEqual(body.customFields, [
+      { id: "CF-service", field_value: "GPS tracking" },
+      { id: "CF-utm", field_value: "google" },
+      { id: "CF-sub", field_value: "11111111-2222-3333-4444-555555555555" },
+      { id: "CF-recv", field_value: "2026-10-26T20:00:01.000Z" },
+    ]);
+  });
+
+  it("joins a platform list into text and skips empty values", async () => {
+    const { calls, deps } = setup();
+    await handleRequest(
+      post({ ...network, platforms: ["Samsara", "Geotab"] }),
+      env,
+      deps,
+    );
+    const fields = calls[0]!.body.customFields as { id: string; field_value: string }[];
+    assert.ok(fields.some((f) => f.id === "CF-platforms" && f.field_value === "Samsara, Geotab"));
+    const noPlatforms = setup();
+    await handleRequest(post({ ...network, platforms: [] }), env, noPlatforms.deps);
+    const empty = noPlatforms.calls[0]!.body.customFields as { id: string }[];
+    assert.ok(!empty.some((f) => f.id === "CF-platforms"));
+  });
+
+  it("puts each journey in its own pipeline and stage", async () => {
+    for (const [payload, pipelineId, stageId] of [
+      [commercial, "P-COM", "S-COM"],
+      [network, "P-NET", "S-NET"],
+      [application, "P-APP", "S-APP"],
+    ] as const) {
+      const { calls, deps } = setup();
+      const res = await handleRequest(post(payload), env, deps);
+      assert.equal(res.status, 200);
+      const opportunity = calls[2]!.body;
+      assert.equal(opportunity.pipelineId, pipelineId);
+      assert.equal(opportunity.pipelineStageId, stageId);
+      assert.equal(opportunity.contactId, "C123");
+      assert.equal(opportunity.status, "open");
+    }
+  });
+
+  it("names opportunities and tags by journey, and tags the job", async () => {
+    const com = setup();
+    await handleRequest(post(commercial), env, com.deps);
+    assert.equal(com.calls[2]!.body.name, "Example Fleet Co - GPS tracking");
+    assert.deepEqual(com.calls[1]!.body.tags, ["website-lead", "commercial-inquiry"]);
+
+    const app = setup();
+    await handleRequest(post(application), env, app.deps);
+    assert.equal(app.calls[2]!.body.name, "Alex Example - Mobile GPS Installation Technician");
+    assert.ok((app.calls[1]!.body.tags as string[]).includes(`job-${JOB}`));
+    assert.ok(!(app.calls[1]!.body.tags as string[]).includes("commercial-inquiry"));
+  });
+
+  it("never puts the token or a submitted value in the log", async () => {
+    const { logs, deps } = setup({ "/opportunities/": [400] });
+    await handleRequest(post(commercial), env, deps);
+    const text = JSON.stringify(logs);
+    assert.ok(!text.includes("test-token"));
+    assert.ok(!text.includes("pat@example.com"));
   });
 });
 
 describe("no false success", () => {
-  it("returns 502 when GHL rejects the record", async () => {
-    const { deps } = setup([400]);
+  for (const [step, fragment] of [
+    ["contact", "/contacts/upsert"],
+    ["tags", "/tags"],
+    ["opportunity", "/opportunities/"],
+  ] as const) {
+    it(`returns 502 when GHL rejects the ${step} step`, async () => {
+      const { logs, deps } = setup({ [fragment]: [422] });
+      const res = await handleRequest(post(commercial), env, deps);
+      assert.equal(res.status, 502);
+      const entry = logs.find((l) => l.event === "form_rejected")!;
+      assert.equal(entry.step, step);
+      assert.equal(entry.ghlStatus, 422);
+    });
+  }
+
+  it("stops after a failed step and does not create the opportunity", async () => {
+    const { calls, deps } = setup({ "/tags": [400] });
+    await handleRequest(post(commercial), env, deps);
+    assert.ok(!calls.some((c) => c.path === "/opportunities/"));
+  });
+
+  it("retries once on a 5xx and then succeeds", async () => {
+    const { calls, deps } = setup({ "/contacts/upsert": [503, 200] });
+    const res = await handleRequest(post(commercial), env, deps);
+    assert.equal(res.status, 200);
+    assert.equal(calls.filter((c) => c.path === "/contacts/upsert").length, 2);
+  });
+
+  it("retries once on a 429", async () => {
+    const { calls, deps } = setup({ "/opportunities/": [429, 200] });
+    const res = await handleRequest(post(commercial), env, deps);
+    assert.equal(res.status, 200);
+    assert.equal(calls.filter((c) => c.path === "/opportunities/").length, 2);
+  });
+
+  it("gives up after the retry", async () => {
+    const { deps } = setup({ "/contacts/upsert": [503, 503] });
     const res = await handleRequest(post(commercial), env, deps);
     assert.equal(res.status, 502);
   });
 
-  it("retries once on a 5xx and succeeds", async () => {
-    const { calls, deps } = setup([503, 200]);
-    const res = await handleRequest(post(commercial), env, deps);
-    assert.equal(res.status, 200);
-    assert.equal(calls.length, 2);
-  });
-
   it("does not retry a 4xx", async () => {
-    const { calls, deps } = setup([422, 200]);
+    const { calls, deps } = setup({ "/contacts/upsert": [422, 200] });
     await handleRequest(post(commercial), env, deps);
-    assert.equal(calls.length, 1);
+    assert.equal(calls.filter((c) => c.path === "/contacts/upsert").length, 1);
   });
 
-  it("returns 502 when the webhook secret is missing", async () => {
+  it("returns 502 when the token or config is missing", async () => {
+    for (const broken of [
+      { ...env, GHL_API_TOKEN: undefined },
+      { ...env, GHL_CONFIG: undefined },
+      { ...env, GHL_CONFIG: "not json" },
+    ]) {
+      const { calls, deps } = setup();
+      const res = await handleRequest(post(commercial), broken, deps);
+      assert.equal(res.status, 502);
+      assert.equal(calls.length, 0);
+    }
+  });
+
+  it("returns 502 when this journey has no pipeline configured", async () => {
+    const partial = JSON.stringify({
+      locationId: "LOC1",
+      pipelines: { commercial_inquiry: { pipelineId: "P", stageId: "S" } },
+    });
     const { calls, deps } = setup();
-    const res = await handleRequest(
-      post(commercial),
-      { ...env, GHL_WEBHOOK_COMMERCIAL: undefined },
-      deps,
-    );
+    const res = await handleRequest(post(network), { ...env, GHL_CONFIG: partial }, deps);
     assert.equal(res.status, 502);
     assert.equal(calls.length, 0);
   });
 
-  it("refuses a webhook URL outside the allowed GHL hosts", async () => {
+  it("returns 502 when upsert succeeds without a contact ID", async () => {
     const { calls, deps } = setup();
-    const res = await handleRequest(
-      post(commercial),
-      { ...env, GHL_WEBHOOK_COMMERCIAL: "https://evil.example.com/hook" },
-      deps,
-    );
+    const noId: Deps = {
+      ...deps,
+      fetch: (async () => Response.json({ new: true })) as typeof fetch,
+    };
+    const res = await handleRequest(post(commercial), env, noId);
     assert.equal(res.status, 502);
     assert.equal(calls.length, 0);
   });

@@ -1,0 +1,41 @@
+{
+  "locationId": "REPLACE_WITH_GHL_LOCATION_ID",
+  "pipelines": {
+    "commercial_inquiry": {
+      "pipelineId": "REPLACE_COMMERCIAL_PIPELINE_ID",
+      "stageId": "REPLACE_STAGE_ID_FOR_INQUIRY_RECEIVED"
+    },
+    "installer_network": {
+      "pipelineId": "REPLACE_INSTALLER_NETWORK_PIPELINE_ID",
+      "stageId": "REPLACE_STAGE_ID_FOR_REGISTERED"
+    },
+    "job_application": {
+      "pipelineId": "REPLACE_RECRUITMENT_PIPELINE_ID",
+      "stageId": "REPLACE_STAGE_ID_FOR_APPLICATION_RECEIVED"
+    }
+  },
+  "customFields": {
+    "serviceNeed": "REPLACE_CUSTOM_FIELD_ID",
+    "vehicleCount": "REPLACE_CUSTOM_FIELD_ID",
+    "projectLocations": "REPLACE_CUSTOM_FIELD_ID",
+    "timeline": "REPLACE_CUSTOM_FIELD_ID",
+    "description": "REPLACE_CUSTOM_FIELD_ID",
+    "homeMarket": "REPLACE_CUSTOM_FIELD_ID",
+    "experienceSummary": "REPLACE_CUSTOM_FIELD_ID",
+    "platforms": "REPLACE_CUSTOM_FIELD_ID",
+    "toolsOwned": "REPLACE_CUSTOM_FIELD_ID",
+    "travelAvailability": "REPLACE_CUSTOM_FIELD_ID",
+    "skillsExperience": "REPLACE_CUSTOM_FIELD_ID",
+    "jobSlug": "REPLACE_CUSTOM_FIELD_ID",
+    "jobTitle": "REPLACE_CUSTOM_FIELD_ID",
+    "receivedAt": "REPLACE_CUSTOM_FIELD_ID",
+    "submissionId": "REPLACE_CUSTOM_FIELD_ID",
+    "sourcePage": "REPLACE_CUSTOM_FIELD_ID",
+    "utmSource": "REPLACE_CUSTOM_FIELD_ID",
+    "utmMedium": "REPLACE_CUSTOM_FIELD_ID",
+    "utmCampaign": "REPLACE_CUSTOM_FIELD_ID",
+    "utmContent": "REPLACE_CUSTOM_FIELD_ID",
+    "utmTerm": "REPLACE_CUSTOM_FIELD_ID",
+    "referrer": "REPLACE_CUSTOM_FIELD_ID"
+  }
+}

@@ -7,15 +7,14 @@ export interface Env {
   readonly ALLOWED_ORIGINS: string;
   /** Comma-separated slugs of job openings that currently accept applications. */
   readonly ACTIVE_JOB_SLUGS: string;
-  /** Comma-separated hostname suffixes a GHL webhook URL must end with. */
-  readonly GHL_WEBHOOK_HOST_SUFFIXES?: string;
 
-  /** Secret. GHL inbound webhook URL for the commercial pipeline. */
-  readonly GHL_WEBHOOK_COMMERCIAL?: string;
-  /** Secret. GHL inbound webhook URL for active-job applications. */
-  readonly GHL_WEBHOOK_APPLICATION?: string;
-  /** Secret. GHL inbound webhook URL for Installer Network registrations. */
-  readonly GHL_WEBHOOK_INSTALLER_NETWORK?: string;
+  /** Secret. GHL Private Integration token. */
+  readonly GHL_API_TOKEN?: string;
+  /**
+   * Secret. JSON with the GHL location ID, the pipeline and stage per form,
+   * and the custom field ID per payload key. See ghl-config.example.json.
+   */
+  readonly GHL_CONFIG?: string;
 
   /** Secret. When set, every submission must carry a valid Turnstile token. */
   readonly TURNSTILE_SECRET_KEY?: string;

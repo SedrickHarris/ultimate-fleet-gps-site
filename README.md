@@ -29,7 +29,7 @@ and specification documents. Verified from the repository contents:
 | Shared components | Layout, content, UI, form, hero, and schema components under `src/components/` |
 | Structured content | Typed content and data modules under `src/data/` and `src/types/` |
 | SEO and schema | Metadata helpers, JSON-LD builders for organization, web page, breadcrumbs, homepage, service pages, careers, articles, and the active opening (`JobPosting`, on its own page only), plus `sitemap.ts` and `robots.ts` |
-| Forms | `CommercialInquiryForm`, `InstallerNetworkForm`, and `ApplicationForm`, posting to an external endpoint set by `NEXT_PUBLIC_FORMS_ENDPOINT`. The endpoint is the Worker in `workers/forms/`, which relays each form to its own GoHighLevel webhook (see `workers/forms/README.md`) |
+| Forms | `CommercialInquiryForm`, `InstallerNetworkForm`, and `ApplicationForm`, posting to an external endpoint set by `NEXT_PUBLIC_FORMS_ENDPOINT`. The endpoint is the Worker in `workers/forms/`, which creates each submission in GoHighLevel through its API (see `workers/forms/README.md`) |
 | Styling and config | Tailwind CSS styles in `src/styles/`, plus Next.js, TypeScript, ESLint, and PostCSS configuration |
 | Assets | Brand logos, homepage hero media, service and "why choose us" images, and icons under `public/` |
 | Prompts | Research, build, QA, and SEO prompt files in `prompts/` |

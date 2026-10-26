@@ -169,9 +169,12 @@ export async function handleRequest(
 
   if (!forwarded.ok) {
     // Never reveal destinations or secrets. The site shows its own fallback.
+    // The log carries the failing step and GHL's status code, never a body.
     return fail(502, "temporarily_unavailable", {
       formType: submission.formType,
       reason: forwarded.reason,
+      step: forwarded.step,
+      ghlStatus: forwarded.status,
     });
   }
 
