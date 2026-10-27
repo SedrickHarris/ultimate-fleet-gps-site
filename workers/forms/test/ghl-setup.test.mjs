@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import { CUSTOM_FIELDS, PIPELINES, run } from "../scripts/ghl-setup.mjs";
+import { CUSTOM_FIELDS, PIPELINES, RENAMES, run } from "../scripts/ghl-setup.mjs";
 
 /** A fake GHL that keeps state, so create-then-reload behaves like the real thing. */
 function fakeGhl({ fields = [], pipelines = [], failOn = null } = {}) {
@@ -21,6 +21,13 @@ function fakeGhl({ fields = [], pipelines = [], failOn = null } = {}) {
     if (method === "GET" && path.startsWith("/opportunities/pipelines")) {
       return Response.json({ pipelines: state.pipelines });
     }
+    if (method === "PUT" && path.includes("/customFields/")) {
+      const field = state.fields.find((f) => f.id === decodeURIComponent(path.split("/").pop()));
+      if (!field) return Response.json({ message: "Not found" }, { status: 404 });
+      field.name = JSON.parse(init.body).name;
+      field.fieldKey = `contact.${field.name.toLowerCase().replace(/[^a-z0-9]/g, "_")}`;
+      return Response.json({ customField: field });
+    }
     if (method === "POST" && path.includes("/customFields")) {
       const body = JSON.parse(init.body);
       const field = { id: `F${++n}`, name: body.name, model: body.model };
@@ -39,7 +46,7 @@ function fakeGhl({ fields = [], pipelines = [], failOn = null } = {}) {
     }
     return Response.json({}, { status: 404 });
   };
-  return { fetchImpl, calls };
+  return { fetchImpl, calls, state };
 }
 
 const base = { token: "test-token", locationId: "LOC1", log: () => {}, sleep: async () => {} };
@@ -102,6 +109,76 @@ describe("ghl-setup", () => {
     assert.ok(!created.fields.includes("Service Need"));
     assert.ok(!created.pipelines.includes("Commercial"));
     assert.ok(!calls.some((c) => c.body?.name === "Commercial"));
+  });
+
+  describe("renames", () => {
+    const [{ from, to }] = RENAMES;
+    const oldField = { id: "OLDVEH", name: from, fieldKey: "contact.confirmed___personal_vehicle_and_tools" };
+    const puts = (calls) => calls.filter((c) => c.method === "PUT");
+
+    it("renames the old field once in apply mode and keeps its ID", async () => {
+      const logs = [];
+      const ghl = fakeGhl({ fields: [{ ...oldField }] });
+      const { config, created } = await run({ ...base, fetchImpl: ghl.fetchImpl, apply: true, log: (l) => logs.push(l) });
+      const sent = puts(ghl.calls);
+      assert.equal(sent.length, 1);
+      assert.equal(sent[0].path, "/locations/LOC1/customFields/OLDVEH");
+      assert.deepEqual(sent[0].body, { name: to, model: "contact" });
+      assert.equal(sent[0].headers.Version, "v3");
+      assert.deepEqual(created.renamed, [to]);
+      // No duplicate is created, and the ID is unchanged.
+      assert.ok(!created.fields.includes(to));
+      assert.equal(config.customFields.personalVehicle, "OLDVEH");
+      assert.equal(ghl.state.fields.filter((f) => f.id === "OLDVEH").length, 1);
+      // Names and keys are logged, never the token.
+      const text = logs.join("\n");
+      assert.ok(text.includes("contact.confirmed___personal_vehicle_and_tools ->"));
+      assert.ok(!text.includes("test-token"));
+    });
+
+    it("sends only reads in a dry run and counts the rename as satisfying the new name", async () => {
+      const logs = [];
+      const ghl = fakeGhl({ fields: [{ ...oldField }] });
+      const result = await run({ ...base, fetchImpl: ghl.fetchImpl, log: (l) => logs.push(l) });
+      assert.ok(ghl.calls.every((c) => c.method === "GET"));
+      assert.ok(logs.includes(`  ~ rename: ${from} -> ${to}`));
+      assert.equal(result.missing.fields, CUSTOM_FIELDS.length - 1);
+      assert.equal(ghl.state.fields[0].name, from);
+    });
+
+    it("is a no-op on the second run", async () => {
+      const ghl = fakeGhl({ fields: [{ ...oldField }] });
+      await run({ ...base, fetchImpl: ghl.fetchImpl, apply: true });
+      const before = ghl.calls.length;
+      const second = await run({ ...base, fetchImpl: ghl.fetchImpl, apply: true });
+      assert.deepEqual(second.created.renamed, []);
+      assert.equal(second.created.fields.length, 0);
+      assert.ok(ghl.calls.slice(before).every((c) => c.method === "GET"));
+    });
+
+    it("warns and renames nothing when both names exist", async () => {
+      const logs = [];
+      const ghl = fakeGhl({ fields: [{ ...oldField }, { id: "NEWVEH", name: to }] });
+      const { created } = await run({ ...base, fetchImpl: ghl.fetchImpl, apply: true, log: (l) => logs.push(l) });
+      assert.equal(puts(ghl.calls).length, 0);
+      assert.deepEqual(created.renamed, []);
+      assert.ok(logs.some((l) => l.includes("warning") && l.includes(from) && l.includes(to)));
+      assert.ok(ghl.state.fields.some((f) => f.id === "OLDVEH" && f.name === from));
+      assert.ok(ghl.state.fields.some((f) => f.id === "NEWVEH" && f.name === to));
+    });
+
+    it("matches the old name case-insensitively", async () => {
+      const ghl = fakeGhl({ fields: [{ id: "OLDVEH", name: from.toUpperCase() }] });
+      await run({ ...base, fetchImpl: ghl.fetchImpl, apply: true });
+      assert.equal(puts(ghl.calls).length, 1);
+    });
+
+    it("does nothing when neither name exists", async () => {
+      const ghl = fakeGhl();
+      const { created } = await run({ ...base, fetchImpl: ghl.fetchImpl, apply: true });
+      assert.equal(puts(ghl.calls).length, 0);
+      assert.ok(created.fields.includes(to));
+    });
   });
 
   it("sends the token and version, and never prints the token", async () => {

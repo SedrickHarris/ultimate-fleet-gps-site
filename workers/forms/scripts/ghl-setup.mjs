@@ -16,7 +16,8 @@
  * GHL_API_VERSION (default v3).
  *
  * Safe to rerun. Anything that already exists by name is skipped, never
- * changed or deleted. It does not build workflows (GHL workflows are set up in
+ * deleted. The one change it makes to an existing field is a rename listed in
+ * RENAMES, so a renamed question keeps its field ID and history. It does not build workflows (GHL workflows are set up in
  * the GHL app), and it prints names and IDs only, never the token.
  *
  * Token scopes: read and write for location custom fields, create for
@@ -66,6 +67,15 @@ export const CUSTOM_FIELDS = [
   ["utmContent", "UTM Content", "TEXT"],
   ["utmTerm", "UTM Term", "TEXT"],
 ].map(([key, name, dataType]) => ({ key, name, dataType }));
+
+/**
+ * Fields whose name changed in the form. A field named `from` is renamed to
+ * `to` in place, so the ID and the stored answers survive and no empty
+ * duplicate is created. Decision 0024 split the vehicle and tools question.
+ */
+export const RENAMES = [
+  { from: "Confirmed - Personal Vehicle and Tools", to: "Confirmed - Personal Vehicle" },
+];
 
 /**
  * One pipeline per journey. The first stage is where the Worker creates
@@ -206,8 +216,28 @@ export async function run({
   const request = makeClient({ token, version, fetchImpl });
   let state = await load(request, locationId);
 
+  // Plan renames first. Only rename when `from` exists and `to` does not. If
+  // both exist, warn and leave both alone, so no duplicate is ever created.
+  const renames = [];
+  for (const rename of RENAMES) {
+    const old = state.fields.find((f) => same(f.name, rename.from));
+    const target = state.fields.find((f) => same(f.name, rename.to));
+    if (old && target) {
+      log(`  ! warning: both "${rename.from}" and "${rename.to}" exist. Nothing renamed. Resolve in GHL.`);
+    } else if (old) {
+      renames.push({ ...rename, field: old });
+    }
+  }
+  for (const r of renames) log(`  ~ rename: ${r.from} -> ${r.to}`);
+
+  // A dry run still counts a planned rename as satisfying its new name.
+  const effectiveFields = state.fields.map((f) => {
+    const planned = renames.find((r) => r.field.id === f.id);
+    return planned ? { ...f, name: planned.to } : f;
+  });
+
   const missingFields = CUSTOM_FIELDS.filter(
-    (wanted) => !state.fields.some((f) => same(f.name, wanted.name)),
+    (wanted) => !effectiveFields.some((f) => same(f.name, wanted.name)),
   );
   const missingPipelines = PIPELINES.filter(
     (wanted) => !state.pipelines.some((p) => same(p.name, wanted.name)),
@@ -218,9 +248,22 @@ export async function run({
   log(`Pipelines: ${PIPELINES.length - missingPipelines.length} exist, ${missingPipelines.length} to create.`);
   for (const p of missingPipelines) log(`  + ${p.name} (${p.stages.length} stages)`);
 
-  const created = { fields: [], pipelines: [] };
+  const created = { fields: [], pipelines: [], renamed: [] };
 
   if (apply) {
+    for (const r of renames) {
+      const response = await request(
+        "PUT",
+        `/locations/${encodeURIComponent(locationId)}/customFields/${encodeURIComponent(r.field.id)}`,
+        { name: r.to, model: "contact" },
+      );
+      const after = response?.customField ?? response?.field ?? response;
+      created.renamed.push(r.to);
+      log(
+        `  renamed field: ${r.from} -> ${r.to} (fieldKey ${r.field.fieldKey ?? "unknown"} -> ${after?.fieldKey ?? "unknown"})`,
+      );
+      await sleep(200);
+    }
     for (const f of missingFields) {
       await request("POST", `/locations/${encodeURIComponent(locationId)}/customFields`, {
         name: f.name,
