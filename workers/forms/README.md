@@ -114,6 +114,11 @@ sub-account:
 - `POST /opportunities/` creates an opportunity in the right pipeline and stage.
 - The token's scopes are enough. The pages for the contact and opportunity
   calls list no scopes.
+- **Allow Multiple Opportunities per Contact** is on (Sub-Account Settings >
+  Objects > Opportunities). With it off, a second submission from the same
+  contact (matched by email or phone) gets a `502`, because GHL refuses a
+  second opportunity in the same pipeline. Test with two sends of the same
+  payload (decision 0025).
 - If GHL rejects `v3`, set `GHL_API_VERSION` to the value its error asks for.
   The Private Integrations page uses `2021-07-28` in its example.
 

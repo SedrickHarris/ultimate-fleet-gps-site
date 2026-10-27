@@ -36,9 +36,10 @@ Because each pipeline has its own workflow trigger, the three journeys stay sepa
 1. Use a test sub-account for Preview and a production sub-account for the live site (`docs/17` section 29).
 2. Create a Private Integration token inside the sub-account, with the scopes listed in `workers/forms/README.md`, and keep the token and location ID in a git-ignored env file on your own machine.
 3. Run `workers/forms/scripts/ghl-setup.mjs`. It creates the custom fields in section 4 and the pipelines and stages in section 5 through the API, skips anything that already exists, and writes the Worker's `GHL_CONFIG`. It is a dry run until you pass `--apply`. Check the Installer Network stages first, because they are a proposal. You can instead create everything by hand in GHL and run `ghl-discover.mjs` to collect the IDs.
-4. Set the Worker secrets (`workers/forms/README.md`).
-5. Build the three workflows in sections 6 to 8. The API does not create workflows, so this step is done in the GHL app.
-6. Test with section 10.
+4. Turn on **Allow Multiple Opportunities per Contact** (Sub-Account Settings > Objects > Opportunities). With it off, GHL refuses a second opportunity for a contact in the same pipeline, and the Worker returns an error to a returning applicant or inquirer (decision 0025). I found no API endpoint for this setting, so it is set in the GHL app.
+5. Set the Worker secrets (`workers/forms/README.md`).
+6. Build the three workflows in sections 6 to 8. The API does not create workflows, so this step is done in the GHL app.
+7. Test with section 10.
 
 ## 4. Custom fields (contact)
 
